@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    tools:context=".MainActivity">
+    <include layout="@layout/toolbar"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/stepcounter"
+        android:id="@+id/stepcounter"
+        android:textColor="@color/koachGreen"
+        android:textSize="34dp"
+        android:layout_marginLeft="22.5dp"
+        android:layout_marginRight="22.5dp"
+        android:layout_marginTop="80dp"
+        android:gravity="center"></TextView>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Today"
+        android:id="@+id/goal"
+        android:layout_below="@+id/stepcounter"
+        android:textColor="@color/koachGreen"
+        android:textSize="30dp"
+        android:layout_marginLeft="22.5dp"
+        android:layout_marginRight="22.5dp"
+        android:layout_marginTop="50dp"
+        android:gravity="center"
+        android:textStyle="bold"></TextView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/greennum"
+        android:layout_below="@+id/goal"
+        android:text="@string/greennum"
+        android:textSize="80dp"
+        android:textColor="@color/koachGreen"
+        android:layout_marginTop="150dp"
+        android:layout_marginRight="80dp"
+        android:layout_marginLeft="115dp"
+        android:gravity="center"
+        android:textStyle="bold"></TextView>
+
+    <ImageButton
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:id="@+id/forward"
+        android:layout_centerVertical="true"
+        android:background="null"
+        android:layout_toRightOf="@id/greennum"
+        android:layout_below="@id/goal"
+        android:layout_marginTop="175dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="-30dp"
+        android:src="@drawable/ic_baseline_arrow_forward_ios_24"></ImageButton>
+
+</RelativeLayout>

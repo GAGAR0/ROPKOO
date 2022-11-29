@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Username"
+        android:id="@+id/name"
+        android:textColor="@color/koachGreen"
+        android:textSize="24dp"
+        android:layout_marginLeft="22.5dp"
+        android:layout_marginTop="90dp"
+        android:textStyle="bold"></TextView>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/et_edit"
+        android:layout_below="@+id/name"
+        android:hint="Choose your username"
+        android:background="@color/white"
+        android:layout_marginTop="12dp"
+        android:layout_marginRight="22.5dp"
+        android:height="40dp"
+        android:layout_marginLeft="22.5dp"></EditText>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Date of birth"
+        android:id="@+id/tv_birth"
+        android:layout_below="@+id/et_edit"
+        android:textColor="@color/koachGreen"
+        android:textSize="24dp"
+        android:layout_marginLeft="22.5dp"
+        android:layout_marginTop="18dp"
+        android:textStyle="bold"></TextView>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/et_edit2"
+        android:layout_below="@+id/tv_birth"
+        android:hint="Enter in format YYYY-MM-DD"
+        android:background="@color/white"
+        android:layout_marginTop="12dp"
+        android:layout_marginRight="22.5dp"
+        android:height="40dp"
+        android:layout_marginLeft="22.5dp"></EditText>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Current body weight"
+        android:id="@+id/weight"
+        android:layout_below="@+id/et_edit2"
+        android:textColor="@color/koachGreen"
+        android:textSize="24dp"
+        android:layout_marginLeft="22.5dp"
+        android:layout_marginTop="18dp"
+        android:textStyle="bold"></TextView>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/et_edit3"
+        android:layout_below="@+id/weight"
+        android:hint="Enter your current weight"
+        android:background="@color/white"
+        android:layout_marginTop="12dp"
+        android:layout_marginRight="22.5dp"
+        android:height="40dp"
+        android:layout_marginLeft="22.5dp"></EditText>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Height"
+        android:id="@+id/height"
+        android:layout_below="@+id/et_edit3"
+        android:textColor="@color/koachGreen"
+        android:textSize="24dp"
+        android:layout_marginLeft="22.5dp"
+        android:layout_marginTop="18dp"
+        android:textStyle="bold"></TextView>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/et_edit4"
+        android:layout_below="@+id/height"
+        android:hint="Enter your current height"
+        android:background="@color/white"
+        android:layout_marginTop="12dp"
+        android:layout_marginRight="22.5dp"
+        android:height="40dp"
+        android:layout_marginLeft="22.5dp"></EditText>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Gender"
+        android:id="@+id/gender"
+        android:layout_below="@+id/et_edit4"
+        android:textColor="@color/koachGreen"
+        android:textSize="24dp"
+        android:layout_marginLeft="22.5dp"
+        android:layout_marginTop="18dp"
+        android:textStyle="bold"></TextView>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/et_edit5"
+        android:layout_below="@+id/gender"
+        android:hint="Select your gender"
+        android:background="@color/white"
+        android:layout_marginTop="12dp"
+        android:layout_marginRight="22.5dp"
+        android:height="40dp"
+        android:layout_marginLeft="22.5dp"></EditText>
+
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/bt_loginbtn"
+        android:layout_below="@id/et_edit5"
+        android:text="Continue"
+        android:backgroundTint="@color/koachGreen"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="30dp"></com.google.android.material.button.MaterialButton>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"></LinearLayout>
+
+    <ImageView
+        android:layout_width="55dp"
+        android:layout_height="85dp"
+        android:layout_marginLeft="180dp"
+        android:layout_marginTop="13dp"
+        android:src="@drawable/logogreen"></ImageView>
+
+
+</RelativeLayout>

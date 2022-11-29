@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    tools:context=".MainActivity">
+    <include layout="@layout/toolbar"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/calcalculator"
+        android:id="@+id/calcalculator"
+        android:textColor="@color/koachGreen"
+        android:textSize="34dp"
+        android:layout_marginLeft="22.5dp"
+        android:layout_marginRight="22.5dp"
+        android:layout_marginTop="80dp"
+        android:gravity="center"></TextView>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Calories today"
+        android:id="@+id/today"
+        android:layout_below="@+id/calcalculator"
+        android:textColor="@color/white"
+        android:textSize="30dp"
+        android:layout_marginLeft="22.5dp"
+        android:layout_marginRight="22.5dp"
+        android:layout_marginTop="50dp"
+        android:gravity="center"
+        android:textStyle="bold"></TextView>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/rednum"
+        android:layout_below="@+id/today"
+        android:text="@string/rednum"
+        android:textSize="40dp"
+        android:textColor="@color/progress_red"
+        android:layout_marginTop="15dp"
+        android:gravity="center"></TextView>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Goal for today"
+        android:id="@+id/goal"
+        android:layout_below="@+id/rednum"
+        android:textColor="@color/white"
+        android:textSize="30dp"
+        android:layout_marginLeft="22.5dp"
+        android:layout_marginRight="22.5dp"
+        android:layout_marginTop="50dp"
+        android:gravity="center"
+        android:textStyle="bold"></TextView>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/greennum"
+        android:layout_below="@+id/goal"
+        android:text="@string/greennum"
+        android:textSize="40dp"
+        android:textColor="@color/koachGreen"
+        android:layout_marginTop="15dp"
+        android:gravity="center"></TextView>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Calories"
+        android:id="@+id/nadpis"
+        android:layout_below="@+id/greennum"
+        android:textColor="@color/koachGreen"
+        android:textSize="20dp"
+        android:layout_marginLeft="22.5dp"
+        android:layout_marginRight="22.5dp"
+        android:layout_marginTop="45dp"
+        android:gravity="left"
+        android:textStyle="bold"></TextView>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter calories"
+        android:id="@+id/enter"
+        android:layout_below="@+id/nadpis"
+        android:background="@color/white"
+        android:textColor="@color/black"
+        android:textAlignment="textStart"
+        android:textSize="15dp"
+        android:height="35dp"
+        android:layout_marginLeft="22.5dp"
+        android:layout_marginRight="22.5dp"
+        android:layout_marginTop="18dp"
+        android:gravity="center"></EditText>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/addcalories"
+        android:layout_below="@+id/enter"
+        android:text="Add Calories"
+        android:textColor="@color/white"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="150dp"
+        android:layout_marginRight="150dp"
+        android:backgroundTint="@color/koachGreen"
+        android:gravity="center"></Button>
+
+</RelativeLayout>

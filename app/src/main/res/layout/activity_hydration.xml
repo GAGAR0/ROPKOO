@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    tools:context=".MainActivity">
+    <include layout="@layout/toolbar"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/hydration"
+        android:id="@+id/hydra"
+        android:layout_below="@+id/logoo"
+        android:textColor="@color/koachGreen"
+        android:textSize="40dp"
+        android:layout_marginLeft="22.5dp"
+        android:layout_marginRight="22.5dp"
+        android:layout_marginTop="100dp"
+        android:gravity="center"></TextView>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Small glass (300ml)"
+        android:id="@+id/sglass"
+        android:layout_below="@+id/hydra"
+        android:textColor="@color/white"
+        android:textSize="24dp"
+        android:layout_marginLeft="22.5dp"
+        android:layout_marginRight="22.5dp"
+        android:layout_marginTop="50dp"
+        android:gravity="center"
+        android:textStyle="bold"></TextView>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/addbtn"
+        android:layout_below="@+id/sglass"
+        android:text="+"
+        android:textSize="35dp"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/transparent"
+        android:layout_marginTop="12dp"
+        android:layout_marginRight="150dp"
+        android:height="70dp"
+        android:width="10dp"
+        android:layout_marginLeft="150dp"></Button>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Big glass (500ml)"
+        android:id="@+id/bglass"
+        android:layout_below="@+id/addbtn"
+        android:textColor="@color/white"
+        android:textSize="24dp"
+        android:layout_marginLeft="22.5dp"
+        android:layout_marginRight="22.5dp"
+        android:layout_marginTop="18dp"
+        android:gravity="center"
+        android:textStyle="bold"></TextView>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/addbtn2"
+        android:layout_below="@+id/bglass"
+        android:text="+"
+        android:textSize="35dp"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/transparent"
+        android:layout_marginTop="12dp"
+        android:layout_marginRight="150dp"
+        android:height="70dp"
+        android:width="10dp"
+        android:layout_marginLeft="150dp"></Button>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TOTAL"
+        android:id="@+id/total"
+        android:layout_below="@+id/addbtn2"
+        android:textColor="@color/koachGreen"
+        android:textSize="30dp"
+        android:layout_marginLeft="22.5dp"
+        android:layout_marginRight="22.5dp"
+        android:layout_marginTop="45dp"
+        android:gravity="center"
+        android:textStyle="bold"></TextView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:id="@+id/num"
+        android:layout_below="@+id/total"
+        android:textColor="@color/white"
+        android:textSize="50dp"
+        android:layout_marginLeft="190dp"
+        android:layout_marginRight="22.5dp"
+        android:layout_marginTop="18dp"
+        android:gravity="center"
+        android:textStyle="bold"></TextView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ml"
+        android:id="@+id/ml"
+        android:layout_below="@+id/total"
+        android:layout_toRightOf="@+id/num"
+        android:textColor="@color/white"
+        android:textSize="50dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="22.5dp"
+        android:layout_marginTop="18dp"
+        android:gravity="center"
+        android:textStyle="bold"></TextView>
+
+</RelativeLayout>
