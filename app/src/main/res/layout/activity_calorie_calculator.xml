@@ -92,13 +92,12 @@
         android:layout_below="@+id/nadpis"
         android:background="@color/white"
         android:textColor="@color/black"
-        android:textAlignment="textStart"
         android:textSize="15dp"
         android:height="35dp"
         android:layout_marginLeft="22.5dp"
         android:layout_marginRight="22.5dp"
         android:layout_marginTop="18dp"
-        android:gravity="center"></EditText>
+        android:gravity="center_vertical"></EditText>
 
     <Button
         android:layout_width="match_parent"
