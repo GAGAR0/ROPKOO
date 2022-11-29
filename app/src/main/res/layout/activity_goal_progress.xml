@@ -50,7 +50,12 @@
             android:layout_height="wrap_content"
             android:id="@+id/tv_percentagePoints"
             android:text="@string/tv_percentagePoints"
-
+            android:textColor="@color/koachGreen"
+            android:layout_toRightOf="@+id/tv_percent"
+            android:layout_below="@+id/pb_progress"
+            android:layout_centerHorizontal="true"
+            android:textStyle="bold"
+            android:textSize="50dp"
             />
 
 

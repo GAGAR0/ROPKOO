@@ -10,7 +10,7 @@
     <string name="stCounter">STEP COUNTER</string>
     <string name="hydration">HYDRATION</string>
     <string name="currentBType">CHOOSE CURRENT BODY TYPE</string>
-    <string name="tv_progress">0%</string>
+    <string name="tv_progress">0</string>
     <string name="tv_weekly">Weekly Weight</string>
     <string name="tv_current">Enter Current Weight</string>
     <string name="bt_confirm">CONFIRM</string>
