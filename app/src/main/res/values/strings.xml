@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">ROPKOO</string>
+    <string name="register">Or Register Here!</string>
+    <string name="username">USERNAME</string>
+    <string name="password">PASSWORD</string>
+    <string name="signIn">SIGN IN</string>
+    <string name="calCalc">CALORIE CALCULATOR</string>
+    <string name="progress">GOAL PROGRESS</string>
+    <string name="progressTitle"><u>GOAL PROGRESS</u></string>
+    <string name="stCounter">STEP COUNTER</string>
+    <string name="hydration">HYDRATION</string>
+    <string name="currentBType">CHOOSE CURRENT BODY TYPE</string>
+    <string name="tv_progress">0%</string>
 </resources>
