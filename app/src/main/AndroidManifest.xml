@@ -13,6 +13,13 @@
         android:theme="@style/Theme.ROPKOO"
         tools:targetApi="31">
         <activity
+            android:name=".goalProgress2"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".goalProgress"
             android:exported="false">
             <meta-data
