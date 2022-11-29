@@ -11,7 +11,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/hydration"
+        android:text="@string/hydration2"
         android:id="@+id/hydra"
         android:layout_below="@+id/logoo"
         android:textColor="@color/koachGreen"
