@@ -13,16 +13,18 @@
             android:layout_height="wrap_content"
             android:id="@+id/tv_choose"
             android:text="@string/currentBType"
+            android:layout_alignEnd="@+id/gl_grid1"
+            android:gravity="end"
             android:textSize="40dp"
             android:textStyle="bold"
             android:layout_above="@+id/gl_grid1"
             android:textColor="@color/background"
            />
 
-
     <GridLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
         android:id="@+id/gl_grid1"
         android:rowCount="2"
         android:columnCount="2">
@@ -31,6 +33,7 @@
             android:layout_height="210dp"
             android:backgroundTint="@color/background"
             android:layout_margin="5dp"
+            android:id="@+id/btn_current1"
             android:text="@string/calCalc"
             android:textSize="30dp"
             android:textColor="@color/koachGreen"
@@ -41,6 +44,7 @@
             android:layout_height="210dp"
             android:backgroundTint="@color/background"
             android:layout_margin="5dp"
+            android:id="@+id/btn_current2"
             android:text="@string/progress"
             android:textSize="30dp"
             android:textColor="@color/koachGreen"
@@ -51,6 +55,7 @@
             android:layout_height="210dp"
             android:backgroundTint="@color/background"
             android:layout_margin="5dp"
+            android:id="@+id/btn_current3"
             android:text="@string/stCounter"
             android:textSize="30dp"
             android:textColor="@color/koachGreen"
@@ -63,6 +68,7 @@
             android:layout_row="1"
             android:layout_column="1"
             android:layout_margin="5dp"
+            android:id="@+id/btn_current4"
             android:backgroundTint="@color/background"
             android:text="@string/hydration"
             android:textColor="@color/koachGreen"
@@ -74,8 +80,9 @@
             android:layout_width="72dp"
             android:layout_height="80dp"
             android:layout_marginTop="20dp"
+            android:layout_centerHorizontal="true"
             android:id="@+id/iv_mainLogo"
             android:layout_below="@+id/gl_grid1"
             app:srcCompat="@drawable/logoblack"
-            android:layout_gravity="center_horizontal"/>
+            />
 </RelativeLayout>
