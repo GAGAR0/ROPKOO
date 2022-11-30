@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">ROPKOO</string>
     <string name="register">Or Register Here!</string>
-    <string name="username">USERNAME</string>
-    <string name="password">PASSWORD</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
     <string name="signIn">SIGN IN</string>
     <string name="calCalc">CALORIE CALCULATOR</string>
     <string name="progress">GOAL PROGRESS</string>
@@ -15,6 +15,8 @@
     <string name="tv_current">Enter Current Weight</string>
     <string name="bt_confirm">CONFIRM</string>
     <string name="tv_percentagePoints">%</string>
+
+
     <string name="hydration2"><u><b>HYDRATION</b></u></string>
     <string name="profile"><u><b>MY PROFILE</b></u></string>
     <string name="name">Jakub Barna</string>
@@ -28,4 +30,21 @@
     <string name="rednum">1564</string>
     <string name="greennum">2250</string>
     <string name="stepcounter"><u><b>STEP COUNTER</b></u></string>
+    <string name="mail">E-mail</string>
+    <string name="pass">Password</string>
+    <string name="rpass">Repeat password</string>
+    <string name="yo">years old</string>
+    <string name="kg">kg</string>
+    <string name="cm">cm</string>
+    <string name="bmi">BMI</string>
+    <string name="today">Calories today</string>
+    <string name="goal">Goal for today</string>
+    <string name="nadpis">Calories</string>
+    <string name="enter">Enter calories</string>
+    <string name="stoday">Today</string>
+    <string name="sglass">Small glass (300ml)</string>
+    <string name="bglass">Big glass (500ml)</string>
+    <string name="water">0</string>
+    <string name="ml">ml</string>
+    <string name="totalwater">TOTAL</string>
 </resources>

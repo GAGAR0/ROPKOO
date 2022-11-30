@@ -23,7 +23,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Calories today"
+        android:text="@string/today"
         android:id="@+id/today"
         android:layout_below="@+id/calcalculator"
         android:textColor="@color/white"
@@ -48,7 +48,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Goal for today"
+        android:text="@string/goal"
         android:id="@+id/goal"
         android:layout_below="@+id/rednum"
         android:textColor="@color/white"
@@ -73,7 +73,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Calories"
+        android:text="@string/nadpis"
         android:id="@+id/nadpis"
         android:layout_below="@+id/greennum"
         android:textColor="@color/koachGreen"
@@ -87,13 +87,14 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter calories"
+        android:hint="@string/enter"
         android:id="@+id/enter"
         android:layout_below="@+id/nadpis"
         android:background="@color/white"
         android:textColor="@color/black"
         android:textSize="15dp"
         android:height="35dp"
+        android:paddingLeft="10dp"
         android:layout_marginLeft="22.5dp"
         android:layout_marginRight="22.5dp"
         android:layout_marginTop="18dp"

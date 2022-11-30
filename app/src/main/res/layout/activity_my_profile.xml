@@ -59,7 +59,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="years old"
+        android:text="@string/yo"
         android:id="@+id/yo"
         android:layout_below="@+id/name"
         android:layout_toRightOf="@+id/age"
@@ -98,7 +98,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="kg"
+        android:text="@string/kg"
         android:id="@+id/kg"
         android:layout_below="@+id/gender"
         android:layout_toRightOf="@+id/weight"
@@ -123,7 +123,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="cm"
+        android:text="@string/cm"
         android:id="@+id/cm"
         android:layout_below="@+id/weight"
         android:layout_toRightOf="@+id/height"
@@ -149,7 +149,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="BMI"
+        android:text="@string/bmi"
         android:id="@+id/BMI"
         android:layout_below="@+id/plan"
         android:textColor="@color/koachGreen"

@@ -22,8 +22,8 @@
         android:textColor="@color/koachGreen"
         android:textStyle="bold"
         android:layout_below="@+id/toolbar"
-        android:layout_centerHorizontal="true"
-        />
+        android:layout_centerHorizontal="true" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -34,8 +34,8 @@
         android:textStyle="bold"
         android:textSize="30dp"
         android:layout_above="@+id/tv_current"
-        android:layout_marginBottom="60dp"
-        />
+        android:layout_marginBottom="60dp" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -45,8 +45,8 @@
         android:layout_centerHorizontal="true"
         android:textColor="@color/koachGreen"
         android:textStyle="bold"
-        android:textSize="30dp"
-        />
+        android:textSize="30dp"/>
+
     <EditText
         android:layout_height="50dp"
         android:layout_width="345dp"
@@ -64,6 +64,6 @@
         android:backgroundTint="@color/koachGreen"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/et_current"
-        android:text="@string/bt_confirm"
-        />
+        android:text="@string/bt_confirm" />
+
 </RelativeLayout>

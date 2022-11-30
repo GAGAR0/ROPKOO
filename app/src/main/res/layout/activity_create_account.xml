@@ -10,7 +10,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="E-mail"
+        android:text="@string/mail"
         android:id="@+id/email"
         android:textColor="@color/koachGreen"
         android:textSize="24dp"
@@ -26,6 +26,7 @@
         android:hint="Enter your e-mail"
         android:background="@color/white"
         android:layout_marginTop="15dp"
+        android:paddingLeft="10dp"
         android:layout_marginRight="22.5dp"
         android:height="40dp"
         android:layout_marginLeft="22.5dp"></EditText>
@@ -33,7 +34,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Password"
+        android:text="@string/pass"
         android:id="@+id/password"
         android:layout_below="@+id/edit"
         android:textColor="@color/koachGreen"
@@ -50,6 +51,7 @@
         android:hint="Create your password"
         android:background="@color/white"
         android:layout_marginTop="15dp"
+        android:paddingLeft="10dp"
         android:layout_marginRight="22.5dp"
         android:height="40dp"
         android:layout_marginLeft="22.5dp"></EditText>
@@ -57,7 +59,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Repeat password"
+        android:text="@string/rpass"
         android:id="@+id/repeat"
         android:layout_below="@+id/edit2"
         android:textColor="@color/koachGreen"
@@ -74,6 +76,7 @@
         android:hint="Repeat your password"
         android:background="@color/white"
         android:layout_marginTop="15dp"
+        android:paddingLeft="10dp"
         android:layout_marginRight="22.5dp"
         android:height="40dp"
         android:layout_marginLeft="22.5dp"></EditText>
@@ -99,10 +102,5 @@
         android:layout_marginLeft="110dp"
         android:layout_marginTop="50dp"
         android:src="@drawable/logogreen"></ImageView>
-
-
-
-
-
 
 </RelativeLayout>

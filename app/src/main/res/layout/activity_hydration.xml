@@ -24,7 +24,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Small glass (300ml)"
+        android:text="@string/sglass"
         android:id="@+id/sglass"
         android:layout_below="@+id/hydra"
         android:textColor="@color/white"
@@ -53,7 +53,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Big glass (500ml)"
+        android:text="@string/bglass"
         android:id="@+id/bglass"
         android:layout_below="@+id/addbtn"
         android:textColor="@color/white"
@@ -82,7 +82,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TOTAL"
+        android:text="@string/totalwater"
         android:id="@+id/total"
         android:layout_below="@+id/addbtn2"
         android:textColor="@color/koachGreen"
@@ -96,7 +96,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="0"
+        android:text="@string/water"
         android:id="@+id/num"
         android:layout_below="@+id/total"
         android:textColor="@color/white"
@@ -110,7 +110,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="ml"
+        android:text="@string/ml"
         android:id="@+id/ml"
         android:layout_below="@+id/total"
         android:layout_toRightOf="@+id/num"

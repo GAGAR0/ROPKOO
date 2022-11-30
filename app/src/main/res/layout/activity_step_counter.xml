@@ -23,7 +23,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Today"
+        android:text="@string/stoday"
         android:id="@+id/goal"
         android:layout_below="@+id/stepcounter"
         android:textColor="@color/koachGreen"
