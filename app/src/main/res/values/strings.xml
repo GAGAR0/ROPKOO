@@ -10,6 +10,17 @@
     <string name="stCounter">STEP COUNTER</string>
     <string name="hydration">HYDRATION</string>
     <string name="currentBType">CHOOSE CURRENT BODY TYPE</string>
+    <string name="goalBType">CHOOSE GOAL BODY TYPE</string>
+
+    <string name="btn_bodyInpCurrent1">1</string>
+    <string name="btn_bodyInpCurrent2">2</string>
+    <string name="btn_bodyInpCurrent3">3</string>
+    <string name="btn_bodyInpCurrent4">4</string>
+    <string name="btn_bodyInpGoal1">1</string>
+    <string name="btn_bodyInpGoal2">2</string>
+    <string name="btn_bodyInpGoal3">3</string>
+    <string name="btn_bodyInpGoal4">4</string>
+
     <string name="tv_progress">0</string>
     <string name="tv_weekly">Weekly Weight</string>
     <string name="tv_current">Enter Current Weight</string>
