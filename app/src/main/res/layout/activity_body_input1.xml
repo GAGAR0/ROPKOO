@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/koachGreen"
-    tools:context=".mainMenu">
+    tools:context=".bodyInput1">
 
         <TextView
             android:layout_width="240dp"
@@ -34,7 +34,7 @@
             android:backgroundTint="@color/background"
             android:layout_margin="5dp"
             android:id="@+id/btn_current1"
-            android:text="@string/calCalc"
+            android:text="@string/btn_bodyInpCurrent1"
             android:textSize="30dp"
             android:textColor="@color/koachGreen"
             android:layout_row="0"
@@ -45,7 +45,7 @@
             android:backgroundTint="@color/background"
             android:layout_margin="5dp"
             android:id="@+id/btn_current2"
-            android:text="@string/progress"
+            android:text="@string/btn_bodyInpCurrent2"
             android:textSize="30dp"
             android:textColor="@color/koachGreen"
             android:layout_row="0"
@@ -56,7 +56,7 @@
             android:backgroundTint="@color/background"
             android:layout_margin="5dp"
             android:id="@+id/btn_current3"
-            android:text="@string/stCounter"
+            android:text="@string/btn_bodyInpCurrent3"
             android:textSize="30dp"
             android:textColor="@color/koachGreen"
             android:layout_row="1"
@@ -70,7 +70,7 @@
             android:layout_margin="5dp"
             android:id="@+id/btn_current4"
             android:backgroundTint="@color/background"
-            android:text="@string/hydration"
+            android:text="@string/btn_bodyInpCurrent4"
             android:textColor="@color/koachGreen"
             android:textSize="30dp"
             android:layout_gravity="bottom"/>
