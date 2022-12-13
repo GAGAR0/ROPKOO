@@ -10,7 +10,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Username"
+        android:text="@string/username"
         android:id="@+id/name"
         android:textColor="@color/koachGreen"
         android:textSize="24dp"
@@ -23,10 +23,10 @@
         android:layout_height="wrap_content"
         android:id="@+id/et_edit"
         android:layout_below="@+id/name"
-        android:hint="Choose your username"
+        android:hint="@string/et_enterUname"
         android:background="@color/white"
         android:layout_marginTop="12dp"
-        android:paddingLeft="10dp"
+        android:paddingStart="10dp"
         android:layout_marginRight="22.5dp"
         android:height="40dp"
         android:layout_marginLeft="22.5dp"/>
@@ -34,7 +34,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Date of birth"
+        android:text="@string/tv_dateofbirth"
         android:id="@+id/tv_birth"
         android:layout_below="@+id/et_edit"
         android:textColor="@color/koachGreen"
@@ -48,7 +48,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/et_edit2"
         android:layout_below="@+id/tv_birth"
-        android:hint="Enter in format YYYY-MM-DD"
+        android:hint="@string/et_enterdob"
         android:background="@color/white"
         android:layout_marginTop="12dp"
         android:paddingLeft="10dp"
@@ -59,7 +59,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Current body weight"
+        android:text="@string/tv_currentWeight"
         android:id="@+id/weight"
         android:layout_below="@+id/et_edit2"
         android:textColor="@color/koachGreen"
@@ -73,7 +73,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/et_edit3"
         android:layout_below="@+id/weight"
-        android:hint="Enter your current weight"
+        android:hint="@string/et_enterCurrentWeight"
         android:background="@color/white"
         android:layout_marginTop="12dp"
         android:paddingLeft="10dp"
@@ -84,7 +84,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Height"
+        android:text="@string/tv_height"
         android:id="@+id/height"
         android:layout_below="@+id/et_edit3"
         android:textColor="@color/koachGreen"
@@ -98,7 +98,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/et_edit4"
         android:layout_below="@+id/height"
-        android:hint="Enter your current height"
+        android:hint="@string/et_enterHeight"
         android:background="@color/white"
         android:layout_marginTop="12dp"
         android:paddingLeft="10dp"
@@ -109,7 +109,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Gender"
+        android:text="@string/tv_gender"
         android:id="@+id/gender"
         android:layout_below="@+id/et_edit4"
         android:textColor="@color/koachGreen"
@@ -123,7 +123,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/et_edit5"
         android:layout_below="@+id/gender"
-        android:hint="Select your gender"
+        android:hint="@string/dd_selectGender"
         android:background="@color/white"
         android:layout_marginTop="12dp"
         android:paddingLeft="10dp"
@@ -142,7 +142,7 @@
         android:layout_marginEnd="30dp"
         android:layout_marginBottom="30dp"
         android:backgroundTint="@color/koachGreen"
-        android:text="Continue" />
+        android:text="@string/btn_continue" />
 
     <LinearLayout
         android:layout_width="match_parent"

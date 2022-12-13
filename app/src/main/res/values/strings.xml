@@ -16,7 +16,16 @@
     <string name="bt_confirm">CONFIRM</string>
     <string name="tv_percentagePoints">%</string>
 
-
+    <string name="tv_dateofbirth">Date Of Birth</string>
+    <string name="et_enterdob">YYYY-MM-DD</string>
+    <string name="btn_continue">Continue</string>
+    <string name="et_enterUname">Enter Username</string>
+    <string name="tv_currentWeight">Current body weight</string>
+    <string name="et_enterCurrentWeight">Enter your current weight</string>
+    <string name="tv_height">Height</string>
+    <string name="et_enterHeight">Enter Height</string>
+    <string name="tv_gender">Gender</string>
+    <string name="dd_selectGender">Select Your Gender</string>
     <string name="hydration2"><u><b>HYDRATION</b></u></string>
     <string name="profile"><u><b>MY PROFILE</b></u></string>
     <string name="name">Jakub Barna</string>
