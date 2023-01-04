@@ -37,29 +37,16 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/greennum"
+        android:id="@+id/stepNum"
         android:layout_below="@+id/goal"
         android:text="@string/greennum"
         android:textSize="80dp"
         android:textColor="@color/koachGreen"
-        android:layout_marginTop="150dp"
-        android:layout_marginRight="80dp"
-        android:layout_marginLeft="115dp"
+        android:layout_marginTop="80dp"
+        android:layout_centerHorizontal="true"
         android:gravity="center"
         android:textStyle="bold"/>
 
-    <ImageButton
-        android:id="@+id/forward"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:layout_below="@id/goal"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="-30dp"
-        android:layout_marginTop="175dp"
-        android:layout_marginRight="20dp"
-        android:layout_toRightOf="@id/greennum"
-        android:background="@color/transparent"
-        android:src="@drawable/ic_baseline_arrow_forward_ios_24"
-        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck"/>
+
 
 </RelativeLayout>
