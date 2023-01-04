@@ -4,22 +4,19 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import androidx.navigation.findNavController
+import androidx.navigation.ui.setupActionBarWithNavController
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        var btn_register = findViewById<Button>(R.id.btn_register)
-        btn_register.setOnClickListener{
-            val intent = Intent(this, createAccount::class.java)
-            startActivity(intent)
-        }
+        setupActionBarWithNavController(findNavController(R.id.fragmentContainerView))
+    }
 
-        var btn_signIn = findViewById<Button>(R.id.btn_signIn)
-        btn_signIn.setOnClickListener{
-            val intent = Intent(this, mainMenu::class.java)
-            startActivity(intent)
-        }
+    override fun onSupportNavigateUp(): Boolean {
+        val navController = findNavController(R.id.fragmentContainerView)
+        return navController.navigateUp() || super.onSupportNavigateUp()
     }
 }
