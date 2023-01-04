@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/mainFragment">
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.example.ropkoo.mainFragment"
+        android:label="fragment_main"
+        tools:layout="@layout/fragment_main" >
+        <action
+            android:id="@+id/action_mainFragment_to_menuFragment"
+            app:destination="@id/menuFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_createAccountFragment1"
+            app:destination="@id/createAccountFragment1" />
+    </fragment>
+    <fragment
+        android:id="@+id/menuFragment"
+        android:name="com.example.ropkoo.menuFragment"
+        android:label="fragment_menu"
+        tools:layout="@layout/fragment_menu" >
+        <action
+            android:id="@+id/action_menuFragment_to_calorieCalculatorFragment"
+            app:destination="@id/calorieCalculatorFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_goalProgressFragment"
+            app:destination="@id/goalProgressFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_stepCounterFragment"
+            app:destination="@id/stepCounterFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_hydrationFragment"
+            app:destination="@id/hydrationFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/createAccountFragment1"
+        android:name="com.example.ropkoo.createAccountFragment1"
+        android:label="fragment_create_account1"
+        tools:layout="@layout/fragment_create_account1" >
+        <action
+            android:id="@+id/action_createAccountFragment1_to_createAccountFragment2"
+            app:destination="@id/createAccountFragment2" />
+        <action
+            android:id="@+id/action_createAccountFragment1_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/createAccountFragment2"
+        android:name="com.example.ropkoo.createAccountFragment2"
+        android:label="fragment_create_account2"
+        tools:layout="@layout/fragment_create_account2" >
+        <action
+            android:id="@+id/action_createAccountFragment2_to_bodyInputFragment1"
+            app:destination="@id/bodyInputFragment1" />
+        <action
+            android:id="@+id/action_createAccountFragment2_to_createAccountFragment1"
+            app:destination="@id/createAccountFragment1" />
+    </fragment>
+    <fragment
+        android:id="@+id/bodyInputFragment1"
+        android:name="com.example.ropkoo.bodyInputFragment1"
+        android:label="fragment_body_input1"
+        tools:layout="@layout/fragment_body_input1" >
+        <action
+            android:id="@+id/action_bodyInputFragment1_to_bodyInputFragment2"
+            app:destination="@id/bodyInputFragment2" />
+        <action
+            android:id="@+id/action_bodyInputFragment1_to_createAccountFragment2"
+            app:destination="@id/createAccountFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/bodyInputFragment2"
+        android:name="com.example.ropkoo.bodyInputFragment2"
+        android:label="fragment_body_input2"
+        tools:layout="@layout/fragment_body_input2" >
+        <action
+            android:id="@+id/action_bodyInputFragment2_to_bodyInputFragment1"
+            app:destination="@id/bodyInputFragment1" />
+        <action
+            android:id="@+id/action_bodyInputFragment2_to_menuFragment"
+            app:destination="@id/menuFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/calorieCalculatorFragment"
+        android:name="com.example.ropkoo.calorieCalculatorFragment"
+        android:label="fragment_calorie_calculator"
+        tools:layout="@layout/fragment_calorie_calculator" >
+        <action
+            android:id="@+id/action_calorieCalculatorFragment_to_menuFragment"
+            app:destination="@id/menuFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/goalProgressFragment"
+        android:name="com.example.ropkoo.goalProgressFragment"
+        android:label="fragment_goal_progress"
+        tools:layout="@layout/fragment_goal_progress" >
+        <action
+            android:id="@+id/action_goalProgressFragment_to_goalProgressFragment2"
+            app:destination="@id/goalProgressFragment2" />
+        <action
+            android:id="@+id/action_goalProgressFragment_to_menuFragment"
+            app:destination="@id/menuFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/goalProgressFragment2"
+        android:name="com.example.ropkoo.goalProgressFragment2"
+        android:label="fragment_goal_progress2"
+        tools:layout="@layout/fragment_goal_progress2" >
+        <action
+            android:id="@+id/action_goalProgressFragment2_to_goalProgressFragment"
+            app:destination="@id/goalProgressFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/stepCounterFragment"
+        android:name="com.example.ropkoo.stepCounterFragment"
+        android:label="fragment_step_counter"
+        tools:layout="@layout/fragment_step_counter" >
+        <action
+            android:id="@+id/action_stepCounterFragment_to_menuFragment"
+            app:destination="@id/menuFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/hydrationFragment"
+        android:name="com.example.ropkoo.hydrationFragment"
+        android:label="fragment_hydration"
+        tools:layout="@layout/fragment_hydration" >
+        <action
+            android:id="@+id/action_hydrationFragment_to_menuFragment"
+            app:destination="@id/menuFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.ropkoo.profileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profileFragment_to_menuFragment"
+            app:destination="@id/menuFragment" />
+    </fragment>
+</navigation>
