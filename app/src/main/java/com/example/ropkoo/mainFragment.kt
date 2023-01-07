@@ -23,7 +23,6 @@ class mainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
         var btn_signIn : Button = view.findViewById(R.id.btn_signIn)
         btn_signIn.setOnClickListener{
             Navigation.findNavController(view).navigate(R.id.action_mainFragment_to_menuFragment)
