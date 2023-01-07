@@ -33,11 +33,10 @@ class mainFragment : Fragment() {
             Navigation.findNavController(view).navigate(R.id.action_mainFragment_to_createAccountFragment1)
         }
     }
-
+}
 
     /*var btn_register = findViewById<Button>(R.id.btn_register)
     btn_register.setOnClickListener{
         val intent = Intent(this, createAccount::class.java)
         startActivity(intent)
     }*/
-}
