@@ -32,7 +32,6 @@ class mainFragment : Fragment() {
         btn_register.setOnClickListener{
             Navigation.findNavController(view).navigate(R.id.action_mainFragment_to_createAccountFragment1)
         }
-
     }
 
 
