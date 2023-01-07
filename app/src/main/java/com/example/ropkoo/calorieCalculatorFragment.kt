@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageButton
 import androidx.navigation.Navigation
 
 
@@ -23,8 +24,8 @@ class calorieCalculatorFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        var back : Button = view.findViewById(R.id.back)
-        back.setOnClickListener{
+        var ib_back : ImageButton = view.findViewById(R.id.ib_back)
+        ib_back.setOnClickListener{
             Navigation.findNavController(view).navigate(R.id.action_calorieCalculatorFragment_to_menuFragment)
         }
     }
