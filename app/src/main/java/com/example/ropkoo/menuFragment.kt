@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageButton
 import androidx.navigation.Navigation
 
 
@@ -24,6 +25,10 @@ class menuFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
+        var iv_mainLogo : ImageButton = view.findViewById(R.id.iv_mainLogo)
+        iv_mainLogo.setOnClickListener{
+            Navigation.findNavController(view).navigate(R.id.action_menuFragment_to_profileFragment)
+        }
         var btn_main1 : Button = view.findViewById(R.id.btn_main1)
         btn_main1.setOnClickListener{
             Navigation.findNavController(view).navigate(R.id.action_menuFragment_to_calorieCalculatorFragment)

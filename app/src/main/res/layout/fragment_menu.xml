@@ -7,13 +7,16 @@
     android:background="@color/koachGreen"
     tools:context=".menuFragment">
 
-    <ImageView
+    <ImageButton
         android:layout_width="90dp"
         android:layout_height="100dp"
         android:id="@+id/iv_mainLogo"
         app:srcCompat="@drawable/logoblack"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"/>
+        android:layout_marginTop="20dp"
+        android:scaleType="fitCenter"
+        android:padding="0dp"
+        android:background="@null"/>
 
     <Button
         android:layout_width="330dp"
