@@ -1,5 +1,6 @@
 package com.example.ropkoo
 
+import android.content.Context
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
@@ -13,17 +14,16 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-       // setupActionBarWithNavController(findNavController(R.id.fragmentContainerView))
-
     }
-
-    /*override fun onSupportNavigateUp(): Boolean {
-        val navController: NavController = findNavController(R.id.fragmentContainerView)
-        val hostFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
-        val  controller = hostFragment.navController
-        return navController.navigateUp() || super.onSupportNavigateUp()
-    }*/
-
 
 
 }
+
+// setupActionBarWithNavController(findNavController(R.id.fragmentContainerView))
+
+/*override fun onSupportNavigateUp(): Boolean {
+      val navController: NavController = findNavController(R.id.fragmentContainerView)
+      val hostFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
+      val  controller = hostFragment.navController
+      return navController.navigateUp() || super.onSupportNavigateUp()
+  }*/
