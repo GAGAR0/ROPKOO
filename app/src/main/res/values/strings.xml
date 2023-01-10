@@ -27,8 +27,8 @@
     <string name="bt_confirm">CONFIRM</string>
     <string name="tv_percentagePoints">%</string>
 
-    <string name="tv_dateofbirth">Date Of Birth</string>
-    <string name="et_enterdob">YYYY-MM-DD</string>
+    <string name="tv_age">Age</string>
+    <string name="et_enterAge">Enter Age</string>
     <string name="btn_continue">Continue</string>
     <string name="et_enterUname">Enter Username</string>
     <string name="tv_currentWeight">Current body weight</string>

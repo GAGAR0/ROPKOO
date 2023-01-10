@@ -19,7 +19,7 @@
         android:textStyle="bold"/>
 
     <EditText
-        android:id="@+id/edit"
+        android:id="@+id/et_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/email"
@@ -37,7 +37,7 @@
         android:layout_height="wrap_content"
         android:text="@string/pass"
         android:id="@+id/password"
-        android:layout_below="@+id/edit"
+        android:layout_below="@+id/et_email"
         android:textColor="@color/koachGreen"
         android:textSize="24dp"
         android:layout_marginLeft="22.5dp"
@@ -45,7 +45,7 @@
         android:textStyle="bold"/>
 
     <EditText
-        android:id="@+id/edit2"
+        android:id="@+id/et_passw"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/password"
@@ -63,7 +63,7 @@
         android:layout_height="wrap_content"
         android:text="@string/rpass"
         android:id="@+id/repeat"
-        android:layout_below="@+id/edit2"
+        android:layout_below="@+id/et_passw"
         android:textColor="@color/koachGreen"
         android:textSize="24dp"
         android:layout_marginLeft="22.5dp"
@@ -71,7 +71,7 @@
         android:textStyle="bold"/>
 
     <EditText
-        android:id="@+id/edit3"
+        android:id="@+id/et_passw2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/repeat"
@@ -88,7 +88,7 @@
         android:id="@+id/btn_continue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/edit3"
+        android:layout_below="@id/et_passw2"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="30dp"
         android:layout_marginTop="30dp"

@@ -1,13 +1,16 @@
 package com.example.ropkoo
 
-import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextUtils
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import androidx.navigation.Navigation
+import android.widget.Toast
+import androidx.navigation.fragment.findNavController
+import kotlinx.android.synthetic.main.fragment_create_account1.btn_continue
+import kotlinx.android.synthetic.main.fragment_create_account2.*
 
 
 class createAccountFragment2 : Fragment() {
@@ -23,10 +26,26 @@ class createAccountFragment2 : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-        var btn_continue : Button = view.findViewById(R.id.btn_continue)
         btn_continue.setOnClickListener{
-            Navigation.findNavController(view).navigate(R.id.action_createAccountFragment2_to_bodyInputFragment1)
+            sendDataNext()
         }
+    }
+
+    private fun sendDataNext(){
+        val username = et_username.text.toString()
+        val age = et_age.text
+        val weight =  et_weight.text
+        val height = et_height.text
+
+        if(inputCheck(username, age, weight, height)){
+            findNavController().navigate(R.id.action_createAccountFragment2_to_bodyInputFragment1)
+        }
+        else{
+            Toast.makeText(requireContext(), "Fill out all the fields!", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun inputCheck(username: String, age: Editable, weight: Editable, height: Editable): Boolean{
+        return !(TextUtils.isEmpty(username) || age.isEmpty() || TextUtils.isEmpty(weight.toString()) || height.isEmpty())
     }
 }
