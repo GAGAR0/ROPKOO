@@ -11,10 +11,9 @@ data class User (
     val email: String,
     val password: String,
     val age: Int,
-    val startWeight: Float,
-    val height: Int,
+    val weight: Float,
+    val height: Int
+    )
     /*val gender: ,
     val goalsId:,
     val progressId:,*/
-
-)

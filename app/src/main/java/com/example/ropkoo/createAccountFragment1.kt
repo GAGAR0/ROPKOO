@@ -9,6 +9,8 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.fragment.app.setFragmentResult
+import androidx.fragment.app.setFragmentResultListener
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.example.ropkoo.DB.User
@@ -35,18 +37,24 @@ class createAccountFragment1 : Fragment() {
     }
 
     private fun sendDataNext(){
-        val email = et_email.text.toString()
-        val password = et_passw.text.toString()
-        val passwordCheck = et_passw2.text.toString()
+        val db_email = et_email.text.toString()
+        val db_password = et_passw.text.toString()
+        val db_passwordCheck = et_passw2.text.toString()
 
-        if(inputCheck(email, password, passwordCheck)){
+        if(inputCheck(db_email, db_password, db_passwordCheck)){
+
+            val bundle = Bundle()
+            bundle.putString("email", db_email)
+            bundle.putString("password", db_password)
+            setFragmentResult("CAF1", bundle)
+
             findNavController().navigate(R.id.action_createAccountFragment1_to_createAccountFragment2)
         }
         else{
             Toast.makeText(requireContext(), "Fill out all the fields!", Toast.LENGTH_SHORT).show()}
     }
 
-    private fun inputCheck(email: String, password: String, passwordCheck: String): Boolean{
-        return !(TextUtils.isEmpty(email) || TextUtils.isEmpty(password) || TextUtils.isEmpty(passwordCheck))
+    private fun inputCheck(db_email: String, db_password: String, db_passwordCheck: String): Boolean{
+        return !(TextUtils.isEmpty(db_email) || TextUtils.isEmpty(db_password) || TextUtils.isEmpty(db_passwordCheck))
     }
 }
