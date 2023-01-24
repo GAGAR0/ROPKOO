@@ -12,16 +12,14 @@ import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.Navigation
+import com.example.ropkoo.DB.Goals
+import com.example.ropkoo.DB.Progress
 import com.example.ropkoo.DB.User
 import com.example.ropkoo.DB.UserViewModel
-import kotlinx.android.synthetic.main.fragment_create_account1.*
-import kotlinx.android.synthetic.main.fragment_create_account2.*
-import kotlinx.android.synthetic.main.fragment_body_input1.*
-import kotlinx.android.synthetic.main.fragment_create_account2.height
-import kotlinx.android.synthetic.main.fragment_create_account2.weight
-import kotlinx.android.synthetic.main.fragment_profile.*
-
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class bodyInputFragment2 : Fragment() {
 
@@ -31,7 +29,8 @@ class bodyInputFragment2 : Fragment() {
     var age: Int? = null
     var weight: Float? = null
     var height: Int? = null
-    var bodyInput1: String? = null
+    var bodyInput1: Int? = null
+    var bodyInput2: Int? = null
 
     private lateinit var viewModel: UserViewModel
 
@@ -58,38 +57,43 @@ class bodyInputFragment2 : Fragment() {
              height = bundle.getInt("height")}
 
         setFragmentResultListener("BIF1") { _, bundle ->
-             bodyInput1 = bundle.getString("bodyInput1") }
+             bodyInput1 = bundle.getInt("bodyInput1") }
 
-        var bodyInput2 = 0;
+
 
         var btn_goal1 : Button = view.findViewById(R.id.btn_goal1)
         btn_goal1.setOnClickListener{
-            var bodyInput2 = 1;
+             bodyInput2 = 1;
             insertData()
-            Navigation.findNavController(view).navigate(R.id.action_bodyInputFragment2_to_menuFragment)
+            Navigation.findNavController(view).navigate(R.id.action_bodyInputFragment2_to_mainFragment)
         }
         var btn_goal2 : Button = view.findViewById(R.id.btn_goal2)
         btn_goal2.setOnClickListener{
-            var bodyInput2 = 2;
+             bodyInput2 = 2;
             insertData()
-            Navigation.findNavController(view).navigate(R.id.action_bodyInputFragment2_to_menuFragment)
+            Navigation.findNavController(view).navigate(R.id.action_bodyInputFragment2_to_mainFragment)
         }
         var btn_goal3 : Button = view.findViewById(R.id.btn_goal3)
         btn_goal3.setOnClickListener{
-            var bodyInput2 = 3;
+             bodyInput2 = 3;
             insertData()
-            Navigation.findNavController(view).navigate(R.id.action_bodyInputFragment2_to_menuFragment)
+            Navigation.findNavController(view).navigate(R.id.action_bodyInputFragment2_to_mainFragment)
         }
         var btn_goal4 : Button = view.findViewById(R.id.btn_goal4)
         btn_goal4.setOnClickListener{
-            var bodyInput2 = 4;
+             bodyInput2 = 4;
             insertData()
-            Navigation.findNavController(view).navigate(R.id.action_bodyInputFragment2_to_menuFragment)
+            Navigation.findNavController(view).navigate(R.id.action_bodyInputFragment2_to_mainFragment)
         }
     }
 
     private fun insertData(){
-        val user = User(0, this.username.toString(), this.email.toString(), this.password.toString(), this.age!!, this.weight!!, this.height!!)
+        val user = User(null, this.username.toString(), this.email.toString(), this.password.toString(), this.age!!, this.weight!!, this.height!!)
         viewModel.addUser(user)
+        val goal = Goals(null, null ,this.bodyInput1!!, this.bodyInput2!!)
+        viewModel.addGoals(goal)
+        var progress = Progress(null,null,0,0,0,0,0.0F,0.0F)
+        viewModel.addProgress(progress)
+        //viewModel.getUserWithGoals()
     }
 }

@@ -82,8 +82,8 @@
             android:id="@+id/action_bodyInputFragment2_to_bodyInputFragment1"
             app:destination="@id/bodyInputFragment1" />
         <action
-            android:id="@+id/action_bodyInputFragment2_to_menuFragment"
-            app:destination="@id/menuFragment" />
+            android:id="@+id/action_bodyInputFragment2_to_mainFragment"
+            app:destination="@id/mainFragment" />
     </fragment>
     <fragment
         android:id="@+id/calorieCalculatorFragment"

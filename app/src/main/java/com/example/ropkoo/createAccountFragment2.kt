@@ -7,6 +7,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.Spinner
 import android.widget.Toast
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.setFragmentResultListener
@@ -33,17 +36,27 @@ class createAccountFragment2 : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        btn_continue.setOnClickListener{
+        /*val spinner: Spinner = findViewById(R.id.spinner_gender)
+        ArrayAdapter.createFromResource(
+            this@createAccountFragment2,
+            R.array.genders,
+            android.R.layout.simple_spinner_item
+        ).also { adapter ->
+            // Specify the layout to use when the list of choices appears
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            // Apply the adapter to the spinner
+            spinner.adapter = adapter
+        }*/
+
+        btn_continue.setOnClickListener {
             sendDataNext()
         }
     }
-
     private fun sendDataNext(){
         val username = et_username.text.toString().trim()
         val age = et_age.text.toString().trim().toInt()
         val weight = et_weight.text.toString().toFloat()
         val height = et_height.text.toString().trim().toInt()
-
 
         if(inputCheck(username, age, weight, height)){
 
