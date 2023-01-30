@@ -75,6 +75,6 @@ class createAccountFragment2 : Fragment() {
     }
 
     private fun inputCheck(username: String, age: Int, weight: Float, height: Int): Boolean{
-        return !(TextUtils.isEmpty(username) || age == 0 || weight == 0.0f || height == 0)
+        return !(TextUtils.isEmpty(username) || age != 0 || weight != 0.0f || height != 0)
     }
 }

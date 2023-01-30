@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.os.Looper
 import android.provider.SyncStateContract.Helpers.insert
 import android.text.TextUtils
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -71,15 +72,16 @@ class mainFragment : Fragment() {
         return !(TextUtils.isEmpty(username) || TextUtils.isEmpty(password))
     }
 
-    @SuppressLint("SuspiciousIndentation")
+    /*@SuppressLint("SuspiciousIndentation")
     private fun checkPassword(username: String, password: String) {
-        viewModel.viewModelScope.launch(Dispatchers.IO) {
-            var nameCheck = viewModel.getLogin(username, password).await()
+        var nameCheck = viewModel.getLogin(username, password)
+        if (nameCheck.toString().isNotEmpty()) {
+        Log.d("Login attempt>", nameCheck.toString())
+        nameCheck.observe(requireActivity(), Observer { data ->
 
-            if (nameCheck.isNotEmpty()) {
-                val indexName = nameCheck.toString().indexOf("name=")
-                val endIndexName = nameCheck.toString().indexOf(",", indexName)
-                val dataName = nameCheck.toString().substring(indexName + "name=".length, endIndexName)
+                val indexName = data.toString().indexOf("name=")
+                val endIndexName = data.toString().indexOf(",", indexName)
+                val dataName = data.toString().substring(indexName + "name=".length, endIndexName)
 
                 if (dataName == username) {
                     (requireContext() as Activity).runOnUiThread {
@@ -87,11 +89,11 @@ class mainFragment : Fragment() {
                     }
                     val bundle1 = Bundle()
                     //bundle1.putString("DBUsername", nameCheck.toString())
-                   bundle1.putString("DBUsername", nameCheck.toString().substring(nameCheck.toString().indexOf("name=") + "name=".length, nameCheck.toString().indexOf(",", nameCheck.toString().indexOf("name="))))
-                   bundle1.putString("DBAge", nameCheck.toString().substring(nameCheck.toString().indexOf("age=") + "age=".length, nameCheck.toString().indexOf(",", nameCheck.toString().indexOf("age="))))
-                   bundle1.putString("DBWeight", nameCheck.toString().substring(nameCheck.toString().indexOf("weight=") + "weight=".length, nameCheck.toString().indexOf(",", nameCheck.toString().indexOf("weight="))))
-                   bundle1.putString("DBHeight", nameCheck.toString().substring(nameCheck.toString().indexOf("height=") + "height=".length, nameCheck.toString().indexOf(")", nameCheck.toString().indexOf("height="))))
-                   setFragmentResult("MF", bundle1)
+                    bundle1.putString("DBUsername", data.toString().substring(data.toString().indexOf("name=") + "name=".length, data.toString().indexOf(",", data.toString().indexOf("name="))))
+                    bundle1.putString("DBAge", data.toString().substring(data.toString().indexOf("age=") + "age=".length, data.toString().indexOf(",", data.toString().indexOf("age="))))
+                    bundle1.putString("DBWeight", data.toString().substring(data.toString().indexOf("weight=") + "weight=".length, data.toString().indexOf(",", data.toString().indexOf("weight="))))
+                    bundle1.putString("DBHeight", data.toString().substring(data.toString().indexOf("height=") + "height=".length, data.toString().indexOf(")", data.toString().indexOf("height="))))
+                    setFragmentResult("MF", bundle1)
                 }
             } else {
                 (requireContext() as Activity).runOnUiThread {
@@ -102,9 +104,45 @@ class mainFragment : Fragment() {
                     ).show()
                 }
             }
-        }
-    }
+        })
+    }*/
 
+
+    @SuppressLint("SuspiciousIndentation")
+    private fun checkPassword(username: String, password: String) {
+        var nameCheck = viewModel.getLogin(username, password)!!
+            nameCheck.observe(requireActivity(), Observer { data ->
+
+                val indexName = data.toString().indexOf("name=")
+                val endIndexName = data.toString().indexOf(",", indexName)
+                if(indexName != -1 && endIndexName != -1){
+                val dataName = data.toString().substring(indexName + "name=".length, endIndexName)
+
+                    if (dataName == username) {
+                       (requireContext() as Activity).runOnUiThread {
+                           Log.d("Login >", dataName)
+                           findNavController().navigate(R.id.action_mainFragment_to_menuFragment)
+                       }
+                       val bundle1 = Bundle()
+                       //bundle1.putString("DBUsername", nameCheck.toString())
+                        bundle1.putString("DBUsername", data.toString().substring(data.toString().indexOf("name=") + "name=".length, data.toString().indexOf(",", data.toString().indexOf("name="))))
+                       bundle1.putString("DBAge", data.toString().substring(data.toString().indexOf("age=") + "age=".length, data.toString().indexOf(",", data.toString().indexOf("age="))))
+                      bundle1.putString("DBWeight", data.toString().substring(data.toString().indexOf("weight=") + "weight=".length, data.toString().indexOf(",", data.toString().indexOf("weight="))))
+                      bundle1.putString("DBHeight", data.toString().substring(data.toString().indexOf("height=") + "height=".length, data.toString().indexOf(")", data.toString().indexOf("height="))))
+                      setFragmentResult("MF", bundle1)
+
+                    }
+                }else {
+                    (requireContext() as Activity).runOnUiThread {
+                        Toast.makeText(
+                            requireContext(),
+                            "This account doesnt exist, try Registering!",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+        })
+    }
    /* private fun setUser() {
         viewModel.readAllData.observe(viewLifecycleOwner, Observer { userList ->
                 var getAllUserData = viewModel.readAllData.value

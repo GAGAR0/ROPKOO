@@ -11,20 +11,35 @@ class UserViewModel(application: Application): AndroidViewModel(application) {
 
     val readAllData: LiveData<List<User>>
 
-    //val login: LiveData<List<User>>
+    //val getUserWithGoals: List<UserWithGoals>
+    //var getUserWithGoals: List<UserWithGoals>
+
     val repository: UserRepository
 
     init {
         val userDAO = UserDatabase.getDatabase(application).userDAO()
         repository = UserRepository(userDAO)
         readAllData = repository.readAllData
+        //getUserWithGoals = repository.getUserWithGoals()
     }
+
+    /*fun getUserWithGoals(): Deferred<List<UserWithGoals>> {
+        return viewModelScope.async(Dispatchers.IO) {
+            repository.getUserWithGoals()
+        }
+    }*/
 
     fun addUser(user: User) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.addUser(user)
         }
     }
+
+    /*fun addUserWithGoals(userWithGoals: UserWithGoals) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.addUserWithGoals(userWithGoals)
+        }
+    }*/
 
     fun addGoals(goal: Goals) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -38,11 +53,17 @@ class UserViewModel(application: Application): AndroidViewModel(application) {
         }
     }
 
-    fun getLogin(name: String, password: String) : Deferred<List<User>> {
-        return viewModelScope.async(Dispatchers.IO) {
-            repository.getLogin(name, password)
-        }
+    fun getLogin(name: String, password: String) : LiveData<List<User>>? {
+            return repository.getLogin(name, password)
     }
+
+
+   /* fun getGoalWithUsers(goal: Int) : Deferred<List<GoalWithUsers>> {
+        return viewModelScope.async(Dispatchers.IO) {
+            repository.getGoalWithUsers(goal)
+        }
+    }*/
+
 
 
     /*fun addProgress(progress: Progress) {

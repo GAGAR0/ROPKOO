@@ -3,24 +3,25 @@ package com.example.ropkoo.DB
 import android.database.Cursor
 import android.text.Editable
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
-import androidx.room.Transaction
+import androidx.room.*
 
 @Dao
 interface UserDAO {
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addUser(user: User)
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addGoals(goal: Goals)
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addProgress(progress: Progress)
 
+   // @Update(onConflict = OnConflictStrategy.REPLACE)
+    //fun setForeignKeyGoals(@ColumnInfo(name = "goals_id") goalsId: Long, user: User)
+
+    /*@Update(onConflict = OnConflictStrategy.REPLACE)
+    fun setForeignKeyProgress(userId: Progress)*/
    /* @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun addProgress(progress: Progress)*/
 
@@ -29,17 +30,20 @@ interface UserDAO {
 
    /* @Insert
     fun createUser(user: User);*/
+    @Query("SELECT * FROM user_table WHERE name = :name AND password = :password")
+    fun getLogin(name: String, password: String): LiveData<List<User>>?
 
-    @Query("SELECT * FROM user_table WHERE name LIKE :name AND password LIKE :password")
-    fun getLogin(name: String, password: String): List<User>
+    /*@Transaction
+    @Query("SELECT * FROM user_table JOIN goal_table ON user_table.goals_id = goal_table.goals_id")
+    fun getUserWithGoals(): List<UserWithGoals>*/
+
+    /*@Transaction
+    @Query("SELECT * FROM goal_table WHERE goals_id = :goal")
+    fun getGoalWithUsers(goal: Int): List<GoalWithUsers>
 
     @Transaction
-    @Query("SELECT * FROM user_table")
-    fun getUsersWithGoals(): List<UserWithGoals>
-
-    @Transaction
-    @Query("SELECT * FROM user_table")
-    fun getUsersWithProgress(): List<UserWithProgress>
+    @Query("SELECT * FROM user_table WHERE user_id = :id")
+    fun getUsersAndProgress(id: Int): List<UserAndProgress>*/
 
     /*@Query("INSERT INTO goal_table(userID) VALUES (:user_id)")
     fun connectUserToGoal(user_id: Int)*/

@@ -1,5 +1,6 @@
 package com.example.ropkoo.DB
 
+import androidx.annotation.NonNull
 import androidx.room.*
 import com.example.ropkoo.bodyInputFragment1
 import com.example.ropkoo.bodyInputFragment2
@@ -7,10 +8,11 @@ import java.util.Locale.Category
 import androidx.room.ForeignKey
 import androidx.room.ForeignKey.CASCADE
 
-@Entity(tableName = "user_table")
+@Entity(tableName = "user_table", foreignKeys = [ForeignKey(entity = Goals::class, parentColumns = ["goals_id"], childColumns = ["goals_id"])])
 data class User (
     @PrimaryKey(autoGenerate = true)
-    val user_id: Int?,
+    @ColumnInfo(name = "user_id") val user_id: Int?,
+    @ColumnInfo(name = "goals_id") val goals_id: Int?,
     val name: String,
     val email: String,
     val password: String,
@@ -21,18 +23,17 @@ data class User (
 
 @Entity(tableName = "goal_table")
 data class Goals(
-    @PrimaryKey(autoGenerate = true)
-    val goals_id: Int?,
-    val userId: Int?,
-    val bodyInputFragment1:  Int,
-    val bodyInputFragment2: Int
+    @PrimaryKey(autoGenerate = false)
+    @ColumnInfo(name = "goals_id") val goals_id: Int?,
+    val bodyInputFragment1:  String,
+    val bodyInputFragment2: String
 )
 
-@Entity(tableName = "progress_table")
+@Entity(tableName = "progress_table", foreignKeys = [ForeignKey(entity = User::class, parentColumns = ["user_id"], childColumns = ["userId"])])
 data class Progress(
     @PrimaryKey(autoGenerate = true)
     val progress_id: Int?,
-    val userId: Int?,
+    @ColumnInfo(name = "userId")val userId: Int?,
     val dailyCalories: Int,
     val stepCount: Int,
     val waterIntake: Int,
@@ -41,25 +42,42 @@ data class Progress(
     val weeklyWeight: Float
 )
 
+/*data class UserWithGoals(
+    @Embedded val goal: Goals,
+    @Relation(
+        parentColumn = "goals_id",
+        entityColumn = "goals_id"
+    )
+    val user: List<User>
+)*/
+/*@Entity
 data class UserWithGoals(
     @Embedded val user: User,
     @Relation(
-        parentColumn = "user_id",
-        entityColumn = "userId",
+        parentColumn = "goals_id",
+        entityColumn = "goals_id",
         entity = Goals::class
     )
-    val goal: Goals
+    val goals: List<Goals>
+)*/
+
+/*data class GoalWithUsers (
+    @Embedded var goal: Goals,
+    @Relation(
+        parentColumn = "goals_id",
+        entityColumn = "goals_id"
+    )
+    @Embedded var user: List<User>
 )
 
-data class UserWithProgress(
+data class UserAndProgress(
     @Embedded val user: User,
     @Relation(
         parentColumn = "user_id",
-        entityColumn = "userId",
-        entity = Progress::class
+        entityColumn = "userId"
     )
     val progress: Progress
-)
+)*/
 
 
     /*val gender: ,
