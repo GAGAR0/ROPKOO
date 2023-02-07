@@ -17,6 +17,16 @@ interface UserDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addProgress(progress: Progress)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun addSession(session: Session)
+
+    @Update(onConflict = OnConflictStrategy.REPLACE)
+    fun updateSession(session: Session)
+
+    @Update(onConflict = OnConflictStrategy.REPLACE)
+    fun updateWeight(progress: Progress)
+
+
    // @Update(onConflict = OnConflictStrategy.REPLACE)
     //fun setForeignKeyGoals(@ColumnInfo(name = "goals_id") goalsId: Long, user: User)
 
@@ -32,6 +42,18 @@ interface UserDAO {
     fun createUser(user: User);*/
     @Query("SELECT * FROM user_table WHERE name = :name AND password = :password")
     fun getLogin(name: String, password: String): LiveData<List<User>>?
+
+    @Query("SELECT * FROM user_table WHERE user_id = :user_id")
+    fun getUserFromID(user_id: Int): LiveData<List<User>>
+
+    @Query("SELECT * FROM currentsession_table")
+    fun getCurrentSession(): LiveData<List<Session>>
+
+    @Query("SELECT * FROM progress_table WHERE userId = :user_id")
+    fun getProgress(user_id: Int): LiveData<List<Progress>>?
+
+    @Query("UPDATE progress_table SET dailyWeight = :currentWeight WHERE userId = :user_id")
+    fun updateWeight(currentWeight: Float, user_id: Int)
 
     /*@Transaction
     @Query("SELECT * FROM user_table JOIN goal_table ON user_table.goals_id = goal_table.goals_id")

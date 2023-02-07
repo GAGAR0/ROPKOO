@@ -49,14 +49,20 @@ class createAccountFragment2 : Fragment() {
         }*/
 
         btn_continue.setOnClickListener {
-            sendDataNext()
+            if(rb_male.isChecked){
+                sendDataNext("male")
+            }
+            else if(rb_female.isChecked){
+                sendDataNext("female")
+            }
         }
     }
-    private fun sendDataNext(){
+    private fun sendDataNext(gender:String){
         val username = et_username.text.toString().trim()
         val age = et_age.text.toString().trim().toInt()
         val weight = et_weight.text.toString().toFloat()
         val height = et_height.text.toString().trim().toInt()
+
 
         if(inputCheck(username, age, weight, height)){
 
@@ -65,6 +71,7 @@ class createAccountFragment2 : Fragment() {
             bundle1.putInt("age", age)
             bundle1.putFloat("weight", weight)
             bundle1.putInt("height", height)
+            bundle1.putString("gender", gender)
             setFragmentResult("CAF2", bundle1)
 
             findNavController().navigate(R.id.action_createAccountFragment2_to_bodyInputFragment1)
@@ -75,6 +82,6 @@ class createAccountFragment2 : Fragment() {
     }
 
     private fun inputCheck(username: String, age: Int, weight: Float, height: Int): Boolean{
-        return !(TextUtils.isEmpty(username) || age != 0 || weight != 0.0f || height != 0)
+        return !(TextUtils.isEmpty(username) || age == 0 || weight == 0.0f || height == 0)
     }
 }

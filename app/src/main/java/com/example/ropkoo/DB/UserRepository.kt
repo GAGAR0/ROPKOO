@@ -23,13 +23,37 @@ class UserRepository(private val userDAO: UserDAO) {
         userDAO.addProgress(progress)
     }
 
-    /*fun getUserWithGoals(): List<UserWithGoals> {
-        return userDAO.getUserWithGoals()
-    }*/
+    suspend fun updateWeight(progress: Progress){
+        userDAO.updateWeight(progress)
+    }
+
+    suspend fun addSession(session: Session){
+        userDAO.addSession(session)
+    }
+
+    suspend fun updateSession(session: Session){
+        userDAO.updateSession(session)
+    }
 
     fun getLogin(name: String, password: String): LiveData<List<User>>? {
         return userDAO.getLogin(name, password)
     }
+
+    fun getUserFromID(user_id: Int): LiveData<List<User>>? {
+        return userDAO.getUserFromID(user_id)
+    }
+
+    fun getCurrentSession(): LiveData<List<Session>>? {
+        return userDAO.getCurrentSession()
+    }
+
+    fun getProgress(user_id: Int): LiveData<List<Progress>>? {
+        return userDAO.getProgress(user_id)
+    }
+
+    /*fun updateWeight(currentWeight: Float, user_id: Int){
+        userDAO.updateWeight(Progress)
+    }*/
 
     /*fun getGoalWithUsers(goal: Int): List<GoalWithUsers>{
         return userDAO.getGoalWithUsers(goal)

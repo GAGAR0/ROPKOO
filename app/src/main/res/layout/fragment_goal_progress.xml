@@ -26,10 +26,12 @@
         android:layout_width="300dp"
         android:layout_height="300dp"
         android:id="@+id/pb_progress"
+        android:rotation="-90"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:layout_marginTop="50dp"
         android:indeterminateOnly="false"
+        android:max="100"
         android:progressDrawable="@drawable/progressbar"/>
 
     <TextView
@@ -54,5 +56,14 @@
         android:layout_centerHorizontal="true"
         android:textStyle="bold"
         android:textSize="50dp" />
+
+    <ImageButton
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/ib_gpRight"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@id/pb_progress"
+        android:src="@drawable/ic_baseline_arrow_forward_ios_24"
+        android:background="@null"/>
 
 </RelativeLayout>

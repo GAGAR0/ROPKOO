@@ -29,13 +29,17 @@
             app:destination="@id/goalProgressFragment" />
         <action
             android:id="@+id/action_menuFragment_to_stepCounterFragment"
-            app:destination="@id/stepCounterFragment" />
+            app:destination="@id/stepCounterFragment"
+            app:launchSingleTop="false" />
         <action
             android:id="@+id/action_menuFragment_to_hydrationFragment"
             app:destination="@id/hydrationFragment" />
         <action
             android:id="@+id/action_menuFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
+        <argument
+            android:name="user"
+            app:argType="com.example.ropkoo.DB.User" />
     </fragment>
     <fragment
         android:id="@+id/createAccountFragment1"
@@ -141,5 +145,8 @@
         <action
             android:id="@+id/action_profileFragment_to_menuFragment"
             app:destination="@id/menuFragment" />
+        <argument
+            android:name="user"
+            app:argType="com.example.ropkoo.DB.User" />
     </fragment>
 </navigation>

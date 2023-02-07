@@ -31,6 +31,7 @@ class bodyInputFragment2 : Fragment() {
     var age: Int? = null
     var weight: Float? = null
     var height: Int? = null
+    var gender: String? = null
     var bodyInput1: Int? = null
     var bodyInput2: Int? = null
     lateinit var nameCheck: LiveData<List<User>>
@@ -55,14 +56,15 @@ class bodyInputFragment2 : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setFragmentResultListener("CAF1") { _, bundle ->
-             email = bundle.getString("email")
-             password = bundle.getString("password")}
+            email = bundle.getString("email")
+            password = bundle.getString("password")}
 
         setFragmentResultListener("CAF2") { _, bundle ->
              username = bundle.getString("username")
              age = bundle.getInt("age")
              weight = bundle.getFloat("weight")
-             height = bundle.getInt("height")}
+             height = bundle.getInt("height")
+             gender = bundle.getString("gender")}
 
         setFragmentResultListener("BIF1") { _, bundle ->
              bodyInput1 = bundle.getInt("bodyInput1") }
@@ -100,8 +102,10 @@ class bodyInputFragment2 : Fragment() {
 
     private fun insertData(){
         var goalId = getGoalId(bodyInput1!!, bodyInput2!!)
-        var user = User(null, goalId, username.toString(), email.toString(), password.toString(), age!!, weight!!, height!!)
+        var user = User(null, goalId, username.toString(), email.toString(), password.toString(), gender.toString(), age!!, weight!!, height!!)
         viewModel.addUser(user)
+        var session = Session(1, null)
+        viewModel.addSession(session)
         connectDatabases(username!!, password!!)
         /*connectDatabases(username.toString(), password.toString())
         setFragmentResultListener("connectDatabases") { _, bundle ->
@@ -182,8 +186,6 @@ class bodyInputFragment2 : Fragment() {
    private fun connectDatabases(username: String, password: String){
        nameCheck = viewModel.getLogin(username, password)!!
        observer = Observer { data ->
-
-
                  val indexName = data.toString().indexOf("name=")
                  val endIndexName = data.toString().indexOf(",", indexName)
                     if(indexName != -1 && endIndexName != -1){

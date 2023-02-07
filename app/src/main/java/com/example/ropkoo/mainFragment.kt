@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Looper
+import android.os.Parcelable
 import android.provider.SyncStateContract.Helpers.insert
 import android.text.TextUtils
 import android.util.Log
@@ -30,6 +31,7 @@ import kotlinx.coroutines.*
 
 class mainFragment : Fragment() {
     private lateinit var viewModel: UserViewModel
+    private lateinit var parcelable: Parcelable
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -121,16 +123,23 @@ class mainFragment : Fragment() {
                     if (dataName == username) {
                        (requireContext() as Activity).runOnUiThread {
                            Log.d("Login >", dataName)
-                           findNavController().navigate(R.id.action_mainFragment_to_menuFragment)
+                           findNavController().navigate(R.id.action_mainFragment_to_menuFragment)//findNavController().navigate(R.id.action_mainFragment_to_menuFragment)
                        }
                        val bundle1 = Bundle()
                        //bundle1.putString("DBUsername", nameCheck.toString())
+                        bundle1.putString("DBUserID", data.toString().substring(data.toString().indexOf("user_id=") + "user_id=".length, data.toString().indexOf(",", data.toString().indexOf("user_id="))))
                         bundle1.putString("DBUsername", data.toString().substring(data.toString().indexOf("name=") + "name=".length, data.toString().indexOf(",", data.toString().indexOf("name="))))
-                       bundle1.putString("DBAge", data.toString().substring(data.toString().indexOf("age=") + "age=".length, data.toString().indexOf(",", data.toString().indexOf("age="))))
-                      bundle1.putString("DBWeight", data.toString().substring(data.toString().indexOf("weight=") + "weight=".length, data.toString().indexOf(",", data.toString().indexOf("weight="))))
-                      bundle1.putString("DBHeight", data.toString().substring(data.toString().indexOf("height=") + "height=".length, data.toString().indexOf(")", data.toString().indexOf("height="))))
-                      setFragmentResult("MF", bundle1)
-
+                        bundle1.putString("DBPlan", data.toString().substring(data.toString().indexOf("goals_id=") + "goals_id=".length, data.toString().indexOf(",", data.toString().indexOf("goals_id="))))
+                        bundle1.putString("DBGender", data.toString().substring(data.toString().indexOf("gender=") + "gender=".length, data.toString().indexOf(",", data.toString().indexOf("gender="))))
+                        bundle1.putString("DBAge", data.toString().substring(data.toString().indexOf("age=") + "age=".length, data.toString().indexOf(",", data.toString().indexOf("age="))))
+                        bundle1.putString("DBWeight", data.toString().substring(data.toString().indexOf("weight=") + "weight=".length, data.toString().indexOf(",", data.toString().indexOf("weight="))))
+                        bundle1.putString("DBHeight", data.toString().substring(data.toString().indexOf("height=") + "height=".length, data.toString().indexOf(")", data.toString().indexOf("height="))))
+                        setFragmentResult("MF", bundle1)
+                        viewModel.userIdModel.value = data.toString().substring(data.toString().indexOf("user_id=") + "user_id=".length, data.toString().indexOf(",", data.toString().indexOf("user_id=")))
+                        Log.d("mainfrag>", viewModel.userIdModel.value.toString())
+                        Log.d("mainfrag>", viewModel.userIdModel.toString())
+                        var session = Session(1, data.toString().substring(data.toString().indexOf("user_id=") + "user_id=".length, data.toString().indexOf(",", data.toString().indexOf("user_id="))).toInt())
+                        viewModel.updateSession(session)
                     }
                 }else {
                     (requireContext() as Activity).runOnUiThread {

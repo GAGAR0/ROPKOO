@@ -77,7 +77,7 @@
         android:id="@+id/nadpis"
         android:layout_below="@+id/greennum"
         android:textColor="@color/koachGreen"
-        android:textSize="20dp"
+        android:textSize="25sp"
         android:layout_marginLeft="22.5dp"
         android:layout_marginRight="22.5dp"
         android:layout_marginTop="45dp"
@@ -86,13 +86,14 @@
 
     <EditText
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="35dp"
         android:hint="@string/enter"
         android:id="@+id/enter"
         android:layout_below="@+id/nadpis"
         android:background="@color/white"
         android:textColor="@color/black"
-        android:textSize="15dp"
+        android:textSize="15sp"
+        android:inputType="number"
         android:height="35dp"
         android:paddingLeft="10dp"
         android:layout_marginLeft="22.5dp"
@@ -108,8 +109,8 @@
         android:text="Add Calories"
         android:textColor="@color/white"
         android:layout_marginTop="15dp"
-        android:layout_marginLeft="150dp"
-        android:layout_marginRight="150dp"
+        android:layout_marginLeft="140dp"
+        android:layout_marginRight="140dp"
         android:backgroundTint="@color/koachGreen"
         android:gravity="center"/>
 

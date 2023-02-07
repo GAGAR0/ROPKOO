@@ -27,7 +27,7 @@
 
     <EditText
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:id="@+id/et_username"
         android:layout_below="@+id/name"
         android:hint="@string/et_enterUname"
@@ -52,12 +52,13 @@
 
     <EditText
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:id="@+id/et_age"
         android:layout_below="@+id/tv_age"
         android:hint="@string/et_enterAge"
         android:background="@color/white"
         android:layout_marginTop="12dp"
+        android:inputType="number"
         android:paddingLeft="10dp"
         android:layout_marginRight="22.5dp"
         android:height="40dp"
@@ -77,10 +78,11 @@
 
     <EditText
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:id="@+id/et_weight"
         android:layout_below="@+id/weight"
         android:hint="@string/et_enterCurrentWeight"
+        android:inputType="number"
         android:background="@color/white"
         android:layout_marginTop="12dp"
         android:paddingLeft="10dp"
@@ -102,10 +104,11 @@
 
     <EditText
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:id="@+id/et_height"
         android:layout_below="@+id/height"
         android:hint="@string/et_enterHeight"
+        android:inputType="number"
         android:background="@color/white"
         android:layout_marginTop="12dp"
         android:paddingLeft="10dp"
@@ -125,24 +128,41 @@
         android:layout_marginTop="18dp"
         android:textStyle="bold"/>
 
-    <Spinner
-        android:layout_width="match_parent"
+    <RadioGroup
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/spinner_gender"
-        android:layout_below="@+id/gender"
-        android:background="@color/white"
-        android:spinnerMode="dropdown"
-        android:layout_marginTop="12dp"
-        android:paddingLeft="10dp"
-        android:layout_marginRight="22.5dp"
-        android:height="40dp"
-        android:layout_marginLeft="22.5dp"/>
+        android:layout_below="@id/gender"
+        android:id="@+id/radioGroup"
+        android:layout_marginLeft="22.5dp"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/male"
+            android:id="@+id/rb_male"
+            android:checked="true"
+            android:textColor="@color/koachGreen"
+            android:textSize="20sp"
+            android:textStyle="bold">
+        </RadioButton>
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/female"
+            android:id="@+id/rb_female"
+            android:textColor="@color/koachGreen"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_marginLeft="20dp">
+        </RadioButton>
+    </RadioGroup>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_continue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/spinner_gender"
+        android:layout_below="@id/radioGroup"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="30dp"
         android:layout_marginTop="30dp"

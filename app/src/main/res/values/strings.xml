@@ -67,9 +67,6 @@
     <string name="water">0</string>
     <string name="ml">ml</string>
     <string name="totalwater">TOTAL</string>
-
-    <string-array name="genders">
-        <item>male</item>
-        <item>female</item>
-    </string-array>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
 </resources>

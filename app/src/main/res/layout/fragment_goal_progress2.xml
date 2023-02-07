@@ -52,6 +52,7 @@
         android:layout_width="345dp"
         android:id="@+id/et_current"
         android:background="@color/white"
+        android:inputType="number"
         android:layout_below="@+id/tv_current"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="25dp" />
