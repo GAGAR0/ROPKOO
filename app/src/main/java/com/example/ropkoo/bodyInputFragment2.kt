@@ -190,8 +190,8 @@ class bodyInputFragment2 : Fragment() {
                  val endIndexName = data.toString().indexOf(",", indexName)
                     if(indexName != -1 && endIndexName != -1){
                         val dataName = data.toString().substring(indexName + "name=".length, endIndexName)
-                        Log.d("data", data.toString())
-                        Log.d("InputData", username)
+                        Log.d("WriteDB1", data.toString())
+                        Log.d("WriteDB2", username)
 
                 if (dataName == username) {
                    //val bundle1 = Bundle()
@@ -199,7 +199,7 @@ class bodyInputFragment2 : Fragment() {
                     val endIndexId = data.toString().indexOf(",", indexId)
                     val dataId = data.toString().substring(indexId + "user_id=".length, endIndexId)
                     (requireContext() as Activity).runOnUiThread {
-                        Log.d("WriteDB", dataName)
+                        Log.d("WriteDB3", dataName)
                         val progress = Progress(null, dataId.toInt(), 0, 0, 0, 0, 0.0F, 0.0F)
                         viewModel.addProgress(progress)
                     }

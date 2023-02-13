@@ -64,7 +64,9 @@ class hydrationFragment : Fragment() {
         var ib_back : ImageButton = view.findViewById(R.id.ib_back)
         ib_back.setOnClickListener{
             Navigation.findNavController(view).navigate(R.id.action_hydrationFragment_to_menuFragment)
-            getSession()
+                exitSessionCheck()
+                exitProgressCheck()
+                getSession()
         }
 
         var addbtn : Button = view.findViewById(R.id.addbtn)
@@ -101,7 +103,6 @@ class hydrationFragment : Fragment() {
     private fun writeToDB(user_id: Int){
         ProgressCheck = viewModel.getProgress(user_id)!!
         observerProgress = Observer { dataIDe ->
-
              progress_id = dataIDe.toString().substring(dataIDe.toString().indexOf("progress_id=") + "progress_id=".length, dataIDe.toString().indexOf(",", dataIDe.toString().indexOf("progress_id=")))
              dailyCalories = dataIDe.toString().substring(dataIDe.toString().indexOf("dailyCalories=") + "dailyCalories=".length, dataIDe.toString().indexOf(",", dataIDe.toString().indexOf("dailyCalories=")))
              goalProgressPercentage = dataIDe.toString().substring(dataIDe.toString().indexOf("goalProgressPercentage=") + "goalProgressPercentage=".length, dataIDe.toString().indexOf(",", dataIDe.toString().indexOf("goalProgressPercentage=")))
@@ -124,5 +125,24 @@ class hydrationFragment : Fragment() {
     private fun addBig(){
         finalWater = waterIntake!!.toInt() + 500
 
+    }
+
+    //************************************************************************************************************
+    //************************************************************************************************************
+    //************************************************************************************************************
+
+
+    private fun exitProgressCheck(){
+        ProgressCheck = viewModel.getProgress(15)!!
+        observerProgress = Observer { data2 ->
+        }
+        ProgressCheck.observe(requireActivity(), observerProgress)
+    }
+
+    private fun exitSessionCheck(){
+        SessionCheck = viewModel.getCurrentSession()!!
+        observerSession = Observer { data ->
+        }
+        SessionCheck.observe(requireActivity(), observerSession)
     }
 }

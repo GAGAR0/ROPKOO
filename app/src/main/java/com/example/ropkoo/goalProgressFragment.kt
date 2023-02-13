@@ -27,6 +27,7 @@ import kotlinx.android.synthetic.main.fragment_goal_progress.*
 class goalProgressFragment : Fragment() {
 
     var DBUserID: Int? = null
+    var goalProgressPercentage: Int? = null
     private lateinit var progressBar: ProgressBar
 
     lateinit var SessionCheck: LiveData<List<Session>>
@@ -98,11 +99,13 @@ class goalProgressFragment : Fragment() {
         observer = Observer { data ->
             val indexSession = data.toString().indexOf("loggedUser_id=")
             val endIndexSession = data.toString().indexOf(")", indexSession)
+            if(indexSession != -1 && endIndexSession != -1){
+
                 val session = data.toString().substring(indexSession + "loggedUser_id=".length, endIndexSession)
                 DBUserID = session.toInt()
                 writeToDB(DBUserID!!)
 
-        }
+        }}
         SessionCheck.observe(requireActivity(), observer)
     }
 
@@ -110,11 +113,22 @@ class goalProgressFragment : Fragment() {
         IDCheck = viewModel.getProgress(user_id)!!
         observerProgress = Observer { dataIDe ->
 
-            val goalProgressPercentage = dataIDe.toString().substring(dataIDe.toString().indexOf("goalProgressPercentage=") + "goalProgressPercentage=".length, dataIDe.toString().indexOf(",", dataIDe.toString().indexOf("goalProgressPercentage=")))
 
-            //(requireContext() as Activity).runOnUiThread {
-                progressBar.progress = goalProgressPercentage.toInt()
-                tv_percent.setText(goalProgressPercentage)
+           // val indexGoal = dataIDe.toString().indexOf("loggedUser_id=")
+            //val endIndexGoal = dataIDe.toString().indexOf(")", indexGoal)
+
+                //if(indexGoal != -1 && endIndexGoal != -1) {
+                //goalProgressPercentage = dataIDe.toString().substring(indexGoal + "loggedUser_id=".length, endIndexGoal).toInt()
+            goalProgressPercentage = dataIDe.toString().substring(dataIDe.toString().indexOf("goalProgressPercentage=") + "goalProgressPercentage=".length, dataIDe.toString().indexOf(",", dataIDe.toString().indexOf("goalProgressPercentage="))).toInt()
+                    progressBar.progress = goalProgressPercentage!!
+                    tv_percent.setText(goalProgressPercentage!!.toString())
+           /* }else {
+                    progressBar.progress = 0
+                    tv_percent.setText("0")
+
+            }*/
+                //(requireContext() as Activity).runOnUiThread {
+
 
             //}
         }

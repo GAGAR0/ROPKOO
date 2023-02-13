@@ -34,6 +34,8 @@ class calorieCalculatorFragment : Fragment() {
     var dailyWeight: String? = null
     var weeklyWeight: String? = null
     var calorieCount: Int? = 0
+    var goalCalorieCount: Int? = 2000
+    var empty: Boolean = true
 
     var DBUserID: Int? = null
     lateinit var SessionCheck: LiveData<List<Session>>
@@ -58,13 +60,19 @@ class calorieCalculatorFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        greennum.setText(goalCalorieCount.toString())
+
         var ib_back : ImageButton = view.findViewById(R.id.ib_back)
         ib_back.setOnClickListener{
             Navigation.findNavController(view).navigate(R.id.action_calorieCalculatorFragment_to_menuFragment)
+            if (empty == true){
+            exitProgressCheck()
+            exitSessionCheck()}
         }
 
         var addcalories: Button = view.findViewById(R.id.addcalories)
         addcalories.setOnClickListener {
+            empty = false
             addCalories()
             caloriesAdd()
             rednum.setText(calorieCount.toString())
@@ -118,6 +126,26 @@ class calorieCalculatorFragment : Fragment() {
 
     private fun caloriesAdd(){
          calorieCount = calorieCount!!.toInt() + dailyCalories!!.toInt()
+    }
+
+
+    //************************************************************************************************************
+    //************************************************************************************************************
+    //************************************************************************************************************
+
+
+    private fun exitProgressCheck(){
+        ProgressCheck = viewModel.getProgress(15)!!
+        observerProgress = Observer { data2 ->
+        }
+        ProgressCheck.observe(requireActivity(), observerProgress)
+    }
+
+    private fun exitSessionCheck(){
+        SessionCheck = viewModel.getCurrentSession()!!
+        observerSession = Observer { data ->
+        }
+        SessionCheck.observe(requireActivity(), observerSession)
     }
 
 }

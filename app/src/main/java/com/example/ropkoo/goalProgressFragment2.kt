@@ -36,6 +36,7 @@ class goalProgressFragment2 : Fragment() {
     var startWeight: Float? = null
     var height: Int? = null
     var percentageProgress: Float? = null
+    var empty: Boolean = true
 
     lateinit var IDCheck: LiveData<List<Progress>>
     lateinit var observer: Observer<List<Progress>>
@@ -72,11 +73,16 @@ class goalProgressFragment2 : Fragment() {
         var ib_back: ImageButton = view.findViewById(R.id.ib_back)
         ib_back.setOnClickListener {
             Navigation.findNavController(view).navigate(R.id.action_goalProgressFragment2_to_goalProgressFragment)
+            if (empty == true){
+            exitIdCheck()
+            exitSessionCheck()
+            exitUserCheck()}
         }
 
         var bt_confirm: Button = view.findViewById(R.id.bt_confirm)
         bt_confirm.setOnClickListener {
             addWeight()
+            empty = false
         }
     }
 
@@ -104,7 +110,6 @@ class goalProgressFragment2 : Fragment() {
                 DBUserID = session.toInt()
                 getUserID(DBUserID!!)
                 writeToDB(DBUserID!!)
-
             }
         }
         SessionCheck.observe(requireActivity(), observerSession)
@@ -165,6 +170,35 @@ class goalProgressFragment2 : Fragment() {
         percentageProgress = 100 - ((yourpercent / fullpercent) * 100)
         Log.d("SHOWOUT6", percentageProgress.toString())
     }
+
+    //**********************************************************************************************************************
+    //**********************************************************************************************************************
+    //**********************************************************************************************************************
+
+
+    private fun exitIdCheck(){
+        IDCheck = viewModel.getProgress(15)!!
+        observer = Observer { dataIDe ->
+
+        }
+        IDCheck.observe(requireActivity(), observer)
+    }
+
+    private fun exitUserCheck(){
+        UserCheck = viewModel.getUserFromID(15)!!
+        observerUser = Observer { data2 ->
+        }
+        UserCheck.observe(requireActivity(), observerUser)
+    }
+
+    private fun exitSessionCheck(){
+        SessionCheck = viewModel.getCurrentSession()!!
+        observerSession = Observer { data ->
+        }
+        SessionCheck.observe(requireActivity(), observerSession)
+    }
+
+
 }
 
 
