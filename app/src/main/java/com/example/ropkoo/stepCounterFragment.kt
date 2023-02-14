@@ -76,8 +76,17 @@ class stepCounterFragment : Fragment(), SensorEventListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        sensorManager = requireContext().getSystemService(Context.SENSOR_SERVICE) as SensorManager
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            if (ContextCompat.checkSelfPermission(requireContext(),
+                    Manifest.permission.ACTIVITY_RECOGNITION)
+                != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(arrayOf(Manifest.permission.ACTIVITY_RECOGNITION),
+                    ACTIVITY_RECOGNITION_REQUEST_CODE)
+            }
+        }
+            sensorManager = requireContext().getSystemService(Context.SENSOR_SERVICE) as SensorManager
+
         return inflater.inflate(R.layout.fragment_step_counter, container, false)
     }
 
@@ -97,6 +106,15 @@ class stepCounterFragment : Fragment(), SensorEventListener {
         } else {
             // register listener with sensorManager
             sensorManager?.registerListener(this, stepSensor, SensorManager.SENSOR_DELAY_UI)
+        }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        var ib_back : ImageButton = view.findViewById(R.id.ib_back)
+        ib_back.setOnClickListener{
+            Navigation.findNavController(view).navigate(R.id.action_stepCounterFragment_to_menuFragment)
         }
     }
 

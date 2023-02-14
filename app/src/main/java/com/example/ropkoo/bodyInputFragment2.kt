@@ -35,12 +35,12 @@ class bodyInputFragment2 : Fragment() {
     var bodyInput1: Int? = null
     var bodyInput2: Int? = null
     lateinit var nameCheck: LiveData<List<User>>
-    lateinit var observer: Observer<List<User>>
+    lateinit var observerNe: Observer<List<User>>
     private lateinit var viewModel: UserViewModel
 
     override fun onStop() {
         super.onStop()
-        nameCheck.removeObserver(observer)
+        nameCheck.removeObserver(observerNe)
     }
 
     override fun onCreateView(
@@ -185,12 +185,13 @@ class bodyInputFragment2 : Fragment() {
    @SuppressLint("SuspiciousIndentation")
    private fun connectDatabases(username: String, password: String){
        nameCheck = viewModel.getLogin(username, password)!!
-       observer = Observer { data ->
+       Log.d("WriteDB1", "firstthingsfirst")
+       observerNe = Observer { data ->
                  val indexName = data.toString().indexOf("name=")
+           Log.d("WriteDB1", data.toString())
                  val endIndexName = data.toString().indexOf(",", indexName)
                     if(indexName != -1 && endIndexName != -1){
                         val dataName = data.toString().substring(indexName + "name=".length, endIndexName)
-                        Log.d("WriteDB1", data.toString())
                         Log.d("WriteDB2", username)
 
                 if (dataName == username) {
@@ -208,6 +209,6 @@ class bodyInputFragment2 : Fragment() {
                 }
         }
        }
-       nameCheck.observe(requireActivity(), observer)
+       nameCheck.observe(requireActivity(), observerNe)
 }
 }
