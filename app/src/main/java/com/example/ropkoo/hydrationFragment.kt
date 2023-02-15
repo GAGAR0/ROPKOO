@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -21,6 +22,7 @@ import com.example.ropkoo.DB.User
 import com.example.ropkoo.DB.UserViewModel
 import kotlinx.android.synthetic.main.fragment_goal_progress.*
 import kotlinx.android.synthetic.main.fragment_hydration.*
+import kotlinx.coroutines.delay
 import org.w3c.dom.Text
 
 
@@ -60,6 +62,11 @@ class hydrationFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         getSession()
+
+        /*Handler().postDelayed({ finalWater = waterIntake
+            tv_num.setText(finalWater!!.toString()) }, 200)*/
+
+
 
         var ib_back : ImageButton = view.findViewById(R.id.ib_back)
         ib_back.setOnClickListener{
@@ -111,7 +118,7 @@ class hydrationFragment : Fragment() {
              dailyWeight = dataIDe.toString().substring(dataIDe.toString().indexOf("dailyWeight=") + "dailyWeight=".length, dataIDe.toString().indexOf(",", dataIDe.toString().indexOf("dailyWeight=")))
              weeklyWeight = dataIDe.toString().substring(dataIDe.toString().indexOf("weeklyWeight=") + "weeklyWeight=".length, dataIDe.toString().indexOf(")", dataIDe.toString().indexOf("weeklyWeight=")))
             (requireContext() as Activity).runOnUiThread {
-                val updated = Progress(progress_id!!.toInt(), DBUserID, dailyCalories!!.toInt(),stepCounter!!.toInt(), finalWater!!.toInt(), goalProgressPercentage!!.toInt() , dailyWeight!!.toFloat(), weeklyWeight!!.toFloat())
+                val updated = Progress(progress_id!!.toInt(), DBUserID, dailyCalories!!.toInt(),stepCounter!!.toInt(), finalWater!!, goalProgressPercentage!!.toInt() , dailyWeight!!.toFloat(), weeklyWeight!!.toFloat())
                 viewModel.updateWeight(updated)
             }
         }
@@ -119,11 +126,11 @@ class hydrationFragment : Fragment() {
     }
 
     private fun addSmall(){
-        finalWater = waterIntake!!.toInt() + 300
+        finalWater = waterIntake!! + 300
     }
 
     private fun addBig(){
-        finalWater = waterIntake!!.toInt() + 500
+        finalWater = waterIntake!! + 500
 
     }
 

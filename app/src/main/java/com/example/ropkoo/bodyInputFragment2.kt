@@ -22,6 +22,7 @@ import kotlinx.coroutines.launch
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.LiveData
+import android.os.Handler
 
 class bodyInputFragment2 : Fragment() {
 
@@ -34,6 +35,7 @@ class bodyInputFragment2 : Fragment() {
     var gender: String? = null
     var bodyInput1: Int? = null
     var bodyInput2: Int? = null
+    var dataId: Int? = null
     lateinit var nameCheck: LiveData<List<User>>
     lateinit var observerNe: Observer<List<User>>
     private lateinit var viewModel: UserViewModel
@@ -77,26 +79,25 @@ class bodyInputFragment2 : Fragment() {
         btn_goal1.setOnClickListener{
              bodyInput2 = 1;
             insertData()
-            findNavController().navigate(R.id.action_bodyInputFragment2_to_mainFragment)
-            requireActivity().supportFragmentManager.popBackStack()
+            Handler().postDelayed({ Navigation.findNavController(view).navigate(R.id.action_bodyInputFragment2_to_mainFragment) }, 1000)
         }
         var btn_goal2 : Button = view.findViewById(R.id.btn_goal2)
         btn_goal2.setOnClickListener{
              bodyInput2 = 2;
             insertData()
-            Navigation.findNavController(view).navigate(R.id.action_bodyInputFragment2_to_mainFragment)
+            Handler().postDelayed({ Navigation.findNavController(view).navigate(R.id.action_bodyInputFragment2_to_mainFragment) }, 1000)
         }
         var btn_goal3 : Button = view.findViewById(R.id.btn_goal3)
         btn_goal3.setOnClickListener{
              bodyInput2 = 3;
             insertData()
-            Navigation.findNavController(view).navigate(R.id.action_bodyInputFragment2_to_mainFragment)
+            Handler().postDelayed({ Navigation.findNavController(view).navigate(R.id.action_bodyInputFragment2_to_mainFragment) }, 1000)
         }
         var btn_goal4 : Button = view.findViewById(R.id.btn_goal4)
         btn_goal4.setOnClickListener{
              bodyInput2 = 4;
             insertData()
-            Navigation.findNavController(view).navigate(R.id.action_bodyInputFragment2_to_mainFragment)
+            Handler().postDelayed({ Navigation.findNavController(view).navigate(R.id.action_bodyInputFragment2_to_mainFragment) }, 1000)
         }
     }
 
@@ -106,7 +107,11 @@ class bodyInputFragment2 : Fragment() {
         viewModel.addUser(user)
         var session = Session(1, null)
         viewModel.addSession(session)
-        connectDatabases(username!!, password!!)
+
+        (requireContext() as Activity).runOnUiThread {
+            connectDatabases(username!!, password!!)
+        }
+
         /*connectDatabases(username.toString(), password.toString())
         setFragmentResultListener("connectDatabases") { _, bundle ->
             var connectDatabaseID = bundle.getString("user_id")!!.toInt()
@@ -198,10 +203,10 @@ class bodyInputFragment2 : Fragment() {
                    //val bundle1 = Bundle()
                     val indexId = data.toString().indexOf("user_id=")
                     val endIndexId = data.toString().indexOf(",", indexId)
-                    val dataId = data.toString().substring(indexId + "user_id=".length, endIndexId)
+                     dataId = data.toString().substring(indexId + "user_id=".length, endIndexId).toInt()
                     (requireContext() as Activity).runOnUiThread {
                         Log.d("WriteDB3", dataName)
-                        val progress = Progress(null, dataId.toInt(), 0, 0, 0, 0, 0.0F, 0.0F)
+                        val progress = Progress(null, dataId!!, 0, 0, 0, 0, 0.0F, 0.0F)
                         viewModel.addProgress(progress)
                     }
                     //bundle1.putString("user_id", dataId)
@@ -209,6 +214,7 @@ class bodyInputFragment2 : Fragment() {
                 }
         }
        }
+       Log.d("WriteDB1", "lastthingslast")
        nameCheck.observe(requireActivity(), observerNe)
 }
 }

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.text.TextUtils
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -138,11 +139,12 @@ class goalProgressFragment2 : Fragment() {
              weeklyWeight = dataIDe.toString().substring(dataIDe.toString().indexOf("weeklyWeight=") + "weeklyWeight=".length, dataIDe.toString().indexOf(")", dataIDe.toString().indexOf("weeklyWeight="))).toFloat()
              Log.d("SHOWOUT1", goalProgressPercentage.toString())
             progressCalc()
-            Log.d("SHOWOUT2", percentageProgress.toString())
-            (requireContext() as Activity).runOnUiThread {
-                val updated = Progress(progress_id.toInt(), DBUserID, dailyCalories.toInt(),stepCounter.toInt(), waterIntake.toInt(), percentageProgress!!.toInt() , dailyWeight!!, weeklyWeight!!)
-                viewModel.updateWeight(updated)
-            }
+            Handler().postDelayed({ Log.d("SHOWOUT2", percentageProgress.toString())
+                (requireContext() as Activity).runOnUiThread {
+                    val updated = Progress(progress_id.toInt(), DBUserID, dailyCalories.toInt(),stepCounter.toInt(), waterIntake.toInt(), percentageProgress!!.toInt() , dailyWeight!!, weeklyWeight!!)
+                    viewModel.updateWeight(updated)
+                } }, 200)
+
         }
         IDCheck.observe(requireActivity(), observer)
     }
@@ -158,17 +160,18 @@ class goalProgressFragment2 : Fragment() {
     }
 
     private fun progressCalc(){
-        var bmi = bmi(startWeight!!.toFloat(), height!!.toFloat())
-        Log.d("SHOWOUT3", bmi.toString())
-        var currentBmi = currentBmi(dailyWeight!!.toFloat(), height!!.toFloat())
-        Log.d("SHOWOUT4", currentBmi.toString())
-        var goalbmi = bmi - 3
-        Log.d("SHOWOUT5", goalbmi.toString())
-        var fullpercent = bmi - goalbmi
-        var yourpercent = currentBmi - goalbmi
+            var bmi = bmi(startWeight!!.toFloat(), height!!.toFloat())
+            Log.d("SHOWOUT3", bmi.toString())
+            var currentBmi = currentBmi(dailyWeight!!.toFloat(), height!!.toFloat())
+            Log.d("SHOWOUT4", currentBmi.toString())
+            var goalbmi = bmi - 3
+            Log.d("SHOWOUT5", goalbmi.toString())
+            var fullpercent = bmi - goalbmi
+            var yourpercent = currentBmi - goalbmi
 
-        percentageProgress = 100 - ((yourpercent / fullpercent) * 100)
-        Log.d("SHOWOUT6", percentageProgress.toString())
+            percentageProgress = 100 - ((yourpercent / fullpercent) * 100)
+            Log.d("SHOWOUT6", percentageProgress.toString())
+
     }
 
     //**********************************************************************************************************************

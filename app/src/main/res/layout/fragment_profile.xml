@@ -26,7 +26,7 @@
         android:id="@+id/foto"
         android:layout_below="@+id/profile"
         android:layout_marginTop="10dp"
-        android:layout_marginLeft="150dp"
+        android:layout_centerHorizontal="true"
         android:src="@drawable/ic_baseline_person_24"/>
 
     <TextView
@@ -37,6 +37,7 @@
         android:layout_below="@+id/foto"
         android:textColor="@color/koachGreen"
         android:textSize="30dp"
+        android:layout_centerHorizontal="true"
         android:layout_marginLeft="22.5dp"
         android:layout_marginRight="22.5dp"
         android:layout_marginTop="10dp"
@@ -52,9 +53,10 @@
         android:textColor="@color/koachGreen"
         android:textSize="30dp"
         android:layout_marginLeft="120dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginRight="0dp"
         android:layout_marginTop="60dp"
-        android:gravity="center_horizontal"/>
+        android:gravity="center_horizontal"
+        android:layout_centerHorizontal="true"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -65,22 +67,22 @@
         android:layout_toRightOf="@+id/age"
         android:textColor="@color/koachGreen"
         android:textSize="30dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="22.5dp"
-        android:layout_marginTop="60dp"
-        android:gravity="center"/>
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="10.5dp"
+        android:layout_marginTop="60dp" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/gender"
         android:id="@+id/gender"
-        android:layout_below="@+id/age"
+        android:layout_below="@+id/BMI"
         android:textColor="@color/koachGreen"
         android:textSize="30dp"
         android:layout_marginLeft="22.5dp"
         android:layout_marginRight="22.5dp"
         android:layout_marginTop="0dp"
+        android:layout_centerHorizontal="true"
         android:gravity="center"/>
 
     <TextView
@@ -88,23 +90,23 @@
         android:layout_height="wrap_content"
         android:text="@string/weight"
         android:id="@+id/weight"
-        android:layout_below="@+id/gender"
+        android:layout_below="@+id/age"
         android:textColor="@color/koachGreen"
         android:textSize="30dp"
         android:layout_marginLeft="165dp"
         android:layout_marginRight="10dp"
-        android:gravity="center_horizontal"/>
+        android:layout_centerHorizontal="true"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/kg"
         android:id="@+id/kg"
-        android:layout_below="@+id/gender"
+        android:layout_below="@+id/age"
         android:layout_toRightOf="@+id/weight"
         android:textColor="@color/koachGreen"
         android:textSize="30dp"
-        android:layout_marginLeft="5dp"
+        android:layout_marginLeft="45dp"
         android:layout_marginRight="22.5dp"
         android:gravity="center"/>
 
@@ -118,7 +120,7 @@
         android:textSize="30dp"
         android:layout_marginLeft="150dp"
         android:layout_marginRight="10dp"
-        android:gravity="center_horizontal"/>
+        android:layout_centerHorizontal="true"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -129,7 +131,7 @@
         android:layout_toRightOf="@+id/height"
         android:textColor="@color/koachGreen"
         android:textSize="30dp"
-        android:layout_marginLeft="5dp"
+        android:layout_marginLeft="45dp"
         android:layout_marginRight="22.5dp"
         android:gravity="center"/>
 
@@ -138,36 +140,36 @@
         android:layout_height="wrap_content"
         android:text="@string/plan"
         android:id="@+id/plan"
-        android:layout_below="@+id/height"
+        android:layout_below="@+id/gender"
         android:textColor="@color/koachGreen"
         android:textSize="30dp"
         android:layout_marginLeft="22.5dp"
         android:layout_marginRight="22.5dp"
         android:layout_marginTop="0dp"
-        android:gravity="center"/>
+        android:gravity="center" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/bmi"
         android:id="@+id/BMI"
-        android:layout_below="@+id/plan"
+        android:layout_below="@+id/height"
         android:textColor="@color/koachGreen"
         android:textSize="30dp"
         android:layout_marginLeft="140dp"
         android:layout_marginRight="10dp"
-        android:gravity="center_horizontal"/>
+        android:layout_centerHorizontal="true"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/numb"
         android:id="@+id/numb"
-        android:layout_below="@+id/plan"
+        android:layout_below="@+id/height"
         android:layout_toRightOf="@+id/height"
         android:textColor="@color/koachGreen"
         android:textSize="30dp"
-        android:layout_marginLeft="0dp"
+        android:layout_marginLeft="45dp"
         android:layout_marginRight="22.5dp"
         android:gravity="center"/>
 

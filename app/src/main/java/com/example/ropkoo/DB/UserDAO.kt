@@ -55,6 +55,7 @@ interface UserDAO {
     @Query("UPDATE progress_table SET dailyWeight = :currentWeight WHERE userId = :user_id")
     fun updateWeight(currentWeight: Float, user_id: Int)
 
+
     /*@Transaction
     @Query("SELECT * FROM user_table JOIN goal_table ON user_table.goals_id = goal_table.goals_id")
     fun getUserWithGoals(): List<UserWithGoals>*/
