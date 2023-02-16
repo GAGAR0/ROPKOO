@@ -24,10 +24,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val name = "Channel Name"
-            val descriptionText = "Channel Description"
+            val name = "Hydration Reminder"
+            val descriptionText = "Reminder to drink water"
             val importance = NotificationManager.IMPORTANCE_DEFAULT
-            val channel = NotificationChannel("channel_id", name, importance).apply {
+            val channel = NotificationChannel("notification", name, importance).apply {
                 description = descriptionText
             }
             val notificationManager: NotificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager

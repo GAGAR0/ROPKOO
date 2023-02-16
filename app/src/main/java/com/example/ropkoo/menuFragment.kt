@@ -1,5 +1,8 @@
 package com.example.ropkoo
 
+import android.app.AlarmManager
+import android.app.PendingIntent
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.Layout.Directions
@@ -22,6 +25,7 @@ import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
 import com.example.ropkoo.DB.User
 import com.example.ropkoo.DB.UserViewModel
+import java.util.*
 
 
 class menuFragment : Fragment() {
@@ -33,6 +37,8 @@ class menuFragment : Fragment() {
     var height: Int? = null
     var gender: String? = null
     var email: String? = null
+
+    private lateinit var alarmManager: AlarmManager
    /* lateinit var getUserId: String
     lateinit var observer: Observer<String>*/
 
@@ -49,12 +55,16 @@ class menuFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+        alarmManager = requireContext().getSystemService(Context.ALARM_SERVICE) as AlarmManager
         viewModel = ViewModelProvider(this).get(UserViewModel::class.java)
         return inflater.inflate(R.layout.fragment_menu, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        scheduleResetData(requireContext())
+
 
         Log.d("menu1> ", "1")
         setFragmentResultListener("MF") { _, bundle ->
@@ -123,6 +133,27 @@ class menuFragment : Fragment() {
             Navigation.findNavController(view).navigate(R.id.action_menuFragment_to_hydrationFragment)
         }
 
+    }
+//rename to hydrationNotification
+    fun scheduleResetData(context: Context) {
+        val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val intent = Intent(context, ResetBroadcastReceiver::class.java)
+        val pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+        Log.d("onReceive", "scheduleReset")
+        val calendar = Calendar.getInstance().apply {
+            timeInMillis = System.currentTimeMillis()
+            set(Calendar.HOUR_OF_DAY, 18)
+            set(Calendar.MINUTE, 47)
+            set(Calendar.SECOND, 0)
+            add(Calendar.DAY_OF_YEAR, 1)
+        }
+
+        alarmManager.setRepeating(
+            AlarmManager.RTC_WAKEUP,
+            calendar.timeInMillis,
+            AlarmManager.INTERVAL_HOUR,
+            pendingIntent
+        )
     }
 
 }

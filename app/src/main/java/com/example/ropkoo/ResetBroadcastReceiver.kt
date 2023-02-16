@@ -31,7 +31,7 @@ class ResetBroadcastReceiver : BroadcastReceiver(){
             val repository = UserRepository(context)
             repository.readAllData
         }*/
-        val builder = NotificationCompat.Builder(context!!, "channel_id")
+        val builder = NotificationCompat.Builder(context!!, "notification")
             .setSmallIcon(R.drawable.koachlogoblack)
             .setContentTitle("Reminder to drink some water!")
             .setStyle(NotificationCompat.BigTextStyle().bigText("Keeping hydrated is the most important thing while losing weight!"))

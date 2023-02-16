@@ -5,6 +5,7 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -62,32 +63,41 @@ class hydrationFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         getSession()
+        Log.d("hydration", "enter")
+
+        Handler().postDelayed({ finalWater = waterIntake
+                                tv_num.setText(finalWater!!.toString()) }, 200)
+
+        Log.d("hydration", "setText")
 
         /*Handler().postDelayed({ finalWater = waterIntake
             tv_num.setText(finalWater!!.toString()) }, 200)*/
 
-
-
         var ib_back : ImageButton = view.findViewById(R.id.ib_back)
         ib_back.setOnClickListener{
-            Navigation.findNavController(view).navigate(R.id.action_hydrationFragment_to_menuFragment)
+            (requireContext() as Activity).runOnUiThread {
+                Log.d("hydration", "EXIT")
+                val updated = Progress(progress_id!!.toInt(), DBUserID, dailyCalories!!.toInt(),stepCounter!!.toInt(), finalWater!!, goalProgressPercentage!!.toInt() , dailyWeight!!.toFloat(), weeklyWeight!!.toFloat())
+                viewModel.updateWeight(updated)
+            }
+            Handler().postDelayed({ Navigation.findNavController(view).navigate(R.id.action_hydrationFragment_to_menuFragment) }, 200)
                 exitSessionCheck()
                 exitProgressCheck()
-                getSession()
         }
 
         var addbtn : Button = view.findViewById(R.id.addbtn)
         addbtn.setOnClickListener{
             addSmall()
+            Log.d("hydration", "btnsmall")
             tv_num.setText(finalWater!!.toString())
-            getSession()
+
         }
 
         var addbtn2 : Button = view.findViewById(R.id.addbtn2)
         addbtn2.setOnClickListener{
             addBig()
+            Log.d("hydration", "btnbig")
             tv_num.setText(finalWater!!.toString())
-            getSession()
         }
 
 
@@ -102,13 +112,13 @@ class hydrationFragment : Fragment() {
             val session = data.toString().substring(indexSession + "loggedUser_id=".length, endIndexSession)
             DBUserID = session.toInt()
             writeToDB(DBUserID!!)
-
         }
         SessionCheck.observe(requireActivity(), observerSession)
     }
 
     private fun writeToDB(user_id: Int){
         ProgressCheck = viewModel.getProgress(user_id)!!
+        Log.d("hydration", "1")
         observerProgress = Observer { dataIDe ->
              progress_id = dataIDe.toString().substring(dataIDe.toString().indexOf("progress_id=") + "progress_id=".length, dataIDe.toString().indexOf(",", dataIDe.toString().indexOf("progress_id=")))
              dailyCalories = dataIDe.toString().substring(dataIDe.toString().indexOf("dailyCalories=") + "dailyCalories=".length, dataIDe.toString().indexOf(",", dataIDe.toString().indexOf("dailyCalories=")))
@@ -117,20 +127,20 @@ class hydrationFragment : Fragment() {
              waterIntake = dataIDe.toString().substring(dataIDe.toString().indexOf("waterIntake=") + "waterIntake=".length, dataIDe.toString().indexOf(",", dataIDe.toString().indexOf("waterIntake="))).toInt()
              dailyWeight = dataIDe.toString().substring(dataIDe.toString().indexOf("dailyWeight=") + "dailyWeight=".length, dataIDe.toString().indexOf(",", dataIDe.toString().indexOf("dailyWeight=")))
              weeklyWeight = dataIDe.toString().substring(dataIDe.toString().indexOf("weeklyWeight=") + "weeklyWeight=".length, dataIDe.toString().indexOf(")", dataIDe.toString().indexOf("weeklyWeight=")))
-            (requireContext() as Activity).runOnUiThread {
-                val updated = Progress(progress_id!!.toInt(), DBUserID, dailyCalories!!.toInt(),stepCounter!!.toInt(), finalWater!!, goalProgressPercentage!!.toInt() , dailyWeight!!.toFloat(), weeklyWeight!!.toFloat())
-                viewModel.updateWeight(updated)
-            }
+            Log.d("hydration", "3")
         }
+        Log.d("hydration", "2")
         ProgressCheck.observe(requireActivity(), observerProgress)
     }
 
     private fun addSmall(){
-        finalWater = waterIntake!! + 300
+        Log.d("hydration", "small")
+        finalWater = finalWater!! + 300
     }
 
     private fun addBig(){
-        finalWater = waterIntake!! + 500
+        Log.d("hydration", "big")
+        finalWater = finalWater!! + 500
 
     }
 
@@ -148,6 +158,7 @@ class hydrationFragment : Fragment() {
 
     private fun exitSessionCheck(){
         SessionCheck = viewModel.getCurrentSession()!!
+        Log.d("hydration", "exitSessionCheck")
         observerSession = Observer { data ->
         }
         SessionCheck.observe(requireActivity(), observerSession)

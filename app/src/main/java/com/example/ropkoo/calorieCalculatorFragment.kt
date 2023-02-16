@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.text.TextUtils
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -21,16 +22,17 @@ import com.example.ropkoo.DB.Session
 import com.example.ropkoo.DB.UserViewModel
 import kotlinx.android.synthetic.main.fragment_calorie_calculator.*
 import kotlinx.android.synthetic.main.fragment_goal_progress2.*
+import kotlinx.android.synthetic.main.fragment_hydration.*
 import java.lang.Float
 
 
 class calorieCalculatorFragment : Fragment() {
     private lateinit var viewModel: UserViewModel
     var progress_id: String? = null
-    var dailyCalories: Int? = null
+    var dailyCalories: String? = null
     var goalProgressPercentage: String? = null
     var stepCounter: String? = null
-    var waterIntake: Int? = 0
+    var waterIntake: Int? = null
     var dailyWeight: String? = null
     var weeklyWeight: String? = null
     var calorieCount: Int? = 0
@@ -62,6 +64,11 @@ class calorieCalculatorFragment : Fragment() {
 
         greennum.setText(goalCalorieCount.toString())
 
+        getSession()
+
+        Handler().postDelayed({ rednum.setText(calorieCount.toString()) }, 200)
+
+
         var ib_back : ImageButton = view.findViewById(R.id.ib_back)
         ib_back.setOnClickListener{
             Navigation.findNavController(view).navigate(R.id.action_calorieCalculatorFragment_to_menuFragment)
@@ -74,23 +81,27 @@ class calorieCalculatorFragment : Fragment() {
         addcalories.setOnClickListener {
             empty = false
             addCalories()
-            caloriesAdd()
             rednum.setText(calorieCount.toString())
         }
     }
 
 
     private fun addCalories() {
-        dailyCalories = enter.text.toString().toInt()
-        if (inputCheck(dailyWeight.toString())) {
-            getSession()
+        var calories = enter.text.toString()
+        if(inputCheck(calories)) {
+            dailyCalories = calories
+            caloriesAdd()
+            (requireContext() as Activity).runOnUiThread {
+                val updated = Progress(progress_id!!.toInt(), DBUserID, calorieCount!!.toInt(),stepCounter!!.toInt(), waterIntake!!, goalProgressPercentage!!.toInt() , dailyWeight!!.toFloat(), weeklyWeight!!.toFloat())
+                viewModel.updateWeight(updated)
+            }
         } else {
             Toast.makeText(requireContext(), "Fill out all the fields!", Toast.LENGTH_SHORT).show()
         }
     }
 
-    private fun inputCheck(dailyWeight: String): Boolean {
-        return !(TextUtils.isEmpty(dailyWeight))
+    private fun inputCheck(dailyCalories: String): Boolean {
+        return !(TextUtils.isEmpty(dailyCalories.trim()))
     }
 
     @SuppressLint("SuspiciousIndentation")
@@ -109,17 +120,13 @@ class calorieCalculatorFragment : Fragment() {
     private fun writeToDB(user_id: Int){
         ProgressCheck = viewModel.getProgress(user_id)!!
         observerProgress = Observer { dataIDe ->
-
+            calorieCount = dataIDe.toString().substring(dataIDe.toString().indexOf("dailyCalories=") + "dailyCalories=".length, dataIDe.toString().indexOf(",", dataIDe.toString().indexOf("dailyCalories="))).toInt()
             progress_id = dataIDe.toString().substring(dataIDe.toString().indexOf("progress_id=") + "progress_id=".length, dataIDe.toString().indexOf(",", dataIDe.toString().indexOf("progress_id=")))
             goalProgressPercentage = dataIDe.toString().substring(dataIDe.toString().indexOf("goalProgressPercentage=") + "goalProgressPercentage=".length, dataIDe.toString().indexOf(",", dataIDe.toString().indexOf("goalProgressPercentage=")))
             stepCounter = dataIDe.toString().substring(dataIDe.toString().indexOf("stepCount=") + "stepCount=".length, dataIDe.toString().indexOf(",", dataIDe.toString().indexOf("stepCount=")))
             waterIntake = dataIDe.toString().substring(dataIDe.toString().indexOf("waterIntake=") + "waterIntake=".length, dataIDe.toString().indexOf(",", dataIDe.toString().indexOf("waterIntake="))).toInt()
             dailyWeight = dataIDe.toString().substring(dataIDe.toString().indexOf("dailyWeight=") + "dailyWeight=".length, dataIDe.toString().indexOf(",", dataIDe.toString().indexOf("dailyWeight=")))
             weeklyWeight = dataIDe.toString().substring(dataIDe.toString().indexOf("weeklyWeight=") + "weeklyWeight=".length, dataIDe.toString().indexOf(")", dataIDe.toString().indexOf("weeklyWeight=")))
-            (requireContext() as Activity).runOnUiThread {
-                val updated = Progress(progress_id!!.toInt(), DBUserID, calorieCount!!.toInt(),stepCounter!!.toInt(), waterIntake!!, goalProgressPercentage!!.toInt() , dailyWeight!!.toFloat(), weeklyWeight!!.toFloat())
-                viewModel.updateWeight(updated)
-            }
         }
         ProgressCheck.observe(requireActivity(), observerProgress)
     }

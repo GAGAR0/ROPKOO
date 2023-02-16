@@ -94,7 +94,7 @@ class stepCounterFragment : Fragment(), SensorEventListener {
    // lateinit var observerReset: Observer<List<Progress>>
     //************************************************
     //timer
-    private lateinit var alarmManager: AlarmManager
+
    /* private lateinit var resetStepCountPendingIntent: PendingIntent*/
 
 
@@ -143,7 +143,6 @@ class stepCounterFragment : Fragment(), SensorEventListener {
             resetStepCount()
         }, delayMillis)*/
 
-        alarmManager = requireContext().getSystemService(Context.ALARM_SERVICE) as AlarmManager
         /*resetStepCountPendingIntent = getResetStepCountPendingIntent(requireContext())*/
 
         /*val database = Room.databaseBuilder(requireContext(), UserDatabase::class.java, "user_database").build()
@@ -153,7 +152,7 @@ class stepCounterFragment : Fragment(), SensorEventListener {
             Log.d("observeForever", it.toString())
         }*/
 
-       scheduleResetData(requireContext())
+
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACTIVITY_RECOGNITION) != PackageManager.PERMISSION_GRANTED)
@@ -290,25 +289,6 @@ class stepCounterFragment : Fragment(), SensorEventListener {
         )
     }}*/
 
-    fun scheduleResetData(context: Context) {
-        val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        val intent = Intent(context, ResetBroadcastReceiver::class.java)
-        val pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
-        Log.d("onReceive", "scheduleReset")
-        val calendar = Calendar.getInstance().apply {
-            timeInMillis = System.currentTimeMillis()
-            set(Calendar.HOUR_OF_DAY, 18)
-            set(Calendar.MINUTE, 47)
-            set(Calendar.SECOND, 0)
-            //add(Calendar.DAY_OF_YEAR, 1)
-        }
 
-        alarmManager.setRepeating(
-            AlarmManager.RTC_WAKEUP,
-            calendar.timeInMillis,
-            AlarmManager.INTERVAL_DAY,
-            pendingIntent
-        )
-    }
 
 }
