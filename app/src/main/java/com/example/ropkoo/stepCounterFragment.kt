@@ -95,7 +95,7 @@ class stepCounterFragment : Fragment(), SensorEventListener {
     //************************************************
     //timer
     private lateinit var alarmManager: AlarmManager
-    private lateinit var resetStepCountPendingIntent: PendingIntent
+   /* private lateinit var resetStepCountPendingIntent: PendingIntent*/
 
 
 
@@ -107,11 +107,11 @@ class stepCounterFragment : Fragment(), SensorEventListener {
        // ProgressCheck.removeObserver(observerReset)
     }
 
-    override fun onDestroyView() {
+    /*override fun onDestroyView() {
         Log.d("onReceive", "onDestroy")
         alarmManager.cancel(resetStepCountPendingIntent)
         super.onDestroyView()
-    }
+    }*/
 
     private var sensorManager: SensorManager? = null
 
@@ -144,14 +144,14 @@ class stepCounterFragment : Fragment(), SensorEventListener {
         }, delayMillis)*/
 
         alarmManager = requireContext().getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        resetStepCountPendingIntent = getResetStepCountPendingIntent(requireContext())
+        /*resetStepCountPendingIntent = getResetStepCountPendingIntent(requireContext())*/
 
-        val database = Room.databaseBuilder(requireContext(), UserDatabase::class.java, "user_database").build()
+        /*val database = Room.databaseBuilder(requireContext(), UserDatabase::class.java, "user_database").build()
         val dataDao = database.userDAO()
 
         dataDao.getCurrentSession().observeForever{
             Log.d("observeForever", it.toString())
-        }
+        }*/
 
        scheduleResetData(requireContext())
 
@@ -279,7 +279,7 @@ class stepCounterFragment : Fragment(), SensorEventListener {
         ProgressCheck.observe(requireActivity(), observerReset)
     }*/
 
-    companion object{
+    /*companion object{
     const val RESET_STEP_COUNT_ACTION = "com.example.app.ropkoo"
     private fun getResetStepCountPendingIntent(context: Context): PendingIntent {
         val intent = Intent(context, ResetBroadcastReceiver::class.java).apply {
@@ -288,7 +288,7 @@ class stepCounterFragment : Fragment(), SensorEventListener {
         Log.d("onReceive", "companion")
         return PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT
         )
-    }}
+    }}*/
 
     fun scheduleResetData(context: Context) {
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
@@ -297,8 +297,8 @@ class stepCounterFragment : Fragment(), SensorEventListener {
         Log.d("onReceive", "scheduleReset")
         val calendar = Calendar.getInstance().apply {
             timeInMillis = System.currentTimeMillis()
-            set(Calendar.HOUR_OF_DAY, 8)
-            set(Calendar.MINUTE, 50)
+            set(Calendar.HOUR_OF_DAY, 18)
+            set(Calendar.MINUTE, 47)
             set(Calendar.SECOND, 0)
             //add(Calendar.DAY_OF_YEAR, 1)
         }
