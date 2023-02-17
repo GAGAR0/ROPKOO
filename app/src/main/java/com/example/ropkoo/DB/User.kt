@@ -3,7 +3,7 @@ package com.example.ropkoo.DB
 import android.os.Parcelable
 import androidx.annotation.NonNull
 import androidx.room.*
-import com.example.ropkoo.bodyInputFragment1
+
 import com.example.ropkoo.bodyInputFragment2
 import java.util.Locale.Category
 import androidx.room.ForeignKey
@@ -44,7 +44,8 @@ data class Progress(
     val waterIntake: Int,
     val goalProgressPercentage: Int,
     val dailyWeight: Float,
-    val weeklyWeight: Float
+    val weeklyWeight: Float,
+    val date: Long?
 ): Parcelable
 
 @Entity(tableName = "currentsession_table", foreignKeys = [ForeignKey(entity = User::class, parentColumns = ["user_id"], childColumns = ["loggedUser_id"])])

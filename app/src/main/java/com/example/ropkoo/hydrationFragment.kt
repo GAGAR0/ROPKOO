@@ -25,6 +25,7 @@ import kotlinx.android.synthetic.main.fragment_goal_progress.*
 import kotlinx.android.synthetic.main.fragment_hydration.*
 import kotlinx.coroutines.delay
 import org.w3c.dom.Text
+import java.util.*
 
 
 class hydrationFragment : Fragment() {
@@ -37,7 +38,8 @@ class hydrationFragment : Fragment() {
     var dailyWeight: String? = null
     var weeklyWeight: String? = null
     var finalWater: Int? = 0
-
+    var date: Long? = null
+    var dateToday: Long? = null
     var DBUserID: Int? = null
     lateinit var SessionCheck: LiveData<List<Session>>
     lateinit var observerSession: Observer<List<Session>>
@@ -64,7 +66,18 @@ class hydrationFragment : Fragment() {
 
         getSession()
         Log.d("hydration", "enter")
-
+        Handler().postDelayed({
+            Log.d("date", date.toString())
+            Log.d("date", dateToday.toString())
+            getDay()
+            if(date!!.toString().compareTo(dateToday!!.toString()) != 0){
+                date = dateToday
+                finalWater = 0
+                (requireContext() as Activity).runOnUiThread {
+                    val updated = Progress(progress_id!!.toInt(), DBUserID, dailyCalories!!.toInt(),stepCounter!!.toInt(), finalWater!!, goalProgressPercentage!!.toInt() , dailyWeight!!.toFloat(), weeklyWeight!!.toFloat(), date)
+                    viewModel.updateWeight(updated)
+                }
+            } }, 200)
         Handler().postDelayed({ finalWater = waterIntake
                                 tv_num.setText(finalWater!!.toString()) }, 200)
 
@@ -77,7 +90,7 @@ class hydrationFragment : Fragment() {
         ib_back.setOnClickListener{
             (requireContext() as Activity).runOnUiThread {
                 Log.d("hydration", "EXIT")
-                val updated = Progress(progress_id!!.toInt(), DBUserID, dailyCalories!!.toInt(),stepCounter!!.toInt(), finalWater!!, goalProgressPercentage!!.toInt() , dailyWeight!!.toFloat(), weeklyWeight!!.toFloat())
+                val updated = Progress(progress_id!!.toInt(), DBUserID, dailyCalories!!.toInt(),stepCounter!!.toInt(), finalWater!!, goalProgressPercentage!!.toInt() , dailyWeight!!.toFloat(), weeklyWeight!!.toFloat(), date)
                 viewModel.updateWeight(updated)
             }
             Handler().postDelayed({ Navigation.findNavController(view).navigate(R.id.action_hydrationFragment_to_menuFragment) }, 200)
@@ -126,7 +139,9 @@ class hydrationFragment : Fragment() {
              stepCounter = dataIDe.toString().substring(dataIDe.toString().indexOf("stepCount=") + "stepCount=".length, dataIDe.toString().indexOf(",", dataIDe.toString().indexOf("stepCount=")))
              waterIntake = dataIDe.toString().substring(dataIDe.toString().indexOf("waterIntake=") + "waterIntake=".length, dataIDe.toString().indexOf(",", dataIDe.toString().indexOf("waterIntake="))).toInt()
              dailyWeight = dataIDe.toString().substring(dataIDe.toString().indexOf("dailyWeight=") + "dailyWeight=".length, dataIDe.toString().indexOf(",", dataIDe.toString().indexOf("dailyWeight=")))
-             weeklyWeight = dataIDe.toString().substring(dataIDe.toString().indexOf("weeklyWeight=") + "weeklyWeight=".length, dataIDe.toString().indexOf(")", dataIDe.toString().indexOf("weeklyWeight=")))
+             weeklyWeight = dataIDe.toString().substring(dataIDe.toString().indexOf("weeklyWeight=") + "weeklyWeight=".length, dataIDe.toString().indexOf(",", dataIDe.toString().indexOf("weeklyWeight=")))
+            date = dataIDe.toString().substring(dataIDe.toString().indexOf("date=") + "date=".length, dataIDe.toString().indexOf(")", dataIDe.toString().indexOf("date="))).toLong()
+
             Log.d("hydration", "3")
         }
         Log.d("hydration", "2")
@@ -162,5 +177,17 @@ class hydrationFragment : Fragment() {
         observerSession = Observer { data ->
         }
         SessionCheck.observe(requireActivity(), observerSession)
+    }
+
+    @SuppressLint("SuspiciousIndentation")
+    private fun getDay(){
+        val today = Calendar.getInstance()
+        today.set(Calendar.HOUR_OF_DAY, 0)
+        today.set(Calendar.MINUTE, 0)
+        today.set(Calendar.SECOND, 0)
+        today.set(Calendar.MILLISECOND, 0)
+        val date = today.time
+        dateToday = date.time
+
     }
 }

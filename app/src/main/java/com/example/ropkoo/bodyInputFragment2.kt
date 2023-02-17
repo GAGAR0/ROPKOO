@@ -23,6 +23,8 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.LiveData
 import android.os.Handler
+import android.widget.ImageButton
+import java.util.*
 
 class bodyInputFragment2 : Fragment() {
 
@@ -36,6 +38,7 @@ class bodyInputFragment2 : Fragment() {
     var bodyInput1: Int? = null
     var bodyInput2: Int? = null
     var dataId: Int? = null
+    var dateFinal: Long? = null
     lateinit var nameCheck: LiveData<List<User>>
     lateinit var observerNe: Observer<List<User>>
     private lateinit var viewModel: UserViewModel
@@ -68,32 +71,29 @@ class bodyInputFragment2 : Fragment() {
              height = bundle.getInt("height")
              gender = bundle.getString("gender")}
 
-        setFragmentResultListener("BIF1") { _, bundle ->
-             bodyInput1 = bundle.getInt("bodyInput1") }
-
        /* setFragmentResultListener("connectDatabases") { _, bundle ->
              connectDatabaseID = bundle.getInt("user_id")
         }*/
 
-        var btn_goal1 : Button = view.findViewById(R.id.btn_goal1)
+        var btn_goal1 : ImageButton = view.findViewById(R.id.btn_goal1)
         btn_goal1.setOnClickListener{
              bodyInput2 = 1;
             insertData()
             Handler().postDelayed({ Navigation.findNavController(view).navigate(R.id.action_bodyInputFragment2_to_mainFragment) }, 1000)
         }
-        var btn_goal2 : Button = view.findViewById(R.id.btn_goal2)
+        var btn_goal2 : ImageButton = view.findViewById(R.id.btn_goal2)
         btn_goal2.setOnClickListener{
              bodyInput2 = 2;
             insertData()
             Handler().postDelayed({ Navigation.findNavController(view).navigate(R.id.action_bodyInputFragment2_to_mainFragment) }, 1000)
         }
-        var btn_goal3 : Button = view.findViewById(R.id.btn_goal3)
+        var btn_goal3 : ImageButton = view.findViewById(R.id.btn_goal3)
         btn_goal3.setOnClickListener{
              bodyInput2 = 3;
             insertData()
             Handler().postDelayed({ Navigation.findNavController(view).navigate(R.id.action_bodyInputFragment2_to_mainFragment) }, 1000)
         }
-        var btn_goal4 : Button = view.findViewById(R.id.btn_goal4)
+        var btn_goal4 : ImageButton = view.findViewById(R.id.btn_goal4)
         btn_goal4.setOnClickListener{
              bodyInput2 = 4;
             insertData()
@@ -102,7 +102,8 @@ class bodyInputFragment2 : Fragment() {
     }
 
     private fun insertData(){
-        var goalId = getGoalId(bodyInput1!!, bodyInput2!!)
+
+        var goalId = getGoalId(bmi(weight!!.toFloat(), height!!.toFloat())!!, bodyInput2!!)
         var user = User(null, goalId, username.toString(), email.toString(), password.toString(), gender.toString(), age!!, weight!!, height!!)
         viewModel.addUser(user)
         var session = Session(1, null)
@@ -118,6 +119,31 @@ class bodyInputFragment2 : Fragment() {
         }*/
     }
 
+    private fun bmi(weight: Float, height: Float): Int{
+        val bmicalc = weight / ((height/100) * (height/100))
+        if (bmicalc < 19){
+            return 1
+        }
+        else if (bmicalc >= 19 && bmicalc < 25){
+            return 2
+        }
+        else if (bmicalc >= 25 && bmicalc < 30){
+            return 3
+        }
+        else return 4
+
+    }
+    @SuppressLint("SuspiciousIndentation")
+    private fun getDay(){
+         val today = Calendar.getInstance()
+             today.set(Calendar.HOUR_OF_DAY, 0)
+             today.set(Calendar.MINUTE, 0)
+             today.set(Calendar.SECOND, 0)
+             today.set(Calendar.MILLISECOND, 0)
+        val date = today.time
+        dateFinal = date.time
+
+    }
 
     private fun getGoalId(Body1: Int, Body2: Int): Int{
         if(Body1 == 1 && Body2 == 1){
@@ -190,6 +216,7 @@ class bodyInputFragment2 : Fragment() {
    @SuppressLint("SuspiciousIndentation")
    private fun connectDatabases(username: String, password: String){
        nameCheck = viewModel.getLogin(username, password)!!
+       getDay()
        Log.d("WriteDB1", "firstthingsfirst")
        observerNe = Observer { data ->
                  val indexName = data.toString().indexOf("name=")
@@ -206,7 +233,7 @@ class bodyInputFragment2 : Fragment() {
                      dataId = data.toString().substring(indexId + "user_id=".length, endIndexId).toInt()
                     (requireContext() as Activity).runOnUiThread {
                         Log.d("WriteDB3", dataName)
-                        val progress = Progress(null, dataId!!, 0, 0, 0, 0, 0.0F, 0.0F)
+                        val progress = Progress(null, dataId!!, 0, 0, 0, 0, 0.0F, 0.0F, dateFinal)
                         viewModel.addProgress(progress)
                     }
                     //bundle1.putString("user_id", dataId)

@@ -24,6 +24,7 @@ import com.example.ropkoo.DB.Progress
 import com.example.ropkoo.DB.Session
 import com.example.ropkoo.DB.User
 import com.example.ropkoo.DB.UserViewModel
+import kotlinx.android.synthetic.main.fragment_goal_progress.*
 import kotlinx.android.synthetic.main.fragment_goal_progress2.*
 import kotlinx.android.synthetic.main.fragment_main.*
 import java.lang.Float.parseFloat
@@ -83,13 +84,15 @@ class goalProgressFragment2 : Fragment() {
         var bt_confirm: Button = view.findViewById(R.id.bt_confirm)
         bt_confirm.setOnClickListener {
             addWeight()
-            empty = false
         }
     }
 
     private fun addWeight() {
-        dailyWeight = parseFloat(et_current.text.toString())
-        if (inputCheck(dailyWeight.toString())) {
+        var quick = et_current.text.toString()
+
+        if (inputCheck(quick)) {
+            dailyWeight = quick.toFloat()
+            empty = false
             getSession()
         } else {
             Toast.makeText(requireContext(), "Fill out all the fields!", Toast.LENGTH_SHORT).show()
@@ -136,12 +139,22 @@ class goalProgressFragment2 : Fragment() {
             var stepCounter = dataIDe.toString().substring(dataIDe.toString().indexOf("stepCount=") + "stepCount=".length, dataIDe.toString().indexOf(",", dataIDe.toString().indexOf("stepCount=")))
             var waterIntake = dataIDe.toString().substring(dataIDe.toString().indexOf("waterIntake=") + "waterIntake=".length, dataIDe.toString().indexOf(",", dataIDe.toString().indexOf("waterIntake=")))
             var goalProgressPercentage = dataIDe.toString().substring(dataIDe.toString().indexOf("goalProgressPercentage=") + "goalProgressPercentage=".length, dataIDe.toString().indexOf(",", dataIDe.toString().indexOf("goalProgressPercentage=")))
-             weeklyWeight = dataIDe.toString().substring(dataIDe.toString().indexOf("weeklyWeight=") + "weeklyWeight=".length, dataIDe.toString().indexOf(")", dataIDe.toString().indexOf("weeklyWeight="))).toFloat()
+            var date = dataIDe.toString().substring(dataIDe.toString().indexOf("date=") + "date=".length, dataIDe.toString().indexOf(")", dataIDe.toString().indexOf("date=")))
+            weeklyWeight = dataIDe.toString().substring(dataIDe.toString().indexOf("weeklyWeight=") + "weeklyWeight=".length, dataIDe.toString().indexOf(",", dataIDe.toString().indexOf("weeklyWeight="))).toFloat()
              Log.d("SHOWOUT1", goalProgressPercentage.toString())
             progressCalc()
             Handler().postDelayed({ Log.d("SHOWOUT2", percentageProgress.toString())
                 (requireContext() as Activity).runOnUiThread {
-                    val updated = Progress(progress_id.toInt(), DBUserID, dailyCalories.toInt(),stepCounter.toInt(), waterIntake.toInt(), percentageProgress!!.toInt() , dailyWeight!!, weeklyWeight!!)
+                    if(percentageProgress!! > 100){
+                        percentageProgress = 100f
+                    }
+                    else if(percentageProgress!! < 100 && percentageProgress!! > 0){
+                        percentageProgress = percentageProgress!!
+                    }
+                    else{
+                        percentageProgress = 0f
+                    }
+                    val updated = Progress(progress_id.toInt(), DBUserID, dailyCalories.toInt(),stepCounter.toInt(), waterIntake.toInt(), percentageProgress!!.toInt() , dailyWeight!!, weeklyWeight!!, date.toLong())
                     viewModel.updateWeight(updated)
                 } }, 200)
 
@@ -160,6 +173,7 @@ class goalProgressFragment2 : Fragment() {
     }
 
     private fun progressCalc(){
+        Handler().postDelayed({
             var bmi = bmi(startWeight!!.toFloat(), height!!.toFloat())
             Log.d("SHOWOUT3", bmi.toString())
             var currentBmi = currentBmi(dailyWeight!!.toFloat(), height!!.toFloat())
@@ -171,7 +185,7 @@ class goalProgressFragment2 : Fragment() {
 
             percentageProgress = 100 - ((yourpercent / fullpercent) * 100)
             Log.d("SHOWOUT6", percentageProgress.toString())
-
+                              }, 200)
     }
 
     //**********************************************************************************************************************

@@ -25,52 +25,55 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
         android:id="@+id/gl_grid1"
         android:rowCount="2"
         android:columnCount="2">
-        <Button
-            android:layout_width="180dp"
+        <ImageButton
+            android:layout_width="170dp"
             android:layout_height="210dp"
-            android:backgroundTint="@color/background"
+            android:backgroundTint="@color/koachBlue"
             android:layout_margin="5dp"
             android:id="@+id/btn_goal1"
-            android:text="@string/btn_bodyInpGoal1"
+            android:src="@drawable/loseweight"
             android:textSize="30dp"
             android:textColor="@color/koachGreen"
             android:layout_row="0"
             android:layout_column="0"/>
-        <Button
-            android:layout_width="180dp"
+        <ImageButton
+            android:layout_width="170dp"
             android:layout_height="210dp"
             android:backgroundTint="@color/background"
+
             android:layout_margin="5dp"
             android:id="@+id/btn_goal2"
-            android:text="@string/btn_bodyInpGoal2"
+            android:src="@drawable/gainweight"
             android:textSize="30dp"
             android:textColor="@color/koachGreen"
             android:layout_row="0"
             android:layout_column="1"/>
-        <Button
-            android:layout_width="180dp"
+        <ImageButton
+            android:layout_width="170dp"
             android:layout_height="210dp"
             android:backgroundTint="@color/background"
             android:layout_margin="5dp"
             android:id="@+id/btn_goal3"
-            android:text="@string/btn_bodyInpGoal3"
+            android:src="@drawable/maintain"
             android:textSize="30dp"
+            android:paddingBottom="40dp"
             android:textColor="@color/koachGreen"
             android:layout_row="1"
             android:layout_column="0"/>
 
-        <Button
-            android:layout_width="180dp"
+        <ImageButton
+            android:layout_width="170dp"
             android:layout_height="210dp"
             android:layout_row="1"
             android:layout_column="1"
             android:layout_margin="5dp"
             android:id="@+id/btn_goal4"
-            android:backgroundTint="@color/background"
-            android:text="@string/btn_bodyInpGoal4"
+            android:backgroundTint="@color/koachBlue"
+            android:src="@drawable/arm"
             android:textColor="@color/koachGreen"
             android:textSize="30dp"
             android:layout_gravity="bottom"/>

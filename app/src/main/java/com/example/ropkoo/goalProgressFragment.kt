@@ -122,9 +122,18 @@ class goalProgressFragment : Fragment() {
 
                 //if(indexGoal != -1 && endIndexGoal != -1) {
                 //goalProgressPercentage = dataIDe.toString().substring(indexGoal + "loggedUser_id=".length, endIndexGoal).toInt()
-            goalProgressPercentage = dataIDe.toString().substring(dataIDe.toString().indexOf("goalProgressPercentage=") + "goalProgressPercentage=".length, dataIDe.toString().indexOf(",", dataIDe.toString().indexOf("goalProgressPercentage="))).toInt()
+                    goalProgressPercentage = dataIDe.toString().substring(dataIDe.toString().indexOf("goalProgressPercentage=") + "goalProgressPercentage=".length, dataIDe.toString().indexOf(",", dataIDe.toString().indexOf("goalProgressPercentage="))).toInt()
                     progressBar.progress = goalProgressPercentage!!
+                   /* if(goalProgressPercentage!! > 100){
+                        tv_percent.setText("100")
+                    }
+                    else if(goalProgressPercentage!! < 100 && goalProgressPercentage!! > 0){*/
                     tv_percent.setText(goalProgressPercentage!!.toString())
+                   /* }
+                    else{
+                        tv_percent.setText("0")
+                    }*/
+
            /* }else {
                     progressBar.progress = 0
                     tv_percent.setText("0")

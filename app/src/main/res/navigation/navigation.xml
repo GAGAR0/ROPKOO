@@ -59,35 +59,28 @@
         android:label="fragment_create_account2"
         tools:layout="@layout/fragment_create_account2" >
         <action
-            android:id="@+id/action_createAccountFragment2_to_bodyInputFragment1"
-            app:destination="@id/bodyInputFragment1" />
-        <action
             android:id="@+id/action_createAccountFragment2_to_createAccountFragment1"
             app:destination="@id/createAccountFragment1" />
+        <action
+            android:id="@+id/action_createAccountFragment2_to_bodyInputFragment2"
+            app:destination="@id/bodyInputFragment2" />
     </fragment>
     <fragment
         android:id="@+id/bodyInputFragment1"
         android:name="com.example.ropkoo.bodyInputFragment1"
         android:label="fragment_body_input1"
-        tools:layout="@layout/fragment_body_input1" >
-        <action
-            android:id="@+id/action_bodyInputFragment1_to_bodyInputFragment2"
-            app:destination="@id/bodyInputFragment2" />
-        <action
-            android:id="@+id/action_bodyInputFragment1_to_createAccountFragment2"
-            app:destination="@id/createAccountFragment2" />
-    </fragment>
+        tools:layout="@layout/fragment_body_input1" />
     <fragment
         android:id="@+id/bodyInputFragment2"
         android:name="com.example.ropkoo.bodyInputFragment2"
         android:label="fragment_body_input2"
         tools:layout="@layout/fragment_body_input2" >
         <action
-            android:id="@+id/action_bodyInputFragment2_to_bodyInputFragment1"
-            app:destination="@id/bodyInputFragment1" />
-        <action
             android:id="@+id/action_bodyInputFragment2_to_mainFragment"
             app:destination="@id/mainFragment" />
+        <action
+            android:id="@+id/action_bodyInputFragment2_to_createAccountFragment2"
+            app:destination="@id/createAccountFragment2" />
     </fragment>
     <fragment
         android:id="@+id/calorieCalculatorFragment"

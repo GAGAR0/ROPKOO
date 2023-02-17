@@ -98,76 +98,76 @@ class profileFragment : Fragment() {
             val firstPart = "Skinny"
             if (planID == 1){
                 val secondPart = "Lose Weight"
-                planResult = firstPart + " => " + secondPart
+                planResult = secondPart
             }
             else if (planID == 2){
                 val secondPart = "Gain Weight"
-                planResult = firstPart + " => " + secondPart
+                planResult = secondPart
             }
             else if (planID == 3){
                 val secondPart = "Maintain Weight"
-                planResult = firstPart + " => " + secondPart
+                planResult = secondPart
             }
             else{
                 val secondPart = "Gain Muscle"
-                planResult = firstPart + " => " + secondPart
+                planResult = secondPart
             }
         }
         else if (planID in 5..8){
             var firstPart = "Normal"
             if (planID == 5){
                 val secondPart = "Lose Weight"
-                planResult = firstPart + " => " + secondPart
+                planResult = secondPart
             }
             else if (planID == 6){
                 val secondPart = "Gain Weight"
-                planResult = firstPart + " => " + secondPart
+                planResult = secondPart
             }
             else if (planID == 7){
                 val secondPart = "Maintain Weight"
-                planResult = firstPart + " => " + secondPart
+                planResult = secondPart
             }
             else{
                 val secondPart = "Gain Muscle"
-                planResult = firstPart + " => " + secondPart
+                planResult = secondPart
             }
         }
         else if (planID in 9..12){
             var firstPart = "Plump"
             if (planID == 9){
                 val secondPart = "Lose Weight"
-                planResult = firstPart + " => " + secondPart
+                planResult = secondPart
             }
             else if (planID == 10){
                 val secondPart = "Gain Weight"
-                planResult = firstPart + " => " + secondPart
+                planResult = secondPart
             }
             else if (planID == 11){
                 val secondPart = "Maintain Weight"
-                planResult = firstPart + " => " + secondPart
+                planResult = secondPart
             }
             else{
                 val secondPart = "Gain Muscle"
-                planResult = firstPart + " => " + secondPart
+                planResult = secondPart
             }
         }
         else if (planID in 13..16){
             var firstPart = "Overweight"
             if (planID == 13){
                 val secondPart = "Lose Weight"
-                planResult = firstPart + " => " + secondPart
+                planResult = secondPart
             }
             else if (planID == 14){
                 val secondPart = "Gain Weight"
-                planResult = firstPart + " => " + secondPart
+                planResult = secondPart
             }
             else if (planID == 15){
                 val secondPart = "Maintain Weight"
-                planResult = firstPart + " => " + secondPart
+                planResult = secondPart
             }
             else{
                 val secondPart = "Gain Muscle"
-                planResult = firstPart + " => " + secondPart
+                planResult = secondPart
             }
         }
         return planResult

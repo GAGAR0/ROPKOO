@@ -123,6 +123,7 @@ class stepCounterFragment : Fragment(), SensorEventListener {
     var stepsCounted: Int? = null
     var currentSteps: Int? = null
     var finalSteps: Int? = 0
+    var date: Long? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -241,10 +242,12 @@ class stepCounterFragment : Fragment(), SensorEventListener {
             stepCounter = dataIDe.toString().substring(dataIDe.toString().indexOf("stepCount=") + "stepCount=".length, dataIDe.toString().indexOf(",", dataIDe.toString().indexOf("stepCount=")))
             waterIntake = dataIDe.toString().substring(dataIDe.toString().indexOf("waterIntake=") + "waterIntake=".length, dataIDe.toString().indexOf(",", dataIDe.toString().indexOf("waterIntake="))).toInt()
             dailyWeight = dataIDe.toString().substring(dataIDe.toString().indexOf("dailyWeight=") + "dailyWeight=".length, dataIDe.toString().indexOf(",", dataIDe.toString().indexOf("dailyWeight=")))
-            weeklyWeight = dataIDe.toString().substring(dataIDe.toString().indexOf("weeklyWeight=") + "weeklyWeight=".length, dataIDe.toString().indexOf(")", dataIDe.toString().indexOf("weeklyWeight=")))
+            weeklyWeight = dataIDe.toString().substring(dataIDe.toString().indexOf("weeklyWeight=") + "weeklyWeight=".length, dataIDe.toString().indexOf(",", dataIDe.toString().indexOf("weeklyWeight=")))
+            date = dataIDe.toString().substring(dataIDe.toString().indexOf("date=") + "date=".length, dataIDe.toString().indexOf(")", dataIDe.toString().indexOf("date="))).toLong()
+
             if (stepCounter!!.toInt() == 0){
             (requireContext() as Activity).runOnUiThread {
-                val updated = Progress(progress_id!!.toInt(), DBUserID, dailyCalories!!.toInt(),currentSteps!!.toInt(), waterIntake!!.toInt(), goalProgressPercentage!!.toInt() , dailyWeight!!.toFloat(), weeklyWeight!!.toFloat())
+                val updated = Progress(progress_id!!.toInt(), DBUserID, dailyCalories!!.toInt(),currentSteps!!.toInt(), waterIntake!!.toInt(), goalProgressPercentage!!.toInt() , dailyWeight!!.toFloat(), weeklyWeight!!.toFloat(), date)
                 viewModel.updateWeight(updated)
                 stepsCounted = stepCounter!!.toInt()
                 finalSteps = currentSteps!!-stepsCounted!!

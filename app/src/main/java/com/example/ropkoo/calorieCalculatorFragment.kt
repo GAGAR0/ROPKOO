@@ -6,6 +6,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.text.TextUtils
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -24,6 +25,7 @@ import kotlinx.android.synthetic.main.fragment_calorie_calculator.*
 import kotlinx.android.synthetic.main.fragment_goal_progress2.*
 import kotlinx.android.synthetic.main.fragment_hydration.*
 import java.lang.Float
+import java.util.*
 
 
 class calorieCalculatorFragment : Fragment() {
@@ -38,7 +40,9 @@ class calorieCalculatorFragment : Fragment() {
     var calorieCount: Int? = 0
     var goalCalorieCount: Int? = 2000
     var empty: Boolean = true
-
+    var date: Long? = null
+    var dateToday: Long? = null
+    var session: Int? = null
     var DBUserID: Int? = null
     lateinit var SessionCheck: LiveData<List<Session>>
     lateinit var observerSession: Observer<List<Session>>
@@ -59,12 +63,29 @@ class calorieCalculatorFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_calorie_calculator, container, false)
     }
 
+    @SuppressLint("SuspiciousIndentation")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         greennum.setText(goalCalorieCount.toString())
 
+
+
         getSession()
+
+        Handler().postDelayed({
+            Log.d("date", date.toString())
+            Log.d("date", dateToday.toString())
+            getDay()
+            if(date!!.toString().compareTo(dateToday!!.toString()) != 0){
+            date = dateToday
+            calorieCount = 0
+                (requireContext() as Activity).runOnUiThread {
+                    val updated = Progress(progress_id!!.toInt(), DBUserID, calorieCount!!.toInt(),stepCounter!!.toInt(), waterIntake!!, goalProgressPercentage!!.toInt() , dailyWeight!!.toFloat(), weeklyWeight!!.toFloat(), date)
+                    viewModel.updateWeight(updated)
+                }
+                } }, 200)
+
 
         Handler().postDelayed({ rednum.setText(calorieCount.toString()) }, 200)
 
@@ -92,7 +113,7 @@ class calorieCalculatorFragment : Fragment() {
             dailyCalories = calories
             caloriesAdd()
             (requireContext() as Activity).runOnUiThread {
-                val updated = Progress(progress_id!!.toInt(), DBUserID, calorieCount!!.toInt(),stepCounter!!.toInt(), waterIntake!!, goalProgressPercentage!!.toInt() , dailyWeight!!.toFloat(), weeklyWeight!!.toFloat())
+                val updated = Progress(progress_id!!.toInt(), DBUserID, calorieCount!!.toInt(),stepCounter!!.toInt(), waterIntake!!, goalProgressPercentage!!.toInt() , dailyWeight!!.toFloat(), weeklyWeight!!.toFloat(), date)
                 viewModel.updateWeight(updated)
             }
         } else {
@@ -110,8 +131,15 @@ class calorieCalculatorFragment : Fragment() {
         observerSession = Observer { data ->
             val indexSession = data.toString().indexOf("loggedUser_id=")
             val endIndexSession = data.toString().indexOf(")", indexSession)
-            val session = data.toString().substring(indexSession + "loggedUser_id=".length, endIndexSession)
-            DBUserID = session.toInt()
+            session = data.toString().substring(indexSession + "loggedUser_id=".length, endIndexSession).toInt()
+
+            /*val indexDate = data.toString().indexOf("date=")
+            val endIndexDate = data.toString().indexOf(")", indexDate)
+            Log.d("dateIndex", indexDate.toString())
+             date = data.toString().substring(indexDate + "date=".length, endIndexDate).toLong()
+            Log.d("dateSource", date.toString())*/
+
+            DBUserID = session!!
             writeToDB(DBUserID!!)
         }
         SessionCheck.observe(requireActivity(), observerSession)
@@ -126,7 +154,8 @@ class calorieCalculatorFragment : Fragment() {
             stepCounter = dataIDe.toString().substring(dataIDe.toString().indexOf("stepCount=") + "stepCount=".length, dataIDe.toString().indexOf(",", dataIDe.toString().indexOf("stepCount=")))
             waterIntake = dataIDe.toString().substring(dataIDe.toString().indexOf("waterIntake=") + "waterIntake=".length, dataIDe.toString().indexOf(",", dataIDe.toString().indexOf("waterIntake="))).toInt()
             dailyWeight = dataIDe.toString().substring(dataIDe.toString().indexOf("dailyWeight=") + "dailyWeight=".length, dataIDe.toString().indexOf(",", dataIDe.toString().indexOf("dailyWeight=")))
-            weeklyWeight = dataIDe.toString().substring(dataIDe.toString().indexOf("weeklyWeight=") + "weeklyWeight=".length, dataIDe.toString().indexOf(")", dataIDe.toString().indexOf("weeklyWeight=")))
+            date = dataIDe.toString().substring(dataIDe.toString().indexOf("date=") + "date=".length, dataIDe.toString().indexOf(")", dataIDe.toString().indexOf("date="))).toLong()
+            weeklyWeight = dataIDe.toString().substring(dataIDe.toString().indexOf("weeklyWeight=") + "weeklyWeight=".length, dataIDe.toString().indexOf(",", dataIDe.toString().indexOf("weeklyWeight=")))
         }
         ProgressCheck.observe(requireActivity(), observerProgress)
     }
@@ -153,6 +182,18 @@ class calorieCalculatorFragment : Fragment() {
         observerSession = Observer { data ->
         }
         SessionCheck.observe(requireActivity(), observerSession)
+    }
+
+    @SuppressLint("SuspiciousIndentation")
+    private fun getDay(){
+        val today = Calendar.getInstance()
+        today.set(Calendar.HOUR_OF_DAY, 0)
+        today.set(Calendar.MINUTE, 0)
+        today.set(Calendar.SECOND, 0)
+        today.set(Calendar.MILLISECOND, 0)
+        val date = today.time
+        dateToday = date.time
+
     }
 
 }

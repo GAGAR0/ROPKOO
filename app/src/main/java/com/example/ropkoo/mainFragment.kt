@@ -5,6 +5,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.os.Looper
 import android.os.Parcelable
 import android.provider.SyncStateContract.Helpers.insert
@@ -23,10 +24,13 @@ import kotlinx.android.synthetic.main.fragment_main.*
 import android.widget.ListAdapter
 import androidx.fragment.app.setFragmentResult
 import androidx.lifecycle.*
+import androidx.lifecycle.Observer
 import com.example.ropkoo.DB.*
+import kotlinx.android.synthetic.main.fragment_calorie_calculator.*
 import kotlinx.android.synthetic.main.fragment_create_account2.*
 import kotlinx.android.synthetic.main.fragment_profile.*
 import kotlinx.coroutines.*
+import java.util.*
 
 
 class mainFragment : Fragment() {
@@ -54,8 +58,7 @@ class mainFragment : Fragment() {
         }
         var btn_register: Button = view.findViewById(R.id.btn_register)
         btn_register.setOnClickListener {
-            Navigation.findNavController(view)
-                .navigate(R.id.action_mainFragment_to_createAccountFragment1)
+            Navigation.findNavController(view).navigate(R.id.action_mainFragment_to_createAccountFragment1)
         }
     }
 
@@ -121,10 +124,9 @@ class mainFragment : Fragment() {
                 val dataName = data.toString().substring(indexName + "name=".length, endIndexName)
 
                     if (dataName == username) {
-                       (requireContext() as Activity).runOnUiThread {
-                           Log.d("Login >", dataName)
-                           findNavController().navigate(R.id.action_mainFragment_to_menuFragment)//findNavController().navigate(R.id.action_mainFragment_to_menuFragment)
-                       }
+                            (requireContext() as Activity).runOnUiThread {
+                                findNavController().navigate(R.id.action_mainFragment_to_menuFragment)
+                            }
                        val bundle1 = Bundle()
                        //bundle1.putString("DBUsername", nameCheck.toString())
                         bundle1.putString("DBUserID", data.toString().substring(data.toString().indexOf("user_id=") + "user_id=".length, data.toString().indexOf(",", data.toString().indexOf("user_id="))))
@@ -136,10 +138,11 @@ class mainFragment : Fragment() {
                         bundle1.putString("DBHeight", data.toString().substring(data.toString().indexOf("height=") + "height=".length, data.toString().indexOf(")", data.toString().indexOf("height="))))
                         setFragmentResult("MF", bundle1)
                         viewModel.userIdModel.value = data.toString().substring(data.toString().indexOf("user_id=") + "user_id=".length, data.toString().indexOf(",", data.toString().indexOf("user_id=")))
-                        Log.d("mainfrag>", viewModel.userIdModel.value.toString())
-                        Log.d("mainfrag>", viewModel.userIdModel.toString())
+
                         var session = Session(1, data.toString().substring(data.toString().indexOf("user_id=") + "user_id=".length, data.toString().indexOf(",", data.toString().indexOf("user_id="))).toInt())
                         viewModel.updateSession(session)
+
+
                     }
                 }else {
                     (requireContext() as Activity).runOnUiThread {
@@ -152,6 +155,8 @@ class mainFragment : Fragment() {
                 }
         })
     }
+
+
    /* private fun setUser() {
         viewModel.readAllData.observe(viewLifecycleOwner, Observer { userList ->
                 var getAllUserData = viewModel.readAllData.value
@@ -184,6 +189,8 @@ class mainFragment : Fragment() {
             Toast.makeText(requireContext(), "Fill out all the fields!", Toast.LENGTH_SHORT).show()
         }
     }*/
+
+
 }
 
 

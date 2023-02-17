@@ -74,7 +74,7 @@ class createAccountFragment2 : Fragment() {
             bundle1.putString("gender", gender)
             setFragmentResult("CAF2", bundle1)
 
-            findNavController().navigate(R.id.action_createAccountFragment2_to_bodyInputFragment1)
+            findNavController().navigate(R.id.action_createAccountFragment2_to_bodyInputFragment2)
         }
         else{
             Toast.makeText(requireContext(), "Fill out all the fields!", Toast.LENGTH_SHORT).show()
