@@ -39,7 +39,6 @@ class hydrationFragment : Fragment() {
     var weeklyWeight: String? = null
     var finalWater: Int? = 0
     var date: Long? = null
-    var dateToday: Long? = null
     var DBUserID: Int? = null
     lateinit var SessionCheck: LiveData<List<Session>>
     lateinit var observerSession: Observer<List<Session>>
@@ -66,18 +65,7 @@ class hydrationFragment : Fragment() {
 
         getSession()
         Log.d("hydration", "enter")
-        Handler().postDelayed({
-            Log.d("date", date.toString())
-            Log.d("date", dateToday.toString())
-            getDay()
-            if(date!!.toString().compareTo(dateToday!!.toString()) != 0){
-                date = dateToday
-                finalWater = 0
-                (requireContext() as Activity).runOnUiThread {
-                    val updated = Progress(progress_id!!.toInt(), DBUserID, dailyCalories!!.toInt(),stepCounter!!.toInt(), finalWater!!, goalProgressPercentage!!.toInt() , dailyWeight!!.toFloat(), weeklyWeight!!.toFloat(), date)
-                    viewModel.updateWeight(updated)
-                }
-            } }, 200)
+
         Handler().postDelayed({ finalWater = waterIntake
                                 tv_num.setText(finalWater!!.toString()) }, 200)
 
@@ -179,15 +167,5 @@ class hydrationFragment : Fragment() {
         SessionCheck.observe(requireActivity(), observerSession)
     }
 
-    @SuppressLint("SuspiciousIndentation")
-    private fun getDay(){
-        val today = Calendar.getInstance()
-        today.set(Calendar.HOUR_OF_DAY, 0)
-        today.set(Calendar.MINUTE, 0)
-        today.set(Calendar.SECOND, 0)
-        today.set(Calendar.MILLISECOND, 0)
-        val date = today.time
-        dateToday = date.time
 
-    }
 }

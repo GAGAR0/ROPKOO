@@ -73,19 +73,6 @@ class calorieCalculatorFragment : Fragment() {
 
         getSession()
 
-        Handler().postDelayed({
-            Log.d("date", date.toString())
-            Log.d("date", dateToday.toString())
-            getDay()
-            if(date!!.toString().compareTo(dateToday!!.toString()) != 0){
-            date = dateToday
-            calorieCount = 0
-                (requireContext() as Activity).runOnUiThread {
-                    val updated = Progress(progress_id!!.toInt(), DBUserID, calorieCount!!.toInt(),stepCounter!!.toInt(), waterIntake!!, goalProgressPercentage!!.toInt() , dailyWeight!!.toFloat(), weeklyWeight!!.toFloat(), date)
-                    viewModel.updateWeight(updated)
-                }
-                } }, 200)
-
 
         Handler().postDelayed({ rednum.setText(calorieCount.toString()) }, 200)
 
@@ -183,17 +170,4 @@ class calorieCalculatorFragment : Fragment() {
         }
         SessionCheck.observe(requireActivity(), observerSession)
     }
-
-    @SuppressLint("SuspiciousIndentation")
-    private fun getDay(){
-        val today = Calendar.getInstance()
-        today.set(Calendar.HOUR_OF_DAY, 0)
-        today.set(Calendar.MINUTE, 0)
-        today.set(Calendar.SECOND, 0)
-        today.set(Calendar.MILLISECOND, 0)
-        val date = today.time
-        dateToday = date.time
-
-    }
-
 }
