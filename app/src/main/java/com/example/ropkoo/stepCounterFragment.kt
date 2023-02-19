@@ -216,8 +216,7 @@ class stepCounterFragment : Fragment(), SensorEventListener {
         }
     }
 
-    override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
-    }
+    override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {}
 
     @SuppressLint("SuspiciousIndentation")
     private fun getSession(){

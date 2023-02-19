@@ -31,18 +31,9 @@ class ResetBroadcastReceiver : BroadcastReceiver(){
             val repository = UserRepository(context)
             repository.readAllData
         }*/
-        val builder = NotificationCompat.Builder(context!!, "notification")
-            .setSmallIcon(R.drawable.koachlogoblack)
-            .setContentTitle("Reminder to drink some water!")
-            .setStyle(NotificationCompat.BigTextStyle().bigText("Keeping hydrated is the most important thing while losing weight!"))
-            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-            .setAutoCancel(true)
-            .addAction(R.drawable.koachlogoblack, "Open", PendingIntent.getActivity(context, 0, Intent(context, MainActivity::class.java), 0))
 
-        val notificationManager = NotificationManagerCompat.from(context)
-        notificationManager.notify(1, builder.build())
 
-        Log.d("onReceive", "success")
+        Log.d("onReceive", "successreset")
 
 
         /*val data = dataDao.getProgress()

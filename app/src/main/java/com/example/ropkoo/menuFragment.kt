@@ -174,13 +174,13 @@ class menuFragment : Fragment() {
 
     fun hydrationNotification(context: Context) {
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        val intent = Intent(context, ResetBroadcastReceiver::class.java)
+        val intent = Intent(context, NotificationBroadcastReceiver::class.java)
         val pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
         Log.d("onReceive", "scheduleReset")
         val calendar = Calendar.getInstance().apply {
             timeInMillis = System.currentTimeMillis()
-            set(Calendar.HOUR_OF_DAY, 17)
-            set(Calendar.MINUTE, 14)
+            set(Calendar.HOUR_OF_DAY, 8)
+            set(Calendar.MINUTE, 0)
             set(Calendar.SECOND, 0)
             set(Calendar.MILLISECOND, 0)
         }
@@ -209,7 +209,6 @@ class menuFragment : Fragment() {
             nextMillis += TimeUnit.HOURS.toMillis(3)
         }
 
-       // calendar.add(Calendar.DAY_OF_YEAR, 1)
         alarmManager.setExact(
             AlarmManager.RTC_WAKEUP,
             calendar.timeInMillis,

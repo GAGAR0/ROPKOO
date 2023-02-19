@@ -7,8 +7,17 @@ import android.content.Intent
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import android.content.ContentProvider
+import android.os.AsyncTask
+import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelStore
+import androidx.room.Room
+import com.example.ropkoo.DB.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
-class NotificationBroadcastReceiver: BroadcastReceiver() {
+class NotificationBroadcastReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context?, intent: Intent?) {
 
@@ -22,10 +31,10 @@ class NotificationBroadcastReceiver: BroadcastReceiver() {
             val repository = UserRepository(context)
             repository.readAllData
         }*/
-        val builder = NotificationCompat.Builder(context!!, "notification")
+        val builder = NotificationCompat.Builder(context!!, "notifications")
             .setSmallIcon(R.drawable.koachlogoblack)
             .setContentTitle("Reminder to drink some water!")
-            .setStyle(NotificationCompat.BigTextStyle().bigText("Keeping hydrated is the most important thing while losing weight!"))
+            .setStyle(NotificationCompat.BigTextStyle().bigText("Open the application to check your progress!"))
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
             .setAutoCancel(true)
             .addAction(R.drawable.koachlogoblack, "Open", PendingIntent.getActivity(context, 0, Intent(context, MainActivity::class.java), 0))

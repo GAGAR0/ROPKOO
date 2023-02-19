@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
             val name = "Hydration Reminder"
             val descriptionText = "Reminder to drink water"
             val importance = NotificationManager.IMPORTANCE_DEFAULT
-            val channel = NotificationChannel("notification", name, importance).apply {
+            val channel = NotificationChannel("notifications", name, importance).apply {
                 description = descriptionText
             }
             val notificationManager: NotificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
