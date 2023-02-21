@@ -173,4 +173,14 @@
         android:layout_marginRight="22.5dp"
         android:gravity="center"/>
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:id="@+id/btn_signOut"
+        android:backgroundTint="@color/koachGreen"
+        android:layout_below="@+id/plan"
+        android:layout_centerHorizontal="true"
+        android:text="@string/logOut" />
+
 </RelativeLayout>

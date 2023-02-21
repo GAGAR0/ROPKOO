@@ -42,6 +42,9 @@ import com.example.ropkoo.DB.UserDatabase
 import com.example.ropkoo.DB.UserViewModel
 import kotlinx.android.synthetic.main.fragment_step_counter.*
 import org.w3c.dom.Text
+import java.io.BufferedReader
+import java.io.File
+import java.io.FileInputStream
 import java.util.*
 
 
@@ -82,6 +85,7 @@ class stepCounterFragment : Fragment(), SensorEventListener {
     var progress_id: String? = null
     var dailyCalories: String? = null
     var goalProgressPercentage: String? = null
+    var stepCount: Int? = null
     var stepCounter: String? = null
     var waterIntake: Int? = 0
     var dailyWeight: String? = null
@@ -185,8 +189,13 @@ class stepCounterFragment : Fragment(), SensorEventListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        getSession()
+        readFromFile()
+        Handler().postDelayed({ getSession()}, 150)
+        /*Handler().postDelayed({ if(stepCount!!.toInt() > currentSteps!!.toInt()){
+            currentSteps = stepCount
+            val updated = Progress(progress_id!!.toInt(), DBUserID, dailyCalories!!.toInt(),currentSteps!!.toInt(), waterIntake!!.toInt(), goalProgressPercentage!!.toInt() , dailyWeight!!.toFloat(), weeklyWeight!!.toFloat(), date)
+            viewModel.updateWeight(updated)
+        } }, 150)*/
         Handler().postDelayed({ stepNum.setText("$finalSteps")  }, 150)
 
         var ib_back : ImageButton = view.findViewById(R.id.ib_back)
@@ -225,10 +234,10 @@ class stepCounterFragment : Fragment(), SensorEventListener {
             val indexSession = data.toString().indexOf("loggedUser_id=")
             val endIndexSession = data.toString().indexOf(")", indexSession)
             val session = data.toString().substring(indexSession + "loggedUser_id=".length, endIndexSession)
+            if (session != null && session != "null"){
             DBUserID = session.toInt()
             writeToDB(DBUserID!!)
-
-        }
+        }}
         SessionCheck.observe(requireActivity(), observerSession)
     }
 
@@ -244,6 +253,11 @@ class stepCounterFragment : Fragment(), SensorEventListener {
             weeklyWeight = dataIDe.toString().substring(dataIDe.toString().indexOf("weeklyWeight=") + "weeklyWeight=".length, dataIDe.toString().indexOf(",", dataIDe.toString().indexOf("weeklyWeight=")))
             date = dataIDe.toString().substring(dataIDe.toString().indexOf("date=") + "date=".length, dataIDe.toString().indexOf(")", dataIDe.toString().indexOf("date="))).toLong()
 
+             /*if(stepCount!! > stepCounter!!.toInt()){
+                stepCounter = stepCount.toString()
+                val updated = Progress(progress_id!!.toInt(), DBUserID, dailyCalories!!.toInt(),currentSteps!!.toInt(), waterIntake!!.toInt(), goalProgressPercentage!!.toInt() , dailyWeight!!.toFloat(), weeklyWeight!!.toFloat(), date)
+                viewModel.updateWeight(updated)
+            }*/
             if (stepCounter!!.toInt() == 0){
             (requireContext() as Activity).runOnUiThread {
                 val updated = Progress(progress_id!!.toInt(), DBUserID, dailyCalories!!.toInt(),currentSteps!!.toInt(), waterIntake!!.toInt(), goalProgressPercentage!!.toInt() , dailyWeight!!.toFloat(), weeklyWeight!!.toFloat(), date)
@@ -259,6 +273,13 @@ class stepCounterFragment : Fragment(), SensorEventListener {
         ProgressCheck.observe(requireActivity(), observerProgress)
     }
 
+    private fun readFromFile(){
+        val file = File(requireContext().filesDir, "step_count.txt")
+        val inputStream = FileInputStream(file)
+        val stepCountString = inputStream.bufferedReader().use(BufferedReader::readText)
+        stepCount = stepCountString.toInt()
+        inputStream.close()
+    }
     /*@SuppressLint("SuspiciousIndentation")
     private fun resetStepCount(){
         ProgressCheck = viewModel.getProgress(DBUserID!!)!!

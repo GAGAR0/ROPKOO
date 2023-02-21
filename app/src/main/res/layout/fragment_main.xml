@@ -50,10 +50,20 @@
         android:hint="@string/password"
         android:layout_marginTop="25dp" />
 
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/cb_staySignedIn"
+        android:layout_below="@+id/et_mainPass"
+        android:text="@string/staySignedIn"
+        android:textColor="@color/white"
+        android:layout_centerHorizontal="true"
+        />
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="50dp"
         android:id="@+id/btn_signIn"
         android:backgroundTint="@color/koachGreen"
         android:layout_below="@+id/et_mainPass"

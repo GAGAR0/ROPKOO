@@ -27,6 +27,7 @@ import com.example.ropkoo.DB.Progress
 import com.example.ropkoo.DB.Session
 import com.example.ropkoo.DB.User
 import com.example.ropkoo.DB.UserViewModel
+import kotlinx.android.synthetic.main.fragment_main.*
 import kotlinx.android.synthetic.main.fragment_profile.*
 import org.w3c.dom.Text
 
@@ -40,6 +41,7 @@ class profileFragment : Fragment() {
     var DBWeight: Float? = null
     var DBGender: String? = null
     var DBPlan: Int? = null
+    var session: String? = null
 
     lateinit var SessionCheck: LiveData<List<Session>>
     lateinit var observer: Observer<List<Session>>
@@ -71,6 +73,14 @@ class profileFragment : Fragment() {
             var ib_back: ImageButton = view.findViewById(R.id.ib_back)
             ib_back.setOnClickListener {
                 Navigation.findNavController(view).navigate(R.id.action_profileFragment_to_menuFragment)
+            }
+
+            var btn_signOut: Button = view.findViewById(R.id.btn_signOut)
+            btn_signOut.setOnClickListener {
+                var session = Session(1, 0, session!!.toInt())
+                viewModel.updateSession(session)
+                Navigation.findNavController(view).navigate(R.id.action_profileFragment_to_mainFragment)
+
             }
 
         }
@@ -180,8 +190,8 @@ class profileFragment : Fragment() {
                 val indexSession = data.toString().indexOf("loggedUser_id=")
                 val endIndexSession = data.toString().indexOf(")", indexSession)
                 if(indexSession != -1 && endIndexSession != -1){
-                val session = data.toString().substring(indexSession + "loggedUser_id=".length, endIndexSession)
-                    getUserID(session.toInt())
+                    session = data.toString().substring(indexSession + "loggedUser_id=".length, endIndexSession)
+                    getUserID(session!!.toInt())
             }
         }
         SessionCheck.observe(requireActivity(), observer)
@@ -209,7 +219,6 @@ class profileFragment : Fragment() {
                      DBPlan = goalsID.toInt()
 
                     setText()
-
 
         }
         UserCheck.observe(requireActivity(), observerUser)

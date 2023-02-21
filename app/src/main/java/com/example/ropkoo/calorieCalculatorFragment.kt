@@ -20,6 +20,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import com.example.ropkoo.DB.Progress
 import com.example.ropkoo.DB.Session
+import com.example.ropkoo.DB.User
 import com.example.ropkoo.DB.UserViewModel
 import kotlinx.android.synthetic.main.fragment_calorie_calculator.*
 import kotlinx.android.synthetic.main.fragment_goal_progress2.*
@@ -38,21 +39,25 @@ class calorieCalculatorFragment : Fragment() {
     var dailyWeight: String? = null
     var weeklyWeight: String? = null
     var calorieCount: Int? = 0
-    var goalCalorieCount: Int? = 2000
+    var goalCalorieCount: Int? = 0
     var empty: Boolean = true
     var date: Long? = null
-    var dateToday: Long? = null
-    var session: Int? = null
+    var calories: Int? = null
+    var session: String? = null
+    var goalsID: Int? = null
     var DBUserID: Int? = null
     lateinit var SessionCheck: LiveData<List<Session>>
     lateinit var observerSession: Observer<List<Session>>
     lateinit var ProgressCheck: LiveData<List<Progress>>
     lateinit var observerProgress: Observer<List<Progress>>
+    lateinit var UserCheck: LiveData<List<User>>
+    lateinit var observerUser: Observer<List<User>>
 
     override fun onStop() {
         super.onStop()
         SessionCheck.removeObserver(observerSession)
         ProgressCheck.removeObserver(observerProgress)
+        UserCheck.removeObserver(observerUser)
     }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -67,22 +72,32 @@ class calorieCalculatorFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        greennum.setText(goalCalorieCount.toString())
-
-
-
         getSession()
 
+        Handler().postDelayed({if(goalsID == 1 || goalsID == 5 || goalsID == 9 || goalsID == 13){
+            goalCalorieCount = 1250
+        }
+        else if(goalsID == 2 || goalsID == 6 || goalsID == 10 || goalsID == 14){
+            goalCalorieCount = 2500
+        }
+        else if(goalsID == 3 || goalsID == 7 || goalsID == 11 || goalsID == 15){
+            goalCalorieCount = 2000
+        }
+        else if(goalsID == 4 || goalsID == 8 || goalsID == 12 || goalsID == 16){
+            goalCalorieCount = 2250
+        }
+            rednum.setText(calorieCount.toString())
+            greennum.setText(goalCalorieCount.toString())}, 200)
 
-        Handler().postDelayed({ rednum.setText(calorieCount.toString()) }, 200)
 
 
         var ib_back : ImageButton = view.findViewById(R.id.ib_back)
         ib_back.setOnClickListener{
             Navigation.findNavController(view).navigate(R.id.action_calorieCalculatorFragment_to_menuFragment)
-            if (empty == true){
+
             exitProgressCheck()
-            exitSessionCheck()}
+            exitSessionCheck()
+            exitUserCheck()
         }
 
         var addcalories: Button = view.findViewById(R.id.addcalories)
@@ -90,6 +105,7 @@ class calorieCalculatorFragment : Fragment() {
             empty = false
             addCalories()
             rednum.setText(calorieCount.toString())
+            greennum.setText(goalCalorieCount!!.toString())
         }
     }
 
@@ -118,24 +134,37 @@ class calorieCalculatorFragment : Fragment() {
         observerSession = Observer { data ->
             val indexSession = data.toString().indexOf("loggedUser_id=")
             val endIndexSession = data.toString().indexOf(")", indexSession)
-            session = data.toString().substring(indexSession + "loggedUser_id=".length, endIndexSession).toInt()
+            if(indexSession != -1 && endIndexSession != -1){
+                session = data.toString().substring(indexSession + "loggedUser_id=".length, endIndexSession)
 
             /*val indexDate = data.toString().indexOf("date=")
             val endIndexDate = data.toString().indexOf(")", indexDate)
             Log.d("dateIndex", indexDate.toString())
              date = data.toString().substring(indexDate + "date=".length, endIndexDate).toLong()
             Log.d("dateSource", date.toString())*/
-
-            DBUserID = session!!
-            writeToDB(DBUserID!!)
-        }
+                if (session != null && session != "null"){
+                    DBUserID = session!!.toInt()
+                getUserID(session!!.toInt())
+            writeToDB(session!!.toInt())
+        }}}
         SessionCheck.observe(requireActivity(), observerSession)
+    }
+
+    private fun getUserID(user_id: Int){
+        UserCheck = viewModel.getUserFromID(user_id)!!
+        observerUser = Observer { data2 ->
+           goalsID = data2.toString().substring(data2.toString().indexOf("goals_id=") + "goals_id=".length, data2.toString().indexOf(",", data2.toString().indexOf("goals_id="))).toInt()
+        }
+        UserCheck.observe(requireActivity(), observerUser)
     }
 
     private fun writeToDB(user_id: Int){
         ProgressCheck = viewModel.getProgress(user_id)!!
         observerProgress = Observer { dataIDe ->
+            Log.d("calories", dataIDe.toString())
+            Log.d("calories", calorieCount.toString())
             calorieCount = dataIDe.toString().substring(dataIDe.toString().indexOf("dailyCalories=") + "dailyCalories=".length, dataIDe.toString().indexOf(",", dataIDe.toString().indexOf("dailyCalories="))).toInt()
+            Log.d("calories", calorieCount.toString())
             progress_id = dataIDe.toString().substring(dataIDe.toString().indexOf("progress_id=") + "progress_id=".length, dataIDe.toString().indexOf(",", dataIDe.toString().indexOf("progress_id=")))
             goalProgressPercentage = dataIDe.toString().substring(dataIDe.toString().indexOf("goalProgressPercentage=") + "goalProgressPercentage=".length, dataIDe.toString().indexOf(",", dataIDe.toString().indexOf("goalProgressPercentage=")))
             stepCounter = dataIDe.toString().substring(dataIDe.toString().indexOf("stepCount=") + "stepCount=".length, dataIDe.toString().indexOf(",", dataIDe.toString().indexOf("stepCount=")))
@@ -143,6 +172,7 @@ class calorieCalculatorFragment : Fragment() {
             dailyWeight = dataIDe.toString().substring(dataIDe.toString().indexOf("dailyWeight=") + "dailyWeight=".length, dataIDe.toString().indexOf(",", dataIDe.toString().indexOf("dailyWeight=")))
             date = dataIDe.toString().substring(dataIDe.toString().indexOf("date=") + "date=".length, dataIDe.toString().indexOf(")", dataIDe.toString().indexOf("date="))).toLong()
             weeklyWeight = dataIDe.toString().substring(dataIDe.toString().indexOf("weeklyWeight=") + "weeklyWeight=".length, dataIDe.toString().indexOf(",", dataIDe.toString().indexOf("weeklyWeight=")))
+
         }
         ProgressCheck.observe(requireActivity(), observerProgress)
     }
@@ -170,4 +200,15 @@ class calorieCalculatorFragment : Fragment() {
         }
         SessionCheck.observe(requireActivity(), observerSession)
     }
+
+    private fun exitUserCheck(){
+        UserCheck = viewModel.getUserFromID(15)!!
+        observerUser = Observer { data ->
+        }
+        UserCheck.observe(requireActivity(), observerUser)
+    }
+
+
+
+
 }

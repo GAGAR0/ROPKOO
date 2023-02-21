@@ -28,6 +28,7 @@ import androidx.lifecycle.Observer
 import com.example.ropkoo.DB.*
 import kotlinx.android.synthetic.main.fragment_calorie_calculator.*
 import kotlinx.android.synthetic.main.fragment_create_account2.*
+import kotlinx.android.synthetic.main.fragment_hydration.*
 import kotlinx.android.synthetic.main.fragment_profile.*
 import kotlinx.coroutines.*
 import java.util.*
@@ -36,6 +37,13 @@ import java.util.*
 class mainFragment : Fragment() {
     private lateinit var viewModel: UserViewModel
     private lateinit var parcelable: Parcelable
+    lateinit var SessionCheck: LiveData<List<Session>>
+    lateinit var observerSession: Observer<List<Session>>
+    var isSignedIn : String? = null
+    override fun onStop() {
+        super.onStop()
+        SessionCheck.removeObserver(observerSession)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -50,6 +58,16 @@ class mainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        staySignedIn()
+        Handler().post(object : Runnable {
+            override fun run() {
+                if(isSignedIn == "1"){
+                    findNavController().navigate(R.id.action_mainFragment_to_menuFragment)
+                } else {
+                    Handler().post(this) // Reschedule the code to run again if the condition is not met
+                }
+            }
+        })
 
 
         var btn_signIn: Button = view.findViewById(R.id.btn_signIn)
@@ -112,7 +130,6 @@ class mainFragment : Fragment() {
         })
     }*/
 
-
     @SuppressLint("SuspiciousIndentation")
     private fun checkPassword(username: String, password: String) {
         var nameCheck = viewModel.getLogin(username, password)!!
@@ -139,7 +156,7 @@ class mainFragment : Fragment() {
                         setFragmentResult("MF", bundle1)
                         viewModel.userIdModel.value = data.toString().substring(data.toString().indexOf("user_id=") + "user_id=".length, data.toString().indexOf(",", data.toString().indexOf("user_id=")))
 
-                        var session = Session(1, data.toString().substring(data.toString().indexOf("user_id=") + "user_id=".length, data.toString().indexOf(",", data.toString().indexOf("user_id="))).toInt())
+                        var session = Session(1, if(cb_staySignedIn.isChecked){1}else{null}, data.toString().substring(data.toString().indexOf("user_id=") + "user_id=".length, data.toString().indexOf(",", data.toString().indexOf("user_id="))).toInt())
                         viewModel.updateSession(session)
 
 
@@ -157,6 +174,17 @@ class mainFragment : Fragment() {
     }
 
 
+    private fun staySignedIn(){
+        SessionCheck = viewModel.getCurrentSession()!!
+        observerSession = Observer { data ->
+            val index = data.toString().indexOf("staySignedIn=")
+            val endIndex = data.toString().indexOf(",", index)
+            if(index != -1 && endIndex != -1) {
+                isSignedIn = data.toString().substring(index + "staySignedIn=".length, endIndex)
+            }
+        }
+        SessionCheck.observe(requireActivity(), observerSession)
+    }
    /* private fun setUser() {
         viewModel.readAllData.observe(viewLifecycleOwner, Observer { userList ->
                 var getAllUserData = viewModel.readAllData.value

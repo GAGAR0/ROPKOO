@@ -69,4 +69,6 @@
     <string name="totalwater">TOTAL</string>
     <string name="male">Male</string>
     <string name="female">Female</string>
+    <string name="staySignedIn">Stay Signed In</string>
+    <string name="logOut">Log Out</string>
 </resources>

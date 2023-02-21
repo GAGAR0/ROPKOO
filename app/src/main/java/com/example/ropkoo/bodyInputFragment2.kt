@@ -106,7 +106,7 @@ class bodyInputFragment2 : Fragment() {
         var goalId = getGoalId(bmi(weight!!.toFloat(), height!!.toFloat())!!, bodyInput2!!)
         var user = User(null, goalId, username.toString(), email.toString(), password.toString(), gender.toString(), age!!, weight!!, height!!)
         viewModel.addUser(user)
-        var session = Session(1, null)
+        var session = Session(1, null, null)
         viewModel.addSession(session)
 
         (requireContext() as Activity).runOnUiThread {

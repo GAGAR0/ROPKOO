@@ -39,6 +39,7 @@ class hydrationFragment : Fragment() {
     var weeklyWeight: String? = null
     var finalWater: Int? = 0
     var date: Long? = null
+    var session: String? = null
     var DBUserID: Int? = null
     lateinit var SessionCheck: LiveData<List<Session>>
     lateinit var observerSession: Observer<List<Session>>
@@ -110,10 +111,12 @@ class hydrationFragment : Fragment() {
         observerSession = Observer { data ->
             val indexSession = data.toString().indexOf("loggedUser_id=")
             val endIndexSession = data.toString().indexOf(")", indexSession)
-            val session = data.toString().substring(indexSession + "loggedUser_id=".length, endIndexSession)
-            DBUserID = session.toInt()
+            if(indexSession != -1 && endIndexSession != -1){
+                session = data.toString().substring(indexSession + "loggedUser_id=".length, endIndexSession)
+                if (session != null && session != "null"){
+            DBUserID = session!!.toInt()
             writeToDB(DBUserID!!)
-        }
+        }}}
         SessionCheck.observe(requireActivity(), observerSession)
     }
 

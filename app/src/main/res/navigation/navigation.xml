@@ -141,5 +141,8 @@
         <argument
             android:name="user"
             app:argType="com.example.ropkoo.DB.User" />
+        <action
+            android:id="@+id/action_profileFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
     </fragment>
 </navigation>

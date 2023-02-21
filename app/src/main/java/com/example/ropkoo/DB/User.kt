@@ -52,6 +52,7 @@ data class Progress(
 data class Session(
     @PrimaryKey(autoGenerate = false)
     val session_id: Int?,
+    @ColumnInfo(name = "staySignedIn")val staySignedIn: Int?,
     @ColumnInfo(name = "loggedUser_id")val loggedUser_id: Int?
 )
 

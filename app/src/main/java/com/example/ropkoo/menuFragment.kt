@@ -90,7 +90,8 @@ class menuFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        hydrationNotification(requireContext())
+        hydrationNotification()
+        resetStepCount()
 
         getSession()
         Handler().postDelayed({
@@ -149,9 +150,9 @@ class menuFragment : Fragment() {
         Log.d("menu1> ", "5")
         var iv_mainLogo : ImageButton = view.findViewById(R.id.iv_mainLogo)
         iv_mainLogo.setOnClickListener{
-            var user = User(userId, plan, username, null, null, gender, age, weight, height)
-            val action = menuFragmentDirections.actionMenuFragmentToProfileFragment(user)
-            Navigation.findNavController(view).navigate(action)
+            /*var user = User(userId, plan, username, null, null, gender, age, weight, height)
+            val action = menuFragmentDirections.actionMenuFragmentToProfileFragment(user)*/
+            Navigation.findNavController(view).navigate(R.id.action_menuFragment_to_profileFragment)
         }
         var btn_main1 : Button = view.findViewById(R.id.btn_main1)
         btn_main1.setOnClickListener{
@@ -172,8 +173,8 @@ class menuFragment : Fragment() {
 
     }
 
-    fun hydrationNotification(context: Context) {
-        val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+    fun hydrationNotification() {
+        //val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val intent = Intent(context, NotificationBroadcastReceiver::class.java)
         val pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
         Log.d("onReceive", "scheduleReset")
@@ -183,30 +184,28 @@ class menuFragment : Fragment() {
             set(Calendar.MINUTE, 0)
             set(Calendar.SECOND, 0)
             set(Calendar.MILLISECOND, 0)
+            add(Calendar.DAY_OF_YEAR, 1)
         }
 
-        val now = System.currentTimeMillis()
-        val startMillis = calendar.timeInMillis
-        val endMillis = startMillis + TimeUnit.HOURS.toMillis(12)
+        alarmManager.setExact(
+            AlarmManager.RTC_WAKEUP,
+            calendar.timeInMillis,
+            pendingIntent
+        )
+    }
 
-        if (now < startMillis) {
-            alarmManager.setExact(
-                AlarmManager.RTC_WAKEUP,
-                startMillis,
-                pendingIntent
-            )
-        }
-
-        var nextMillis = startMillis + TimeUnit.HOURS.toMillis(3)
-        while (nextMillis < endMillis) {
-            if (nextMillis > now) {
-                alarmManager.setExact(
-                    AlarmManager.RTC_WAKEUP,
-                    nextMillis,
-                    pendingIntent
-                )
-            }
-            nextMillis += TimeUnit.HOURS.toMillis(3)
+    fun resetStepCount(){
+        //val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val intent = Intent(context, ResetBroadcastReceiver::class.java)
+        val pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+        Log.d("onReceive", "scheduleReset")
+        val calendar = Calendar.getInstance().apply {
+            timeInMillis = System.currentTimeMillis()
+            set(Calendar.HOUR_OF_DAY, 0)
+            set(Calendar.MINUTE, 0)
+            set(Calendar.SECOND, 0)
+            set(Calendar.MILLISECOND, 0)
+            add(Calendar.DAY_OF_YEAR, 1)
         }
 
         alarmManager.setExact(
