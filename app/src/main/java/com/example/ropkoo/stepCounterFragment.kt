@@ -47,6 +47,56 @@ import java.io.File
 import java.io.FileInputStream
 import java.util.*
 
+/*class stepCounterFragment : Fragment(), SensorEventListener {
+
+    private lateinit var sensorManager: SensorManager
+    private lateinit var stepCounterSensor: Sensor
+    private var stepsCounted = 0
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+        sensorManager = requireContext().getSystemService(SENSOR_SERVICE) as SensorManager
+        stepCounterSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)
+        return inflater.inflate(R.layout.fragment_step_counter, container, false)
+    }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        var ib_back : ImageButton = view.findViewById(R.id.ib_back)
+        ib_back.setOnClickListener{
+            Navigation.findNavController(view).navigate(R.id.action_stepCounterFragment_to_menuFragment)
+        }
+    }
+    override fun onResume() {
+        super.onResume()
+
+        // Register the sensor listener
+        sensorManager.registerListener(this, stepCounterSensor, SensorManager.SENSOR_DELAY_NORMAL)
+    }
+
+    override fun onPause() {
+        super.onPause()
+
+        // Unregister the sensor listener to save battery
+        sensorManager.unregisterListener(this)
+    }
+
+    override fun onSensorChanged(event: SensorEvent) {
+        if (event.sensor.type == Sensor.TYPE_STEP_COUNTER) {
+            // Update the steps counted
+            stepsCounted = event.values[0].toInt()
+            stepNum.setText("$stepsCounted")
+            // Do something with the step count, such as display it on screen
+        }
+    }
+
+    override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
+        // Do nothing
+    }
+}*/
 
 /*class stepCounterFragment : Fragment() {
 
@@ -258,6 +308,11 @@ class stepCounterFragment : Fragment(), SensorEventListener {
                 val updated = Progress(progress_id!!.toInt(), DBUserID, dailyCalories!!.toInt(),currentSteps!!.toInt(), waterIntake!!.toInt(), goalProgressPercentage!!.toInt() , dailyWeight!!.toFloat(), weeklyWeight!!.toFloat(), date)
                 viewModel.updateWeight(updated)
             }*/
+            if(stepCount!! > stepCounter!!.toInt()){
+                stepCounter = stepCount.toString()
+                val updated = Progress(progress_id!!.toInt(), DBUserID, dailyCalories!!.toInt(),stepCount!!.toInt(), waterIntake!!.toInt(), goalProgressPercentage!!.toInt() , dailyWeight!!.toFloat(), weeklyWeight!!.toFloat(), date)
+                viewModel.updateWeight(updated)
+            }
             if (stepCounter!!.toInt() == 0){
             (requireContext() as Activity).runOnUiThread {
                 val updated = Progress(progress_id!!.toInt(), DBUserID, dailyCalories!!.toInt(),currentSteps!!.toInt(), waterIntake!!.toInt(), goalProgressPercentage!!.toInt() , dailyWeight!!.toFloat(), weeklyWeight!!.toFloat(), date)
@@ -315,3 +370,5 @@ class stepCounterFragment : Fragment(), SensorEventListener {
 
 
 }
+
+

@@ -102,14 +102,14 @@
         android:gravity="center_vertical"/>
 
     <Button
-        android:layout_width="match_parent"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:id="@+id/addcalories"
         android:layout_below="@+id/enter"
         android:text="Add Calories"
         android:textColor="@color/white"
         android:layout_marginTop="15dp"
-        android:layout_marginLeft="140dp"
+        android:layout_centerHorizontal="true"
         android:layout_marginRight="140dp"
         android:backgroundTint="@color/koachGreen"
         android:gravity="center"/>

@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"/>
     <uses-permission android:name="android.permission.USE_EXACT_ALARM"/>
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="com.android.alarm.permission.SET_ALARM"/>
 
     <application
         android:allowBackup="true"
@@ -30,14 +31,17 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-        <receiver android:name=".ResetBroadcastReceiver"
-            android:exported="true">
+        <service
+            android:name=".ResetStepCountWorker"
+            android:exported="false">
             <intent-filter>
+                <action android:name="com.example.myapp.RESET_STEP_COUNT" />
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
                 <action android:name="android.intent.action.MY_PACKAGE_REPLACED"/>
                 <action android:name="android.intent.action.PACKAGE_RESTARTED"/>
             </intent-filter>
-        </receiver>
+        </service>
+
         <receiver android:name=".NotificationBroadcastReceiver"
             android:exported="true">
             <intent-filter>

@@ -5,6 +5,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.system.Os.remove
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -27,6 +28,7 @@ import com.example.ropkoo.DB.Progress
 import com.example.ropkoo.DB.Session
 import com.example.ropkoo.DB.User
 import com.example.ropkoo.DB.UserViewModel
+import kotlinx.android.synthetic.main.fragment_hydration.*
 import kotlinx.android.synthetic.main.fragment_main.*
 import kotlinx.android.synthetic.main.fragment_profile.*
 import org.w3c.dom.Text
@@ -42,9 +44,13 @@ class profileFragment : Fragment() {
     var DBGender: String? = null
     var DBPlan: Int? = null
     var session: String? = null
+    var dailyWeight: String? = null
 
     lateinit var SessionCheck: LiveData<List<Session>>
     lateinit var observer: Observer<List<Session>>
+
+    lateinit var ProgressCheck: LiveData<List<Progress>>
+    lateinit var observerProgress: Observer<List<Progress>>
 
     lateinit var UserCheck: LiveData<List<User>>
     lateinit var observerUser: Observer<List<User>>
@@ -54,7 +60,9 @@ class profileFragment : Fragment() {
         super.onStop()
         SessionCheck.removeObserver(observer)
         UserCheck.removeObserver(observerUser)
-    }
+        ProgressCheck.removeObserver(observerProgress)
+        }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -95,11 +103,11 @@ class profileFragment : Fragment() {
         name.setText(DBUsername)
         age.setText(DBAge.toString())
         height.setText(DBHeight.toString())
-        weight.setText(DBWeight.toString())
+        weight.setText(dailyWeight.toString())
         gender.setText(DBGender)
         plan.setText(plan(DBPlan))
-        val result = String.format("%.1f", calculate(DBWeight!!, DBHeight!!.toFloat()))
-        BMI.setText(result)
+        val result = calculate(dailyWeight!!.toFloat(), DBHeight!!.toFloat())
+        BMI.setText(String.format("%.1f",result))
     }
 
     private fun plan(planID: Int?): String{
@@ -191,7 +199,8 @@ class profileFragment : Fragment() {
                 val endIndexSession = data.toString().indexOf(")", indexSession)
                 if(indexSession != -1 && endIndexSession != -1){
                     session = data.toString().substring(indexSession + "loggedUser_id=".length, endIndexSession)
-                    getUserID(session!!.toInt())
+                    Handler().postDelayed({writeToDB(session!!.toInt())}, 100)
+                    Handler().postDelayed({getUserID(session!!.toInt())}, 100)
             }
         }
         SessionCheck.observe(requireActivity(), observer)
@@ -208,19 +217,33 @@ class profileFragment : Fragment() {
                     val goalsID = data2.toString().substring(data2.toString().indexOf("goals_id=") + "goals_id=".length, data2.toString().indexOf(",", data2.toString().indexOf("goals_id=")))
                     val gender = data2.toString().substring(data2.toString().indexOf("gender=") + "gender=".length, data2.toString().indexOf(",", data2.toString().indexOf("gender=")))
                     val age = data2.toString().substring(data2.toString().indexOf("age=") + "age=".length, data2.toString().indexOf(",", data2.toString().indexOf("age=")))
-                    val weight = data2.toString().substring(data2.toString().indexOf("weight=") + "weight=".length, data2.toString().indexOf(",", data2.toString().indexOf("weight=")))
                     val height = data2.toString().substring(data2.toString().indexOf("height=") + "height=".length, data2.toString().indexOf(")", data2.toString().indexOf("height=")))
-
+                    if(dailyWeight == null || dailyWeight == "0.0" || dailyWeight == ""){
+                        dailyWeight = data2.toString().substring(data2.toString().indexOf("weight=") + "weight=".length, data2.toString().indexOf(",", data2.toString().indexOf("weight=")))
+                    }
                      DBUsername = username
                      DBAge = age.toInt()
                      DBHeight = height.toInt()
-                     DBWeight = weight.toFloat()
                      DBGender = gender
                      DBPlan = goalsID.toInt()
+            Handler().postDelayed({
+                DBWeight = dailyWeight!!.toFloat()
+                setText() }, 100)
 
-                    setText()
 
         }
         UserCheck.observe(requireActivity(), observerUser)
     }
+
+    private fun writeToDB(user_id: Int){
+        ProgressCheck = viewModel.getProgress(user_id)!!
+        Log.d("hydration", "1")
+        observerProgress = Observer { dataIDe ->
+            dailyWeight = dataIDe.toString().substring(dataIDe.toString().indexOf("dailyWeight=") + "dailyWeight=".length, dataIDe.toString().indexOf(",", dataIDe.toString().indexOf("dailyWeight=")))
+            Log.d("hydration", "3")
+        }
+        Log.d("hydration", "2")
+        ProgressCheck.observe(requireActivity(), observerProgress)
+    }
+
 }

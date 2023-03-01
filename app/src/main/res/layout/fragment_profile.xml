@@ -32,7 +32,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/name"
+        android:text=""
         android:id="@+id/name"
         android:layout_below="@+id/foto"
         android:textColor="@color/koachGreen"
@@ -47,7 +47,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/age"
+        android:text=""
         android:id="@+id/age"
         android:layout_below="@+id/name"
         android:textColor="@color/koachGreen"
@@ -74,7 +74,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/gender"
+        android:text=""
         android:id="@+id/gender"
         android:layout_below="@+id/BMI"
         android:textColor="@color/koachGreen"
@@ -88,7 +88,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/weight"
+        android:text=""
         android:id="@+id/weight"
         android:layout_below="@+id/age"
         android:textColor="@color/koachGreen"
@@ -113,7 +113,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/height"
+        android:text=""
         android:id="@+id/height"
         android:layout_below="@+id/weight"
         android:textColor="@color/koachGreen"
@@ -138,7 +138,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/plan"
+        android:text=""
         android:id="@+id/plan"
         android:layout_below="@+id/gender"
         android:textColor="@color/koachGreen"
@@ -151,7 +151,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/bmi"
+        android:text=""
         android:id="@+id/BMI"
         android:layout_below="@+id/height"
         android:textColor="@color/koachGreen"

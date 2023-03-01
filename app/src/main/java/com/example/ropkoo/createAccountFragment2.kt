@@ -59,18 +59,18 @@ class createAccountFragment2 : Fragment() {
     }
     private fun sendDataNext(gender:String){
         val username = et_username.text.toString().trim()
-        val age = et_age.text.toString().trim().toInt()
-        val weight = et_weight.text.toString().toFloat()
-        val height = et_height.text.toString().trim().toInt()
+        val age = et_age.text.toString().trim()
+        val weight = et_weight.text.toString().trim()
+        val height = et_height.text.toString().trim()
 
 
         if(inputCheck(username, age, weight, height)){
 
             val bundle1 = Bundle()
             bundle1.putString("username", username)
-            bundle1.putInt("age", age)
-            bundle1.putFloat("weight", weight)
-            bundle1.putInt("height", height)
+            bundle1.putInt("age", age.toInt())
+            bundle1.putFloat("weight", weight.toFloat())
+            bundle1.putInt("height", height.toInt())
             bundle1.putString("gender", gender)
             setFragmentResult("CAF2", bundle1)
 
@@ -81,7 +81,7 @@ class createAccountFragment2 : Fragment() {
         }
     }
 
-    private fun inputCheck(username: String, age: Int, weight: Float, height: Int): Boolean{
-        return !(TextUtils.isEmpty(username) || age == 0 || weight == 0.0f || height == 0)
+    private fun inputCheck(username: String, age: String, weight: String, height: String): Boolean{
+        return !(TextUtils.isEmpty(username) || TextUtils.isEmpty(age) || TextUtils.isEmpty(weight) || TextUtils.isEmpty(height))
     }
 }

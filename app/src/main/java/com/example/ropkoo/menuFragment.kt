@@ -26,6 +26,9 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
+import androidx.work.ExistingWorkPolicy
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkManager
 import com.example.ropkoo.DB.Progress
 import com.example.ropkoo.DB.Session
 import com.example.ropkoo.DB.User
@@ -176,7 +179,7 @@ class menuFragment : Fragment() {
     fun hydrationNotification() {
         //val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val intent = Intent(context, NotificationBroadcastReceiver::class.java)
-        val pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+        val pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_IMMUTABLE)
         Log.d("onReceive", "scheduleReset")
         val calendar = Calendar.getInstance().apply {
             timeInMillis = System.currentTimeMillis()
@@ -194,11 +197,7 @@ class menuFragment : Fragment() {
         )
     }
 
-    fun resetStepCount(){
-        //val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        val intent = Intent(context, ResetBroadcastReceiver::class.java)
-        val pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
-        Log.d("onReceive", "scheduleReset")
+    fun resetStepCount() {
         val calendar = Calendar.getInstance().apply {
             timeInMillis = System.currentTimeMillis()
             set(Calendar.HOUR_OF_DAY, 0)
@@ -208,11 +207,12 @@ class menuFragment : Fragment() {
             add(Calendar.DAY_OF_YEAR, 1)
         }
 
-        alarmManager.setExact(
-            AlarmManager.RTC_WAKEUP,
-            calendar.timeInMillis,
-            pendingIntent
-        )
+        val stepCountRequest = OneTimeWorkRequestBuilder<ResetStepCountWorker>()
+            .setInitialDelay(calendar.timeInMillis - System.currentTimeMillis(), TimeUnit.MILLISECONDS)
+            .build()
+
+        WorkManager.getInstance(requireContext())
+            .enqueueUniqueWork("step_count", ExistingWorkPolicy.REPLACE, stepCountRequest)
     }
 
     @SuppressLint("SuspiciousIndentation")
